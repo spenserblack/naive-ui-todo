@@ -1,10 +1,48 @@
-<template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+<template lang="pug">
+NConfigProvider(:theme="theme")
+  NCard
+    NSpace(justify="end")
+      NButton(@click="theme = darkTheme")
+        template(#icon)
+          NIcon: MoonIcon
+        | Dark
+      NButton(@click="theme = null")
+        template(#icon)
+          NIcon: SunIcon
+        | Light
+  RouterView
 </template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+import { Sunny as SunIcon, Moon as MoonIcon } from '@vicons/ionicons5';
+import {
+  NButton,
+  NCard,
+  NConfigProvider,
+  NIcon,
+  NSpace,
+  darkTheme,
+} from 'naive-ui';
+
+export default defineComponent({
+  components: {
+    NButton,
+    NCard,
+    NConfigProvider,
+    NIcon,
+    NSpace,
+    SunIcon,
+    MoonIcon,
+  },
+  setup() {
+    return {
+      darkTheme,
+      theme: ref(darkTheme),
+    };
+  },
+});
+</script>
 
 <style lang="stylus">
 #app
@@ -13,5 +51,5 @@
   -moz-osx-font-smoothing grayscale
   text-align center
   color #2c3e50
-  margin-top 60px
+  margin 0
 </style>
