@@ -1,5 +1,7 @@
 # naive-ui-todo
 
+[![CI](https://github.com/spenserblack/naive-ui-todo/actions/workflows/ci.yml/badge.svg)](https://github.com/spenserblack/naive-ui-todo/actions/workflows/ci.yml)
+
 ## Project setup
 ```
 yarn install
