@@ -17,6 +17,40 @@ export interface State {
 
 export const key: InjectionKey<Store<State>> = Symbol('store');
 
+export type IsItemValidType = (todoIndex: number, itemIndex: number) => boolean;
+export type AreItemsValidType = (todoIndex: number) => boolean;
+export type IsTodoValidType = (todoIndex: number) => boolean;
+
+export const getters = {
+  isItemValid: (state: State) => (todoIndex: number, itemIndex: number): boolean => (
+    state.todos[todoIndex].items[itemIndex].description.length > 0
+  ),
+  areItemsValid: (state: State, { isItemValid }: {
+    isItemValid: IsItemValidType,
+  }) => (todoIndex: number): boolean => {
+    const { items } = state.todos[todoIndex];
+    const counts: Record<string, number | undefined> = {};
+
+    return items.every(({ description }, itemIndex) => {
+      counts[description] = (counts[description] || 0) + 1;
+      return isItemValid(todoIndex, itemIndex) && (counts[description] as number) < 2;
+    });
+  },
+  isTodoValid: (state: State, { areItemsValid }: {
+    areItemsValid: AreItemsValidType,
+  }) => (todoIndex: number): boolean => (
+    state.todos[todoIndex].title.length > 0 && areItemsValid(todoIndex)
+  ),
+  isValid: (state: State, { isTodoValid }: { isTodoValid: IsTodoValidType }): boolean => {
+    const counts: Record<string, number | undefined> = {};
+
+    return state.todos.every(({ title }, todoIndex) => {
+      counts[title] = (counts[title] || 0) + 1;
+      return isTodoValid(todoIndex) && (counts[title] as number) < 2;
+    });
+  },
+};
+
 export const mutations = {
   load: (state: State, todos: Array<TodoList>): void => {
     state.todos = reactive(todos);
@@ -59,6 +93,7 @@ export const store = createStore<State>({
   state: {
     todos: [],
   },
+  getters,
   mutations,
   actions: {
   },
