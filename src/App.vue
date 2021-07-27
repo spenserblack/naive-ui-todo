@@ -14,6 +14,7 @@ NConfigProvider(:theme="theme")
 </template>
 
 <script lang="ts">
+import 'vfonts/Inter.css';
 import { defineComponent, ref } from 'vue';
 import { Sunny as SunIcon, Moon as MoonIcon } from '@vicons/ionicons5';
 import {
@@ -46,7 +47,7 @@ export default defineComponent({
 
 <style lang="stylus">
 #app
-  font-family Avenir, Helvetica, Arial, sans-serif
+  font-family v-sans, v-mono, Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   text-align center
