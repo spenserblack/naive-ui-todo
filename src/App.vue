@@ -1,16 +1,17 @@
 <template lang="pug">
-NConfigProvider(:theme="theme")
-  NCard
-    NSpace(justify="end")
-      NButton(v-if="theme == null" @click="theme = darkTheme")
-        template(#icon)
-          NIcon: MoonIcon
-        | Dark
-      NButton(v-else @click="theme = null")
-        template(#icon)
-          NIcon: SunIcon
-        | Light
-  RouterView
+main(:class="{ dark: theme != null }")
+  NConfigProvider(:theme="theme")
+    NCard
+      NSpace(justify="end")
+        NButton(v-if="theme == null" @click="theme = darkTheme")
+          template(#icon)
+            NIcon: MoonIcon
+          | Dark
+        NButton(v-else @click="theme = null")
+          template(#icon)
+            NIcon: SunIcon
+          | Light
+    RouterView
 </template>
 
 <script lang="ts">
@@ -51,6 +52,17 @@ export default defineComponent({
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   text-align center
-  color #2c3e50
   margin 0
+  position fixed
+  width 100vw
+  height 100vh
+</style>
+
+<style lang="stylus" scoped>
+  main
+    width 100%
+    height 100%
+
+    &.dark
+      background-color #111122
 </style>
