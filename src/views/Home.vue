@@ -1,8 +1,7 @@
 <template lang="pug">
 .home
-  .todo(v-for="todo in todos")
-    NSpace(justify="center")
-      NH2 {{ todo.title }}
+  div(v-for="(todo, todoIndex) in todos")
+    TodoList(:index="todoIndex")
   NDivider.divider
   NButton(type="primary" @click="addList")
     template(#icon)
@@ -17,11 +16,12 @@ import {
   NButton, NDivider, NH2, NIcon, NSpace,
 } from 'naive-ui';
 import { Add as AddIcon } from '@vicons/ionicons5';
+import TodoList from '@/components/TodoList.vue';
 
 export default defineComponent({
   name: 'Home',
   components: {
-    NButton, NDivider, NH2, NIcon, NSpace, AddIcon,
+    TodoList, NButton, NDivider, NH2, NIcon, NSpace, AddIcon,
   },
   setup() {
     const store = useStore();
