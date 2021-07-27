@@ -2,11 +2,11 @@
 NConfigProvider(:theme="theme")
   NCard
     NSpace(justify="end")
-      NButton(@click="theme = darkTheme")
+      NButton(v-if="theme == null" @click="theme = darkTheme")
         template(#icon)
           NIcon: MoonIcon
         | Dark
-      NButton(@click="theme = null")
+      NButton(v-else @click="theme = null")
         template(#icon)
           NIcon: SunIcon
         | Light
