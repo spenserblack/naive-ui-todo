@@ -2,25 +2,34 @@
 .todo
   NSpace(justify="center" vertical)
     NH2(v-if="!editing" @click="editing = true") {{ todo.title }}
-    NInput(
-      v-else
-      size="large"
-      :value="todo.title"
-      @update:value="setTitle"
-      @blur="editing = titleEmpty"
-      clearable
-      placeholder="Please add a title"
-    )
+    NInputGroup(v-else)
+      NInput(
+        size="large"
+        :value="todo.title"
+        @update:value="setTitle"
+        @blur="editing = titleEmpty"
+        clearable
+        placeholder="Please add a title"
+      )
+      NButton(size="large" type="warning" @click="editing = titleEmpty")
+        template(#icon)
+          NIcon: CancelIcon
+        | Cancel
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue';
 import { useStore } from '@/store';
-import { NH2, NInput, NSpace } from 'naive-ui';
+import {
+  NButton, NH2, NIcon, NInput, NInputGroup, NSpace,
+} from 'naive-ui';
+import { Close as CancelIcon } from '@vicons/ionicons5';
 
 export default defineComponent({
   name: 'Todo List',
-  components: { NH2, NInput, NSpace },
+  components: {
+    NButton, NH2, NIcon, NInput, NInputGroup, NSpace, CancelIcon,
+  },
   props: {
     index: {
       type: Number,
