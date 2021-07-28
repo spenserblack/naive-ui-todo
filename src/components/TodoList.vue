@@ -12,10 +12,10 @@
         clearable
         placeholder="Please add a title"
       )
-      NButton(size="large" type="warning" @click="editing = titleEmpty")
+      NButton(size="large" type="success" @click="editing = titleEmpty")
         template(#icon)
-          NIcon: CancelIcon
-        | Cancel
+          NIcon: ConfirmIcon
+        | Confirm
 </template>
 
 <script lang="ts">
@@ -24,12 +24,12 @@ import { useStore } from '@/store';
 import {
   NButton, NH2, NIcon, NInput, NInputGroup, NSpace,
 } from 'naive-ui';
-import { Close as CancelIcon } from '@vicons/ionicons5';
+import { Checkmark as ConfirmIcon } from '@vicons/ionicons5';
 
 export default defineComponent({
   name: 'Todo List',
   components: {
-    NButton, NH2, NIcon, NInput, NInputGroup, NSpace, CancelIcon,
+    NButton, NH2, NIcon, NInput, NInputGroup, NSpace, ConfirmIcon,
   },
   props: {
     index: {
