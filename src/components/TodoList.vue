@@ -3,10 +3,13 @@
   NSpace(justify="center" vertical)
     NH2(v-if="!editing" @click="editing = true") {{ todo.title }}
     NInputGroup(v-else)
-      NButton(size="large" type="warning" @click="$emit('delete', index)")
-        template(#icon)
-          NIcon: DeleteIcon
-        | Delete
+      NPopconfirm(@positive-click="onDelete" placement="top-start")
+        template(#trigger)
+          NButton(size="large" type="warning")
+            template(#icon)
+              NIcon: DeleteIcon
+            | Delete
+        | This will delete the whole to-do list.
       NInput(
         size="large"
         :value="todo.title"
@@ -26,14 +29,14 @@
 import { defineComponent, computed, ref } from 'vue';
 import { useStore } from '@/store';
 import {
-  NButton, NH2, NIcon, NInput, NInputGroup, NSpace,
+  NButton, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace,
 } from 'naive-ui';
 import { Checkmark as ConfirmIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
 
 export default defineComponent({
   name: 'Todo List',
   components: {
-    NButton, NH2, NIcon, NInput, NInputGroup, NSpace, ConfirmIcon, DeleteIcon,
+    NButton, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace, ConfirmIcon, DeleteIcon,
   },
   props: {
     index: {
@@ -41,7 +44,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const store = useStore();
     const todo = store.state.todos[props.index];
 
@@ -50,6 +53,7 @@ export default defineComponent({
       setTitle: (title: string) => store.commit('setTodoTitle', { index: props.index, title }),
       titleEmpty: computed((): boolean => !todo.title),
       editing: ref(!todo.title),
+      onDelete: () => emit('delete', props.index),
     };
   },
 });
