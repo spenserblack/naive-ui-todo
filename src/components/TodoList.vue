@@ -3,6 +3,10 @@
   NSpace(justify="center" vertical)
     NH2(v-if="!editing" @click="editing = true") {{ todo.title }}
     NInputGroup(v-else)
+      NButton(size="large" type="warning" @click="$emit('delete', index)")
+        template(#icon)
+          NIcon: DeleteIcon
+        | Delete
       NInput(
         size="large"
         :value="todo.title"
@@ -24,12 +28,12 @@ import { useStore } from '@/store';
 import {
   NButton, NH2, NIcon, NInput, NInputGroup, NSpace,
 } from 'naive-ui';
-import { Checkmark as ConfirmIcon } from '@vicons/ionicons5';
+import { Checkmark as ConfirmIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
 
 export default defineComponent({
   name: 'Todo List',
   components: {
-    NButton, NH2, NIcon, NInput, NInputGroup, NSpace, ConfirmIcon,
+    NButton, NH2, NIcon, NInput, NInputGroup, NSpace, ConfirmIcon, DeleteIcon,
   },
   props: {
     index: {

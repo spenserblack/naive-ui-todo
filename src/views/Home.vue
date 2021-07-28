@@ -1,7 +1,7 @@
 <template lang="pug">
 .home
   div(v-for="(todo, todoIndex) in todos")
-    TodoList(:index="todoIndex")
+    TodoList(:index="todoIndex" @delete="removeList")
   NDivider.divider
   NButton(type="primary" @click="addList")
     template(#icon)
@@ -30,6 +30,7 @@ export default defineComponent({
       todos: computed(() => store.state.todos),
       isValid: computed(() => store.getters.isValid),
       addList: () => store.commit('addList'),
+      removeList: (index: number) => store.commit('removeList', index),
     };
   },
 });
