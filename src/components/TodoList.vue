@@ -7,7 +7,7 @@
       size="large"
       :value="todo.title"
       @update:value="setTitle"
-      @change="editing = false"
+      @blur="editing = titleEmpty"
       clearable
       placeholder="Please add a title"
     )
@@ -34,6 +34,7 @@ export default defineComponent({
     return {
       todo: computed(() => todo),
       setTitle: (title: string) => store.commit('setTodoTitle', { index: props.index, title }),
+      titleEmpty: computed((): boolean => !todo.title),
       editing: ref(!todo.title),
     };
   },
