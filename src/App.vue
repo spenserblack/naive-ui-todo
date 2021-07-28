@@ -60,8 +60,12 @@ export default defineComponent({
 
 <style lang="stylus" scoped>
   main
-    width 100%
+    mainWidth = 100%
+    horizontalPadding = 1%
+    width mainWidth - (horizontalPadding * 2)
     height 100%
+    padding-left horizontalPadding
+    padding-right horizontalPadding
 
     &.dark
       background-color #111122
