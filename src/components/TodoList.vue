@@ -8,6 +8,7 @@
         :value="todo.title"
         @update:value="setTitle"
         @blur="editing = titleEmpty"
+        @keyup.enter="editing = titleEmpty"
         clearable
         placeholder="Please add a title"
       )
