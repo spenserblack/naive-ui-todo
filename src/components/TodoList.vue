@@ -60,8 +60,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="stylus">
-.todo-header
-  margin-left 10%
-</style>
