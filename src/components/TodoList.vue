@@ -25,6 +25,13 @@ NCard.todo(size="huge" hoverable)
             NIcon: DeleteIcon
           | Delete
       | This will delete the whole to-do list.
+  .items
+    Item(v-for="(item, itemIndex) in todo.items" :todoIndex="index" :itemIndex="itemIndex")
+  template(#footer)
+    NButton(type="primary" @click="addTodoItem")
+      template(#icon)
+        NIcon: AddIcon
+      | Add {{ todo.title }} Item
 </template>
 
 <script lang="ts">
@@ -33,12 +40,24 @@ import { useStore } from '@/store';
 import {
   NButton, NCard, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace,
 } from 'naive-ui';
-import { Checkmark as ConfirmIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
+import { Add as AddIcon, Checkmark as ConfirmIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
+import Item from './TodoItem.vue';
 
 export default defineComponent({
   name: 'Todo List',
   components: {
-    NButton, NCard, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace, ConfirmIcon, DeleteIcon,
+    NButton,
+    NCard,
+    NH2,
+    NIcon,
+    NInput,
+    NInputGroup,
+    NPopconfirm,
+    NSpace,
+    AddIcon,
+    ConfirmIcon,
+    DeleteIcon,
+    Item,
   },
   props: {
     index: {
@@ -56,6 +75,7 @@ export default defineComponent({
       titleEmpty: computed((): boolean => !todo.title),
       editing: ref(!todo.title),
       onDelete: () => emit('delete', props.index),
+      addTodoItem: () => store.commit('addTodoItem', { index: props.index }),
     };
   },
 });
