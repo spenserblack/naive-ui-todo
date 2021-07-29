@@ -1,11 +1,11 @@
 <template lang="pug">
 NSpace(justify="left")
   NCheckbox(:disabled="!item.description" :checked="item.done" @update:checked="setCompleted")
-    EditableText(
-      :text="item.description"
-      @update:value="setDescription"
-      inputPlaceholder="Please describe the to-do item"
-    )
+  EditableText(
+    :text="item.description"
+    @update:value="setDescription"
+    inputPlaceholder="Please describe the to-do item"
+  )
 </template>
 
 <script lang="ts">
