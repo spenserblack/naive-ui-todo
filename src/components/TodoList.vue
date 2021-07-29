@@ -1,6 +1,6 @@
 <template lang="pug">
 NCard.todo(size="huge" hoverable)
-  NSpace(justify="center" vertical)
+  template(#header)
     NH2(v-if="!editing" @click="editing = true") {{ todo.title }}
     NInputGroup(v-else)
       NPopconfirm(@positive-click="onDelete" placement="top-start")
