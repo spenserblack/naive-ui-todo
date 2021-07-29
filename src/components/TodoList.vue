@@ -20,10 +20,11 @@ NCard.todo(size="huge" hoverable)
   .items
     Item(v-for="(item, itemIndex) in todo.items" :todoIndex="index" :itemIndex="itemIndex")
   template(#footer)
-    NButton(type="primary" @click="addTodoItem")
-      template(#icon)
-        NIcon: AddIcon
-      | Add {{ todo.title }} Item
+    NSpace(justify="left")
+      NButton(type="primary" @click="addTodoItem")
+        template(#icon)
+          NIcon: AddIcon
+        | Add {{ todo.title }} Item
 </template>
 
 <script lang="ts">
