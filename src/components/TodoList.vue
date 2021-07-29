@@ -22,13 +22,15 @@ NCard.todo(size="huge" hoverable)
       v-for="item in incompleteItems"
       :todoIndex="index"
       :itemIndex="item.index"
-      :key="`${item.index}-not-done`"
+      @delete="removeTodoItem"
+      :key="`${item.id}-not-done`"
     )
     Item(
       v-for="item in completeItems"
       :todoIndex="index"
       :itemIndex="item.index"
-      :key="`${item.index}-done`"
+      @delete="removeTodoItem"
+      :key="`${item.id}-done`"
     )
   template(#footer)
     NSpace(justify="left")
@@ -80,6 +82,10 @@ export default defineComponent({
       setTitle: (title: string) => store.commit('setTodoTitle', { index: props.index, title }),
       onDelete: () => emit('delete', props.index),
       addTodoItem: () => store.commit('addTodoItem', { index: props.index }),
+      removeTodoItem: (itemIndex: number) => store.commit('removeTodoItem', {
+        todoIndex: props.index,
+        itemIndex,
+      }),
       completeItems: computed(() => store.getters.completeItems(props.index)),
       incompleteItems: computed(() => store.getters.incompleteItems(props.index)),
     };

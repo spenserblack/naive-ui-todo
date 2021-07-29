@@ -13,7 +13,10 @@ describe('store', () => {
           todos: [
             {
               title: '',
-              items: [{ description: 'foo', done: false }, { description: 'bar', done: true }],
+              items: [
+                { description: 'foo', done: false, id: 1 },
+                { description: 'bar', done: true, id: 2 },
+              ],
             },
           ],
         };
@@ -21,7 +24,9 @@ describe('store', () => {
         const items = completeItems(state)(0);
 
         expect(items).to.be.an('array').with.lengthOf(1);
-        expect(items[0]).to.deep.equal({ description: 'bar', done: true, index: 1 });
+        expect(items[0]).to.deep.equal({
+          description: 'bar', done: true, index: 1, id: 2,
+        });
       });
     });
     describe('incompleteItems', () => {
@@ -32,7 +37,10 @@ describe('store', () => {
           todos: [
             {
               title: '',
-              items: [{ description: 'foo', done: false }, { description: 'bar', done: true }],
+              items: [
+                { description: 'foo', done: false, id: 1 },
+                { description: 'bar', done: true, id: 2 },
+              ],
             },
           ],
         };
@@ -40,7 +48,9 @@ describe('store', () => {
         const items = incompleteItems(state)(0);
 
         expect(items).to.be.an('array').with.lengthOf(1);
-        expect(items[0]).to.deep.equal({ description: 'foo', done: false, index: 0 });
+        expect(items[0]).to.deep.equal({
+          description: 'foo', done: false, index: 0, id: 1,
+        });
       });
     });
     describe('isValid', () => {
@@ -69,15 +79,15 @@ describe('store', () => {
             {
               title: 'foo',
               items: [
-                { description: 'x', done: true },
-                { description: 'y', done: false },
+                { description: 'x', done: true, id: 1 },
+                { description: 'y', done: false, id: 2 },
               ],
             },
             {
               title: 'baz',
               items: [
-                { description: 'x', done: true },
-                { description: 'y', done: false },
+                { description: 'x', done: true, id: 3 },
+                { description: 'y', done: false, id: 4 },
               ],
             },
           ],
@@ -114,7 +124,7 @@ describe('store', () => {
           todos: [
             {
               title: '',
-              items: [{ description: '', done: false }],
+              items: [{ description: '', done: false, id: 1 }],
             },
           ],
         };
@@ -128,7 +138,7 @@ describe('store', () => {
           todos: [
             {
               title: 'foo',
-              items: [{ description: 'x', done: false }],
+              items: [{ description: 'x', done: false, id: 1 }],
             },
           ],
         };
@@ -145,7 +155,7 @@ describe('store', () => {
           todos: [
             {
               title: 'foo',
-              items: [{ description: '', done: false }],
+              items: [{ description: '', done: false, id: 1 }],
             },
           ],
         };
@@ -159,7 +169,7 @@ describe('store', () => {
           todos: [
             {
               title: 'foo',
-              items: [{ description: '', done: false }],
+              items: [{ description: '', done: false, id: 1 }],
             },
           ],
         };
@@ -190,7 +200,7 @@ describe('store', () => {
           todos: [
             {
               title: 'foo',
-              items: [{ description: '', done: false }],
+              items: [{ description: '', done: false, id: 1 }],
             },
           ],
         };
@@ -203,7 +213,7 @@ describe('store', () => {
           todos: [
             {
               title: 'foo',
-              items: [{ description: 'x', done: false }],
+              items: [{ description: 'x', done: false, id: 1 }],
             },
           ],
         };

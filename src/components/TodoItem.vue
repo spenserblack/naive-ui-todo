@@ -1,5 +1,8 @@
 <template lang="pug">
 NSpace(justify="left")
+  NButton(type="warning" size="tiny" @click="onDelete")
+    template(#icon)
+      NIcon: DeleteIcon
   NCheckbox(:disabled="!item.description" :checked="item.done" @update:checked="setCompleted")
   EditableText(
     :text="item.description"
@@ -13,12 +16,17 @@ NSpace(justify="left")
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import { useStore } from '@/store';
-import { NCheckbox, NSpace } from 'naive-ui';
+import {
+  NButton, NCheckbox, NIcon, NSpace,
+} from 'naive-ui';
+import { Trash as DeleteIcon } from '@vicons/ionicons5';
 import EditableText from './EditableText.vue';
 
 export default defineComponent({
   name: 'Todo Item',
-  components: { NCheckbox, NSpace, EditableText },
+  components: {
+    NButton, NCheckbox, NIcon, NSpace, DeleteIcon, EditableText,
+  },
   props: {
     todoIndex: {
       type: Number,
@@ -29,7 +37,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const store = useStore();
     const todo = store.state.todos[props.todoIndex];
     const item = todo.items[props.itemIndex];
@@ -45,6 +53,7 @@ export default defineComponent({
         const mutation = done ? 'completeTodoItem' : 'startTodoItem';
         store.commit(mutation, { todoIndex: props.todoIndex, itemIndex: props.itemIndex });
       },
+      onDelete: () => emit('delete', props.itemIndex),
     };
   },
 });

@@ -7,9 +7,11 @@ describe('store', () => {
       const { load } = mutations;
 
       it('should load a new state for to-do lists', () => {
-        const state = { todos: [{ title: 'foo', items: [{ description: 'x', done: true }] }] };
+        const state = {
+          todos: [{ title: 'foo', items: [{ description: 'x', done: true, id: 1 }] }],
+        };
 
-        load(state, [{ title: 'bar', items: [{ description: 'y', done: false }] }]);
+        load(state, [{ title: 'bar', items: [{ description: 'y', done: false, id: 2 }] }]);
 
         expect(state.todos).to.be.an('array').with.lengthOf(1);
 
@@ -20,6 +22,7 @@ describe('store', () => {
         const item = todo.items[0];
         expect(item.description).to.equal('y');
         expect(item.done).to.be.false;
+        expect(item.id).to.equal(2);
       });
     });
     describe('addList', () => {
@@ -79,7 +82,17 @@ describe('store', () => {
       const { removeTodoItem } = mutations;
 
       it('should remove a to-do list item', () => {
-        const state = { todos: [{ title: 'foo', items: [{ description: 'bar', done: true }, { description: 'baz', done: false }] }] };
+        const state = {
+          todos: [
+            {
+              title: 'foo',
+              items: [
+                { description: 'bar', done: true, id: 1 },
+                { description: 'baz', done: false, id: 2 },
+              ],
+            },
+          ],
+        };
 
         removeTodoItem(state, { todoIndex: 0, itemIndex: 0 });
 
@@ -94,7 +107,9 @@ describe('store', () => {
       const { setTodoItemDescription } = mutations;
 
       it('should set the title of a to-do list item', () => {
-        const state = { todos: [{ title: 'foo', items: [{ description: 'bar', done: true }] }] };
+        const state = {
+          todos: [{ title: 'foo', items: [{ description: 'bar', done: true, id: 1 }] }],
+        };
 
         setTodoItemDescription(state, { todoIndex: 0, itemIndex: 0, description: 'baz' });
 
@@ -107,7 +122,9 @@ describe('store', () => {
       const { completeTodoItem } = mutations;
 
       it('should mark an item as complete', () => {
-        const state = { todos: [{ title: 'foo', items: [{ description: 'bar', done: false }] }] };
+        const state = {
+          todos: [{ title: 'foo', items: [{ description: 'bar', done: false, id: 1 }] }],
+        };
 
         completeTodoItem(state, { todoIndex: 0, itemIndex: 0 });
 
@@ -120,7 +137,9 @@ describe('store', () => {
       const { startTodoItem } = mutations;
 
       it('should mark an item as incomplete', () => {
-        const state = { todos: [{ title: 'foo', items: [{ description: 'bar', done: true }] }] };
+        const state = {
+          todos: [{ title: 'foo', items: [{ description: 'bar', done: true, id: 1 }] }],
+        };
 
         startTodoItem(state, { todoIndex: 0, itemIndex: 0 });
 
