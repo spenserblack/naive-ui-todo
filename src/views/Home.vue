@@ -1,7 +1,11 @@
 <template lang="pug">
 .home
-  div(v-for="(todo, todoIndex) in todos")
-    TodoList(:index="todoIndex" @delete="removeList")
+  TodoList(
+    v-for="(todo, todoIndex) in todos"
+    :index="todoIndex"
+    @delete="removeList"
+    :key="todo.id"
+  )
   NDivider.divider
   NButton(type="primary" @click="addList")
     template(#icon)

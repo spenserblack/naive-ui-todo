@@ -14,10 +14,12 @@ describe('store', () => {
             {
               title: 'foo',
               items: [],
+              id: 1,
             },
             {
               title: 'foo',
               items: [],
+              id: 2,
             },
           ],
         };
@@ -34,6 +36,7 @@ describe('store', () => {
                 { description: 'x', done: true },
                 { description: 'y', done: false },
               ],
+              id: 1,
             },
             {
               title: 'baz',
@@ -41,6 +44,7 @@ describe('store', () => {
                 { description: 'x', done: true },
                 { description: 'y', done: false },
               ],
+              id: 2,
             },
           ],
         };
@@ -63,6 +67,7 @@ describe('store', () => {
             {
               title: '',
               items: [],
+              id: 1,
             },
           ],
         };
@@ -77,6 +82,7 @@ describe('store', () => {
             {
               title: '',
               items: [{ description: '', done: false }],
+              id: 1,
             },
           ],
         };
@@ -91,6 +97,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [{ description: 'x', done: false }],
+              id: 1,
             },
           ],
         };
@@ -108,6 +115,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [{ description: '', done: false }],
+              id: 1,
             },
           ],
         };
@@ -122,6 +130,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [{ description: '', done: false }],
+              id: 1,
             },
           ],
         };
@@ -136,6 +145,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [],
+              id: 1,
             },
           ],
         };
@@ -153,6 +163,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [{ description: '', done: false }],
+              id: 1,
             },
           ],
         };
@@ -166,6 +177,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [{ description: 'x', done: false }],
+              id: 1,
             },
           ],
         };
