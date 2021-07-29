@@ -5,6 +5,44 @@ import {
 
 describe('store', () => {
   describe('getters', () => {
+    describe('completeItems', () => {
+      const { completeItems } = getters;
+
+      it('should return only the complete items', () => {
+        const state = {
+          todos: [
+            {
+              title: '',
+              items: [{ description: 'foo', done: false }, { description: 'bar', done: true }],
+            },
+          ],
+        };
+
+        const items = completeItems(state)(0);
+
+        expect(items).to.be.an('array').with.lengthOf(1);
+        expect(items[0]).to.deep.equal({ description: 'bar', done: true, index: 1 });
+      });
+    });
+    describe('incompleteItems', () => {
+      const { incompleteItems } = getters;
+
+      it('should return only the incomplete (done = false) items', () => {
+        const state = {
+          todos: [
+            {
+              title: '',
+              items: [{ description: 'foo', done: false }, { description: 'bar', done: true }],
+            },
+          ],
+        };
+
+        const items = incompleteItems(state)(0);
+
+        expect(items).to.be.an('array').with.lengthOf(1);
+        expect(items[0]).to.deep.equal({ description: 'foo', done: false, index: 0 });
+      });
+    });
     describe('isValid', () => {
       const { isValid } = getters;
 

@@ -21,7 +21,21 @@ export type IsItemValidType = (todoIndex: number, itemIndex: number) => boolean;
 export type AreItemsValidType = (todoIndex: number) => boolean;
 export type IsTodoValidType = (todoIndex: number) => boolean;
 
+interface IndexedItem extends TodoItem {
+  index: number;
+}
+
 export const getters = {
+  completeItems: (state: State) => (todoIndex: number): Array<IndexedItem> => (
+    state.todos[todoIndex].items
+      .map(({ description, done }, index) => ({ description, done, index }))
+      .filter(({ done }) => done)
+  ),
+  incompleteItems: (state: State) => (todoIndex: number): Array<IndexedItem> => (
+    state.todos[todoIndex].items
+      .map(({ description, done }, index) => ({ description, done, index }))
+      .filter(({ done }) => !done)
+  ),
   isItemValid: (state: State) => (todoIndex: number, itemIndex: number): boolean => (
     state.todos[todoIndex].items[itemIndex].description.length > 0
   ),
