@@ -1,21 +1,22 @@
 <template lang="pug">
 NCard.todo(size="huge" hoverable)
   template(#header)
-    NH2(v-if="!editing" @click="editing = true") {{ todo.title }}
-    NInputGroup(v-else)
-      NInput(
-        size="large"
-        :value="todo.title"
-        @update:value="setTitle"
-        @blur="editing = titleEmpty"
-        @keyup.enter="editing = titleEmpty"
-        clearable
-        placeholder="Please add a title"
-      )
-      NButton(size="large" type="success" @click="editing = titleEmpty")
-        template(#icon)
-          NIcon: ConfirmIcon
-        | Confirm
+    NSpace.todo-header(justify="left")
+      NH2(v-if="!editing" @click="editing = true") {{ todo.title }}
+      NInputGroup(v-else)
+        NInput(
+          size="large"
+          :value="todo.title"
+          @update:value="setTitle"
+          @blur="editing = titleEmpty"
+          @keyup.enter="editing = titleEmpty"
+          clearable
+          placeholder="Please add a title"
+        )
+        NButton(size="large" type="success" @click="editing = titleEmpty")
+          template(#icon)
+            NIcon: ConfirmIcon
+          | Confirm
   template(#header-extra)
     NPopconfirm(@positive-click="onDelete" placement="top-end")
       template(#trigger)
@@ -59,3 +60,8 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="stylus">
+.todo-header
+  margin-left 10%
+</style>
