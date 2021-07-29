@@ -5,54 +5,6 @@ import {
 
 describe('store', () => {
   describe('getters', () => {
-    describe('completeItems', () => {
-      const { completeItems } = getters;
-
-      it('should return only the complete items', () => {
-        const state = {
-          todos: [
-            {
-              title: '',
-              items: [
-                { description: 'foo', done: false, id: 1 },
-                { description: 'bar', done: true, id: 2 },
-              ],
-            },
-          ],
-        };
-
-        const items = completeItems(state)(0);
-
-        expect(items).to.be.an('array').with.lengthOf(1);
-        expect(items[0]).to.deep.equal({
-          description: 'bar', done: true, index: 1, id: 2,
-        });
-      });
-    });
-    describe('incompleteItems', () => {
-      const { incompleteItems } = getters;
-
-      it('should return only the incomplete (done = false) items', () => {
-        const state = {
-          todos: [
-            {
-              title: '',
-              items: [
-                { description: 'foo', done: false, id: 1 },
-                { description: 'bar', done: true, id: 2 },
-              ],
-            },
-          ],
-        };
-
-        const items = incompleteItems(state)(0);
-
-        expect(items).to.be.an('array').with.lengthOf(1);
-        expect(items[0]).to.deep.equal({
-          description: 'foo', done: false, index: 0, id: 1,
-        });
-      });
-    });
     describe('isValid', () => {
       const { isValid } = getters;
 
@@ -62,10 +14,12 @@ describe('store', () => {
             {
               title: 'foo',
               items: [],
+              id: 1,
             },
             {
               title: 'foo',
               items: [],
+              id: 2,
             },
           ],
         };
@@ -82,6 +36,7 @@ describe('store', () => {
                 { description: 'x', done: true, id: 1 },
                 { description: 'y', done: false, id: 2 },
               ],
+              id: 1,
             },
             {
               title: 'baz',
@@ -89,6 +44,7 @@ describe('store', () => {
                 { description: 'x', done: true, id: 3 },
                 { description: 'y', done: false, id: 4 },
               ],
+              id: 2,
             },
           ],
         };
@@ -111,6 +67,7 @@ describe('store', () => {
             {
               title: '',
               items: [],
+              id: 1,
             },
           ],
         };
@@ -125,6 +82,7 @@ describe('store', () => {
             {
               title: '',
               items: [{ description: '', done: false, id: 1 }],
+              id: 1,
             },
           ],
         };
@@ -139,6 +97,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [{ description: 'x', done: false, id: 1 }],
+              id: 1,
             },
           ],
         };
@@ -156,6 +115,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [{ description: '', done: false, id: 1 }],
+              id: 1,
             },
           ],
         };
@@ -170,6 +130,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [{ description: '', done: false, id: 1 }],
+              id: 1,
             },
           ],
         };
@@ -184,6 +145,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [],
+              id: 1,
             },
           ],
         };
@@ -201,6 +163,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [{ description: '', done: false, id: 1 }],
+              id: 1,
             },
           ],
         };
@@ -214,6 +177,7 @@ describe('store', () => {
             {
               title: 'foo',
               items: [{ description: 'x', done: false, id: 1 }],
+              id: 1,
             },
           ],
         };

@@ -23,14 +23,14 @@ NCard.todo(size="huge" hoverable)
       :todoIndex="index"
       :itemIndex="item.index"
       @delete="removeTodoItem"
-      :key="`${item.id}-not-done`"
+      :key="`todo-item-${item.id}-not-done`"
     )
     Item(
       v-for="item in completeItems"
       :todoIndex="index"
       :itemIndex="item.index"
       @delete="removeTodoItem"
-      :key="`${item.id}-done`"
+      :key="`todo-item-${item.id}-done`"
     )
   template(#footer)
     NSpace(justify="left")
@@ -92,8 +92,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="stylus">
-.todo-header
-  margin-left 10%
-</style>

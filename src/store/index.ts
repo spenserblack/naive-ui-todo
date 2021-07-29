@@ -10,11 +10,14 @@ export interface TodoItem {
 export interface TodoList {
   title: string;
   items: Array<TodoItem>;
+  id: number;
 }
 
 export interface State {
   todos: Array<TodoList>;
 }
+
+let listId = 0;
 
 export const key: InjectionKey<Store<State>> = Symbol('store');
 
@@ -77,7 +80,7 @@ export const mutations = {
     state.todos = reactive(todos);
   },
   addList: (state: State): void => {
-    state.todos.push({ title: '', items: [] });
+    state.todos.push({ title: '', items: [], id: listId += 1 });
   },
   removeList: (state: State, index: number): void => {
     state.todos.splice(index, 1);
