@@ -2,21 +2,13 @@
 NCard.todo(size="huge" hoverable)
   template(#header)
     NSpace.todo-header(justify="left")
-      NH2(v-if="!editing" @click="editing = true") {{ todo.title }}
-      NInputGroup(v-else)
-        NInput(
-          size="large"
-          :value="todo.title"
-          @update:value="setTitle"
-          @blur="editing = titleEmpty"
-          @keyup.enter="editing = titleEmpty"
-          clearable
-          placeholder="Please add a title"
-        )
-        NButton(size="large" type="success" @click="editing = titleEmpty")
-          template(#icon)
-            NIcon: ConfirmIcon
-          | Confirm
+      EditableText(
+        :text="todo.title",
+        @update:value="setTitle"
+        tag="h2"
+        size="large"
+        inputPlaceholder="Please add a title"
+      )
   template(#header-extra)
     NPopconfirm(@positive-click="onDelete" placement="top-end")
       template(#trigger)
@@ -35,13 +27,14 @@ NCard.todo(size="huge" hoverable)
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+import { defineComponent, computed } from 'vue';
 import { useStore } from '@/store';
 import {
   NButton, NCard, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace,
 } from 'naive-ui';
 import { Add as AddIcon, Checkmark as ConfirmIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
 import Item from './TodoItem.vue';
+import EditableText from './EditableText.vue';
 
 export default defineComponent({
   name: 'Todo List',
@@ -57,6 +50,7 @@ export default defineComponent({
     AddIcon,
     ConfirmIcon,
     DeleteIcon,
+    EditableText,
     Item,
   },
   props: {
@@ -72,8 +66,6 @@ export default defineComponent({
     return {
       todo: computed(() => todo),
       setTitle: (title: string) => store.commit('setTodoTitle', { index: props.index, title }),
-      titleEmpty: computed((): boolean => !todo.title),
-      editing: ref(!todo.title),
       onDelete: () => emit('delete', props.index),
       addTodoItem: () => store.commit('addTodoItem', { index: props.index }),
     };
