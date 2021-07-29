@@ -18,7 +18,18 @@ NCard.todo(size="huge" hoverable)
           | Delete
       | This will delete the whole to-do list.
   .items
-    Item(v-for="(item, itemIndex) in todo.items" :todoIndex="index" :itemIndex="itemIndex")
+    Item(
+      v-for="item in incompleteItems"
+      :todoIndex="index"
+      :itemIndex="item.index"
+      :key="`${item.index}-not-done`"
+    )
+    Item(
+      v-for="item in completeItems"
+      :todoIndex="index"
+      :itemIndex="item.index"
+      :key="`${item.index}-done`"
+    )
   template(#footer)
     NSpace(justify="left")
       NButton(type="primary" @click="addTodoItem")
@@ -69,6 +80,8 @@ export default defineComponent({
       setTitle: (title: string) => store.commit('setTodoTitle', { index: props.index, title }),
       onDelete: () => emit('delete', props.index),
       addTodoItem: () => store.commit('addTodoItem', { index: props.index }),
+      completeItems: computed(() => store.getters.completeItems(props.index)),
+      incompleteItems: computed(() => store.getters.incompleteItems(props.index)),
     };
   },
 });
