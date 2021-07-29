@@ -1,5 +1,5 @@
 <template lang="pug">
-.todo
+NCard.todo(size="huge" hoverable)
   NSpace(justify="center" vertical)
     NH2(v-if="!editing" @click="editing = true") {{ todo.title }}
     NInputGroup(v-else)
@@ -29,14 +29,14 @@
 import { defineComponent, computed, ref } from 'vue';
 import { useStore } from '@/store';
 import {
-  NButton, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace,
+  NButton, NCard, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace,
 } from 'naive-ui';
 import { Checkmark as ConfirmIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
 
 export default defineComponent({
   name: 'Todo List',
   components: {
-    NButton, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace, ConfirmIcon, DeleteIcon,
+    NButton, NCard, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace, ConfirmIcon, DeleteIcon,
   },
   props: {
     index: {
