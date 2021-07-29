@@ -1,6 +1,16 @@
 <template lang="pug">
 span.editable-text
-  component(v-if="!editing" :is="nTag" @click="editing = true") {{ text }}
+  component(
+    v-if="!editing"
+    :is="nTag"
+    @click="editing = true"
+    :strong="textStyle.strong"
+    :italic="textStyle.italic"
+    :underline="textStyle.underline"
+    :delete="textStyle.delete"
+    :code="textStyle.code"
+    :depth="textDepth"
+  ) {{ text }}
   NInputGroup(v-else)
     NInput(
       :size="size"
@@ -18,11 +28,23 @@ span.editable-text
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+import {
+  defineComponent, computed, ref, PropType,
+} from 'vue';
 import {
   NButton, NH1, NH2, NH3, NH4, NH5, NH6, NIcon, NInput, NInputGroup, NP, NText,
 } from 'naive-ui';
 import { Checkmark as ConfirmIcon } from '@vicons/ionicons5';
+
+interface TextStyle {
+  strong: boolean;
+  italic: boolean;
+  underline: boolean;
+  delete: boolean;
+  code: boolean;
+}
+
+type TextDepth = 1 | 2 | 3 | '1' | '2' | '3';
 
 export default defineComponent({
   name: 'Editable Text',
@@ -47,6 +69,20 @@ export default defineComponent({
     text: {
       type: String,
       required: true,
+    },
+    textStyle: {
+      type: Object as PropType<TextStyle>,
+      default: () => ({
+        strong: false,
+        italic: false,
+        underline: false,
+        delete: false,
+        code: false,
+      }),
+    },
+    textDepth: {
+      type: [Number, String] as PropType<TextDepth>,
+      default: 1,
     },
     size: {
       type: String,

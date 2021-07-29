@@ -5,6 +5,8 @@ NSpace(justify="left")
     :text="item.description"
     @update:value="setDescription"
     inputPlaceholder="Please describe the to-do item"
+    :textStyle="{ delete: item.done }"
+    :textDepth="item.done ? 3 : 1"
   )
 </template>
 
