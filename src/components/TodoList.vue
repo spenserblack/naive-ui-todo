@@ -3,13 +3,6 @@ NCard.todo(size="huge" hoverable)
   template(#header)
     NH2(v-if="!editing" @click="editing = true") {{ todo.title }}
     NInputGroup(v-else)
-      NPopconfirm(@positive-click="onDelete" placement="top-start")
-        template(#trigger)
-          NButton(size="large" type="warning")
-            template(#icon)
-              NIcon: DeleteIcon
-            | Delete
-        | This will delete the whole to-do list.
       NInput(
         size="large"
         :value="todo.title"
@@ -23,6 +16,14 @@ NCard.todo(size="huge" hoverable)
         template(#icon)
           NIcon: ConfirmIcon
         | Confirm
+  template(#header-extra)
+    NPopconfirm(@positive-click="onDelete" placement="top-end")
+      template(#trigger)
+        NButton(size="large" type="warning")
+          template(#icon)
+            NIcon: DeleteIcon
+          | Delete
+      | This will delete the whole to-do list.
 </template>
 
 <script lang="ts">
