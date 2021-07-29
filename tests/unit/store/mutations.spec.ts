@@ -9,11 +9,11 @@ describe('store', () => {
       it('should load a new state for to-do lists', () => {
         const state = {
           todos: [
-            { title: 'foo', items: [{ description: 'x', done: true }], id: 1 },
+            { title: 'foo', items: [{ description: 'x', done: true, id: 1 }], id: 1 },
           ],
         };
 
-        load(state, [{ title: 'bar', items: [{ description: 'y', done: false }], id: 1 }]);
+        load(state, [{ title: 'bar', items: [{ description: 'y', done: false, id: 1 }], id: 1 }]);
 
         expect(state.todos).to.be.an('array').with.lengthOf(1);
 
@@ -88,8 +88,8 @@ describe('store', () => {
             {
               title: 'foo',
               items: [
-                { description: 'bar', done: true },
-                { description: 'baz', done: false },
+                { description: 'bar', done: true, id: 1 },
+                { description: 'baz', done: false, id: 2 },
               ],
               id: 1,
             },
@@ -111,7 +111,7 @@ describe('store', () => {
       it('should set the title of a to-do list item', () => {
         const state = {
           todos: [
-            { title: 'foo', items: [{ description: 'bar', done: true }], id: 1 },
+            { title: 'foo', items: [{ description: 'bar', done: true, id: 1 }], id: 1 },
           ],
         };
 
@@ -128,7 +128,7 @@ describe('store', () => {
       it('should mark an item as complete', () => {
         const state = {
           todos: [
-            { title: 'foo', items: [{ description: 'bar', done: false }], id: 1 },
+            { title: 'foo', items: [{ description: 'bar', done: false, id: 1 }], id: 1 },
           ],
         };
 
@@ -145,7 +145,7 @@ describe('store', () => {
       it('should mark an item as incomplete', () => {
         const state = {
           todos: [
-            { title: 'foo', items: [{ description: 'bar', done: true }], id: 1 },
+            { title: 'foo', items: [{ description: 'bar', done: true, id: 1 }], id: 1 },
           ],
         };
 

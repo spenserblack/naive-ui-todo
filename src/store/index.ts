@@ -4,6 +4,7 @@ import { createStore, useStore as baseUseStore, Store } from 'vuex';
 export interface TodoItem {
   description: string;
   done: boolean;
+  id: number;
 }
 
 export interface TodoList {
@@ -20,11 +21,31 @@ let listId = 0;
 
 export const key: InjectionKey<Store<State>> = Symbol('store');
 
+let itemId = 0;
+
 export type IsItemValidType = (todoIndex: number, itemIndex: number) => boolean;
 export type AreItemsValidType = (todoIndex: number) => boolean;
 export type IsTodoValidType = (todoIndex: number) => boolean;
 
+interface IndexedItem extends TodoItem {
+  index: number;
+}
+
 export const getters = {
+  completeItems: (state: State) => (todoIndex: number): Array<IndexedItem> => (
+    state.todos[todoIndex].items
+      .map(({ description, done, id }, index) => ({
+        description, done, index, id,
+      }))
+      .filter(({ done }) => done)
+  ),
+  incompleteItems: (state: State) => (todoIndex: number): Array<IndexedItem> => (
+    state.todos[todoIndex].items
+      .map(({ description, done, id }, index) => ({
+        description, done, index, id,
+      }))
+      .filter(({ done }) => !done)
+  ),
   isItemValid: (state: State) => (todoIndex: number, itemIndex: number): boolean => (
     state.todos[todoIndex].items[itemIndex].description.length > 0
   ),
@@ -68,7 +89,7 @@ export const mutations = {
     state.todos[index].title = title;
   },
   addTodoItem: (state: State, { index }: { index: number }): void => {
-    state.todos[index].items.push({ description: '', done: false });
+    state.todos[index].items.push({ description: '', done: false, id: itemId += 1 });
   },
   removeTodoItem: (state: State, { todoIndex, itemIndex }: {
     todoIndex: number, itemIndex: number

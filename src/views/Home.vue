@@ -4,7 +4,7 @@
     v-for="(todo, todoIndex) in todos"
     :index="todoIndex"
     @delete="removeList"
-    :key="todo.id"
+    :key="`todo-list-${todo.id}`"
   )
   NDivider.divider
   NButton(type="primary" @click="addList")

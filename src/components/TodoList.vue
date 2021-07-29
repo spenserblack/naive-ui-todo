@@ -2,21 +2,13 @@
 NCard.todo(size="huge" hoverable)
   template(#header)
     NSpace.todo-header(justify="left")
-      NH2(v-if="!editing" @click="editing = true") {{ todo.title }}
-      NInputGroup(v-else)
-        NInput(
-          size="large"
-          :value="todo.title"
-          @update:value="setTitle"
-          @blur="editing = titleEmpty"
-          @keyup.enter="editing = titleEmpty"
-          clearable
-          placeholder="Please add a title"
-        )
-        NButton(size="large" type="success" @click="editing = titleEmpty")
-          template(#icon)
-            NIcon: ConfirmIcon
-          | Confirm
+      EditableText(
+        :text="todo.title",
+        @update:value="setTitle"
+        tag="h2"
+        size="large"
+        inputPlaceholder="Please add a title"
+      )
   template(#header-extra)
     NPopconfirm(@positive-click="onDelete" placement="top-end")
       template(#trigger)
@@ -25,20 +17,55 @@ NCard.todo(size="huge" hoverable)
             NIcon: DeleteIcon
           | Delete
       | This will delete the whole to-do list.
+  .items
+    Item(
+      v-for="item in incompleteItems"
+      :todoIndex="index"
+      :itemIndex="item.index"
+      @delete="removeTodoItem"
+      :key="`todo-item-${item.id}-not-done`"
+    )
+    Item(
+      v-for="item in completeItems"
+      :todoIndex="index"
+      :itemIndex="item.index"
+      @delete="removeTodoItem"
+      :key="`todo-item-${item.id}-done`"
+    )
+  template(#footer)
+    NSpace(justify="left")
+      NButton(type="primary" @click="addTodoItem")
+        template(#icon)
+          NIcon: AddIcon
+        | Add {{ todo.title }} Item
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+import { defineComponent, computed } from 'vue';
 import { useStore } from '@/store';
 import {
   NButton, NCard, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace,
 } from 'naive-ui';
-import { Checkmark as ConfirmIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
+import { Add as AddIcon, Checkmark as ConfirmIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
+import Item from './TodoItem.vue';
+import EditableText from './EditableText.vue';
 
 export default defineComponent({
   name: 'Todo List',
   components: {
-    NButton, NCard, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace, ConfirmIcon, DeleteIcon,
+    NButton,
+    NCard,
+    NH2,
+    NIcon,
+    NInput,
+    NInputGroup,
+    NPopconfirm,
+    NSpace,
+    AddIcon,
+    ConfirmIcon,
+    DeleteIcon,
+    EditableText,
+    Item,
   },
   props: {
     index: {
@@ -53,9 +80,14 @@ export default defineComponent({
     return {
       todo: computed(() => todo),
       setTitle: (title: string) => store.commit('setTodoTitle', { index: props.index, title }),
-      titleEmpty: computed((): boolean => !todo.title),
-      editing: ref(!todo.title),
       onDelete: () => emit('delete', props.index),
+      addTodoItem: () => store.commit('addTodoItem', { index: props.index }),
+      removeTodoItem: (itemIndex: number) => store.commit('removeTodoItem', {
+        todoIndex: props.index,
+        itemIndex,
+      }),
+      completeItems: computed(() => store.getters.completeItems(props.index)),
+      incompleteItems: computed(() => store.getters.incompleteItems(props.index)),
     };
   },
 });
