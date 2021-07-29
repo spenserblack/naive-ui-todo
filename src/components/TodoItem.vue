@@ -1,15 +1,22 @@
 <template lang="pug">
 NSpace(justify="left")
-  NP {{ itemIndex }}
+  NCheckbox(:disabled="!item.description" :checked="item.done" @update:checked="setCompleted")
+    EditableText(
+      :text="item.description"
+      @update:value="setDescription"
+      inputPlaceholder="Please describe the to-do item"
+    )
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { NP, NSpace } from 'naive-ui';
+import { defineComponent, computed } from 'vue';
+import { useStore } from '@/store';
+import { NCheckbox, NSpace } from 'naive-ui';
+import EditableText from './EditableText.vue';
 
 export default defineComponent({
   name: 'Todo Item',
-  components: { NP, NSpace },
+  components: { NCheckbox, NSpace, EditableText },
   props: {
     todoIndex: {
       type: Number,
@@ -19,6 +26,24 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+  },
+  setup(props) {
+    const store = useStore();
+    const todo = store.state.todos[props.todoIndex];
+    const item = todo.items[props.itemIndex];
+    return {
+      todo: computed(() => todo),
+      item: computed(() => item),
+      setDescription: (description: string) => store.commit('setTodoItemDescription', {
+        todoIndex: props.todoIndex,
+        itemIndex: props.itemIndex,
+        description,
+      }),
+      setCompleted: (done: boolean) => {
+        const mutation = done ? 'completeTodoItem' : 'startTodoItem';
+        store.commit(mutation, { todoIndex: props.todoIndex, itemIndex: props.itemIndex });
+      },
+    };
   },
 });
 </script>
