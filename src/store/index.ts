@@ -80,13 +80,16 @@ export const getters = {
       return isTodoValid(todoIndex) && (counts[title] as number) < 2;
     });
   },
-  forYamlExport: (state: State): ForYaml => state.todos.reduce((lists, { title, items }) => ({
-    ...lists,
-    [title]: {
-      done: items.filter(({ done }) => done).map(({ description }) => description),
-      'to do': items.filter(({ done }) => !done).map(({ description }) => description),
-    },
-  }), {} as ForYaml),
+  forYamlExport: (state: State): ForYaml => {
+    const yaml: ForYaml = {};
+    state.todos.forEach(({ title, items }) => {
+      yaml[title] = {
+        'to do': items.filter(({ done }) => !done).map(({ description }) => description),
+        done: items.filter(({ done }) => done).map(({ description }) => description),
+      };
+    });
+    return yaml;
+  },
 };
 
 export const mutations = {
