@@ -1,5 +1,5 @@
 <template lang="pug">
-NButton(type="primary" @click="download")
+NButton(type="primary" :disabled="disabled" @click="download")
   template(#icon)
     NIcon: YamlIcon
   | Download
@@ -16,6 +16,12 @@ import { dump as toYaml } from 'js-yaml';
 export default defineComponent({
   name: 'Download Yaml Button',
   components: { NButton, NIcon, YamlIcon },
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup() {
     const store = useStore();
 
