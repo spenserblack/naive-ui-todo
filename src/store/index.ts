@@ -31,6 +31,13 @@ interface IndexedItem extends TodoItem {
   index: number;
 }
 
+interface ForYaml {
+  [key: string]: {
+    done: Array<string>;
+    ['to do']: Array<string>;
+  };
+}
+
 export const getters = {
   completeItems: (state: State) => (todoIndex: number): Array<IndexedItem> => (
     state.todos[todoIndex].items
@@ -73,6 +80,13 @@ export const getters = {
       return isTodoValid(todoIndex) && (counts[title] as number) < 2;
     });
   },
+  forYamlExport: (state: State): ForYaml => state.todos.reduce((lists, { title, items }) => ({
+    ...lists,
+    [title]: {
+      done: items.filter(({ done }) => done).map(({ description }) => description),
+      'to do': items.filter(({ done }) => !done).map(({ description }) => description),
+    },
+  }), {} as ForYaml),
 };
 
 export const mutations = {
