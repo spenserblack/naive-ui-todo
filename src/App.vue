@@ -11,12 +11,14 @@ main(:class="{ dark: theme != null }")
           template(#icon)
             NIcon: SunIcon
           | Light
+      NSpace(justify="end")
+        YamlDownloadButton(:disabled="!isValid")
     RouterView
 </template>
 
 <script lang="ts">
 import 'vfonts/Inter.css';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, computed, ref } from 'vue';
 import { Sunny as SunIcon, Moon as MoonIcon } from '@vicons/ionicons5';
 import {
   NButton,
@@ -26,6 +28,8 @@ import {
   NSpace,
   darkTheme,
 } from 'naive-ui';
+import { useStore } from './store';
+import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
 
 export default defineComponent({
   components: {
@@ -36,11 +40,15 @@ export default defineComponent({
     NSpace,
     SunIcon,
     MoonIcon,
+    YamlDownloadButton,
   },
   setup() {
+    const store = useStore();
+
     return {
       darkTheme,
       theme: ref(darkTheme),
+      isValid: computed(() => store.getters.isValid),
     };
   },
 });

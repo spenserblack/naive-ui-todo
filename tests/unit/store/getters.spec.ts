@@ -186,4 +186,44 @@ describe('store', () => {
       });
     });
   });
+  describe('forYamlExport', () => {
+    const { forYamlExport } = getters;
+
+    it('should convert to YAML that is human-readable', () => {
+      const state = {
+        todos: [
+          {
+            title: 'foo',
+            items: [
+              { description: 'add YAML getter', done: true, id: 1 },
+              { description: 'test getter', done: true, id: 2 },
+              { description: 'leave untested', done: false, id: 3 },
+            ],
+            id: 1,
+          },
+          {
+            title: 'bar',
+            items: [
+              { description: 'lower bar', done: true, id: 4 },
+              { description: 'pass bar exam', done: false, id: 5 },
+            ],
+            id: 2,
+          },
+        ],
+      };
+
+      const actual = forYamlExport(state);
+      const expected = {
+        foo: {
+          done: ['add YAML getter', 'test getter'],
+          'to do': ['leave untested'],
+        },
+        bar: {
+          done: ['lower bar'],
+          'to do': ['pass bar exam'],
+        },
+      };
+      expect(actual).to.deep.equal(expected);
+    });
+  });
 });
