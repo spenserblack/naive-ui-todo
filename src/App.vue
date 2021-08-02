@@ -11,6 +11,8 @@ main(:class="{ dark: theme != null }")
           template(#icon)
             NIcon: SunIcon
           | Light
+      NSpace(justify="end")
+        YamlDownloadButton
     RouterView
 </template>
 
@@ -26,6 +28,7 @@ import {
   NSpace,
   darkTheme,
 } from 'naive-ui';
+import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
 
 export default defineComponent({
   components: {
@@ -36,6 +39,7 @@ export default defineComponent({
     NSpace,
     SunIcon,
     MoonIcon,
+    YamlDownloadButton,
   },
   setup() {
     return {
