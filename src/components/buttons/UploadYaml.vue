@@ -7,7 +7,7 @@ NUpload(
   NButton(type="primary")
     template(#icon)
       NIcon: UploadIcon
-    | Import
+    slot Upload
 </template>
 
 <script lang="ts">

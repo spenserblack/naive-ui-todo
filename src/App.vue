@@ -12,8 +12,8 @@ main(:class="{ dark: theme != null }")
             NIcon: SunIcon
           | Light
       NSpace(justify="end")
-        YamlDownloadButton(:disabled="!isValid")
-        YamlUploadButton
+        YamlDownloadButton(:disabled="!isValid") Export
+        YamlUploadButton Import
     RouterView
 </template>
 
