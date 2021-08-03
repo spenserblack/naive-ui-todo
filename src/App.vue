@@ -14,6 +14,11 @@ main(:class="{ dark: theme != null }")
       NSpace(justify="end")
         YamlDownloadButton(:disabled="!isValid") Export
         YamlUploadButton Import
+      NSpace(justify="end")
+        NButton(type="primary" :loading="saving" :disabled="saving" @click="save")
+          template(#icon)
+            NIcon: SaveIcon
+          | Save
     RouterView
 </template>
 
@@ -22,7 +27,7 @@ import 'vfonts/Inter.css';
 import {
   defineComponent, computed, ref, watch,
 } from 'vue';
-import { Sunny as SunIcon, Moon as MoonIcon } from '@vicons/ionicons5';
+import { Save as SaveIcon, Sunny as SunIcon, Moon as MoonIcon } from '@vicons/ionicons5';
 import {
   NButton,
   NCard,
@@ -64,6 +69,7 @@ export default defineComponent({
     NConfigProvider,
     NIcon,
     NSpace,
+    SaveIcon,
     SunIcon,
     MoonIcon,
     YamlDownloadButton,
