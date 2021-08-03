@@ -2,7 +2,7 @@
 NButton(type="primary" :disabled="disabled" @click="download")
   template(#icon)
     NIcon: YamlIcon
-  | Download
+  slot Download
 </template>
 
 <script lang="ts">
