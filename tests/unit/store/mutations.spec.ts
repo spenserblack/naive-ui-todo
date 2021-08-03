@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { mutations } from '@/store';
+import { mutations, TodoList } from '@/store';
 
 describe('store', () => {
   describe('mutations', () => {
@@ -24,6 +24,45 @@ describe('store', () => {
         const item = todo.items[0];
         expect(item.description).to.equal('y');
         expect(item.done).to.be.false;
+      });
+    });
+    describe('loadFromImport', () => {
+      const { loadFromImport } = mutations;
+
+      it('should load a new state from the import/export format', () => {
+        const state = { todos: [] };
+        const jsonImport = {
+          foo: {
+            done: ['dx', 'dy'],
+            'to do': ['ta', 'tb'],
+          },
+          bar: {
+            done: [],
+            'to do': ['---'],
+          },
+        };
+
+        loadFromImport(state, jsonImport);
+
+        const { todos } = state;
+        expect(todos).to.be.an('array').with.lengthOf(2);
+
+        const foo = todos.find(({ title }) => title === 'foo') as unknown as TodoList;
+        const bar = todos.find(({ title }) => title === 'bar') as unknown as TodoList;
+        expect(foo).to.be.an('object').and.to.have.all.keys('title', 'items', 'id');
+        expect(bar).to.be.an('object').and.to.have.all.keys('title', 'items', 'id');
+        expect(foo.id).to.not.equal(bar.id);
+        expect(foo.items.find(({ description }) => description === 'dx'))
+          .to.include({ done: true });
+        expect(foo.items.find(({ description }) => description === 'dy'))
+          .to.include({ done: true });
+        expect(foo.items.find(({ description }) => description === 'ta'))
+          .to.include({ done: false });
+        expect(foo.items.find(({ description }) => description === 'tb'))
+          .to.include({ done: false });
+        expect(bar.items).to.be.an('array').with.lengthOf(1);
+        expect(bar.items[0].description).to.equal('---');
+        expect(bar.items[0].done).to.be.false;
       });
     });
     describe('addList', () => {

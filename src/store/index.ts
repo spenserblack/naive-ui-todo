@@ -92,8 +92,31 @@ export const getters = {
   },
 };
 
+const load = (state: State, todos: Array<TodoList>): void => {
+  state.todos = reactive(todos);
+};
+
 export const mutations = {
-  load: (state: State, todos: Array<TodoList>): void => {
+  load,
+  loadFromImport: (state: State, jsonImport: ForYaml): void => {
+    const todos = Object.entries(jsonImport)
+      .map(([title, { done, 'to do': toDo }]) => {
+        listId += 1;
+        return {
+          title,
+          items: [
+            toDo.map((description) => {
+              itemId += 1;
+              return { done: false, description, id: itemId };
+            }),
+            done.map((description) => {
+              itemId += 1;
+              return { done: true, description, id: itemId };
+            }),
+          ].flat(),
+          id: listId,
+        };
+      });
     state.todos = reactive(todos);
   },
   addList: (state: State): void => {
