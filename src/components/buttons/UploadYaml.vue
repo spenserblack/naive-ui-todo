@@ -1,19 +1,24 @@
 <template lang="pug">
-NUpload(
-  :accept="acceptTypes"
-  :showFileList="false"
-  @change="onUploadChange"
-)
-  NButton(type="primary")
-    template(#icon)
-      NIcon: UploadIcon
-    slot Upload
+NPopover(placement="top-end")
+  template(#trigger)
+    NUpload(
+      :accept="acceptTypes"
+      :showFileList="false"
+      @change="onUploadChange"
+    )
+      NButton(type="primary")
+        template(#icon)
+          NIcon: UploadIcon
+        slot Upload
+  | This will #[NText(italic) overwrite] the current to-do lists.
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useStore } from '@/store';
-import { NButton, NIcon, NUpload } from 'naive-ui';
+import {
+  NButton, NIcon, NPopover, NText, NUpload,
+} from 'naive-ui';
 import { CodeWorking as UploadIcon } from '@vicons/ionicons5';
 
 type OnChangeParam = {
@@ -23,7 +28,7 @@ type OnChangeParam = {
 
 export default defineComponent({
   components: {
-    NButton, NIcon, NUpload, UploadIcon,
+    NButton, NIcon, NPopover, NText, NUpload, UploadIcon,
   },
   setup() {
     const store = useStore();
