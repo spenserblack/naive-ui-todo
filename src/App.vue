@@ -15,6 +15,10 @@ main(:class="{ dark: theme != null }")
         YamlDownloadButton(:disabled="!isValid") Export
         YamlUploadButton Import
       NSpace(justify="end")
+        NText Automatic saving is
+        NSwitch(v-model:value="saveAutomatically")
+          template(#checked) on
+          template(#unchecked) off
         NButton(type="primary" :loading="saving" :disabled="saving" @click="save")
           template(#icon)
             NIcon: SaveIcon
@@ -34,6 +38,8 @@ import {
   NConfigProvider,
   NIcon,
   NSpace,
+  NSwitch,
+  NText,
   darkTheme,
 } from 'naive-ui';
 import debounce from 'lodash.debounce';
@@ -69,6 +75,8 @@ export default defineComponent({
     NConfigProvider,
     NIcon,
     NSpace,
+    NSwitch,
+    NText,
     SaveIcon,
     SunIcon,
     MoonIcon,
