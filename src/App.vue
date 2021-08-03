@@ -88,7 +88,9 @@ export default defineComponent({
     const save = () => {
       saving.value = true;
       saveTodos(todos.value);
-      saving.value = false;
+      setTimeout(() => {
+        saving.value = false;
+      }, 300);
     };
     const saveIfAutosave = debounce(() => {
       if (saveAutomatically.value) {
