@@ -19,7 +19,9 @@ main(:class="{ dark: theme != null }")
 
 <script lang="ts">
 import 'vfonts/Inter.css';
-import { defineComponent, computed, ref } from 'vue';
+import {
+  defineComponent, computed, ref, watch,
+} from 'vue';
 import { Sunny as SunIcon, Moon as MoonIcon } from '@vicons/ionicons5';
 import {
   NButton,
@@ -29,9 +31,31 @@ import {
   NSpace,
   darkTheme,
 } from 'naive-ui';
-import { useStore } from './store';
+import debounce from 'lodash.debounce';
+import { useStore, TodoList } from './store';
 import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
 import YamlUploadButton from './components/buttons/UploadYaml.vue';
+
+const makeKey = (subkey: string): string => `naive-todo__${subkey}`;
+const todoKey = makeKey('todolist');
+const saveKey = makeKey('autosave');
+
+type LoadableThing = Array<TodoList> | boolean;
+const loadValue = (key: string): undefined | LoadableThing => {
+  const text = localStorage.getItem(key);
+  if (text == null) {
+    return undefined;
+  }
+  return JSON.parse(text);
+};
+const saveValue = (key: string, value: LoadableThing): void => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+const saveTodos = (todos: Array<TodoList>): void => saveValue(todoKey, todos);
+const saveAutoSave = (autoSave: boolean): void => saveValue(saveKey, autoSave);
+
+const savedTodos = loadValue(todoKey) as Array<TodoList> | undefined;
+const autoSave = loadValue(saveKey) as boolean | undefined;
 
 export default defineComponent({
   components: {
@@ -48,10 +72,34 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
+    if (savedTodos != null) {
+      store.commit('load', savedTodos);
+    }
+
+    const saveAutomatically = ref(autoSave ?? true);
+    const todos = computed(() => store.state.todos);
+    const saving = ref(false);
+    const save = () => {
+      saving.value = true;
+      saveTodos(todos.value);
+      saving.value = false;
+    };
+    const saveIfAutosave = debounce(() => {
+      if (saveAutomatically.value) {
+        save();
+      }
+    }, 1000);
+    watch([...todos.value], saveIfAutosave);
+    watch(saveAutomatically, () => saveAutoSave(saveAutomatically.value));
+
     return {
       darkTheme,
       theme: ref(darkTheme),
       isValid: computed(() => store.getters.isValid),
+      saveAutomatically,
+      saving,
+      save,
+      todos,
     };
   },
 });
