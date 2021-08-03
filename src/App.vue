@@ -141,6 +141,7 @@ export default defineComponent({
     height 100%
     padding-left horizontalPadding
     padding-right horizontalPadding
+    overflow auto
 
     &.dark
       background-color #111122
