@@ -1,5 +1,6 @@
 import { InjectionKey, reactive } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
+import { load as fromYaml } from 'js-yaml';
 
 export interface TodoItem {
   description: string;
@@ -96,28 +97,56 @@ const load = (state: State, todos: Array<TodoList>): void => {
   state.todos = reactive(todos);
 };
 
+const loadFromImport = (state: State, jsonImport: ForYaml): void => {
+  const todos = Object.entries(jsonImport)
+    .map(([title, { done, 'to do': toDo }]) => {
+      listId += 1;
+      return {
+        title,
+        items: [
+          toDo.map((description) => {
+            itemId += 1;
+            return { done: false, description, id: itemId };
+          }),
+          done.map((description) => {
+            itemId += 1;
+            return { done: true, description, id: itemId };
+          }),
+        ].flat(),
+        id: listId,
+      };
+    });
+  state.todos = reactive(todos);
+};
+
 export const mutations = {
   load,
-  loadFromImport: (state: State, jsonImport: ForYaml): void => {
-    const todos = Object.entries(jsonImport)
-      .map(([title, { done, 'to do': toDo }]) => {
-        listId += 1;
-        return {
-          title,
-          items: [
-            toDo.map((description) => {
-              itemId += 1;
-              return { done: false, description, id: itemId };
-            }),
-            done.map((description) => {
-              itemId += 1;
-              return { done: true, description, id: itemId };
-            }),
-          ].flat(),
-          id: listId,
-        };
-      });
-    state.todos = reactive(todos);
+  loadFromImport,
+  loadFromYaml: (state: State, yaml: string): void => {
+    const obj = fromYaml(yaml);
+    const typeError = new TypeError(`Does not parse to to-do object: ${yaml}`);
+    switch (typeof obj) {
+      case 'string':
+      case 'number':
+      case 'undefined':
+        throw typeError;
+      default:
+    }
+    if (obj === null) {
+      throw typeError;
+    }
+    type narrowedType = ForYaml | Record<string, Record<string, unknown>>;
+    const descriptionIsStr = (description: string): boolean => typeof description === 'string';
+    Object.values(obj as narrowedType).forEach((list) => {
+      if (!(Array.isArray(list.done) && Array.isArray(list['to do']))) {
+        throw typeError;
+      }
+      const { done, 'to do': toDo } = list;
+      if (!(done.every(descriptionIsStr) && toDo.every(descriptionIsStr))) {
+        throw typeError;
+      }
+    });
+    loadFromImport(state, obj as ForYaml);
   },
   addList: (state: State): void => {
     state.todos.push({ title: '', items: [], id: listId += 1 });

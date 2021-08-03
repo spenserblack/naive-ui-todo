@@ -1,5 +1,8 @@
 import { expect } from 'chai';
 import { mutations, TodoList } from '@/store';
+import {
+  doneIsNull, toDoIsNull, doneNotString, toDoNotString, valid,
+} from './yaml';
 
 describe('store', () => {
   describe('mutations', () => {
@@ -62,6 +65,72 @@ describe('store', () => {
           .to.include({ done: false });
         expect(bar.items).to.be.an('array').with.lengthOf(1);
         expect(bar.items[0].description).to.equal('---');
+        expect(bar.items[0].done).to.be.false;
+      });
+    });
+    describe('loadFromYaml', () => {
+      const { loadFromYaml } = mutations;
+
+      it('should throw an error if the YAML parses to null', () => {
+        const state = { todos: [] };
+        expect(() => loadFromYaml(state, '~')).to.throw();
+        expect(state.todos).to.be.an('array').with.lengthOf(0);
+      });
+      it('should throw an error if the YAML parses to a string', () => {
+        const state = { todos: [] };
+        expect(() => loadFromYaml(state, 'this is a string')).to.throw();
+        expect(state.todos).to.be.an('array').with.lengthOf(0);
+      });
+      it('should throw an error if the YAML parses to a number', () => {
+        const state = { todos: [] };
+        expect(() => loadFromYaml(state, '1')).to.throw();
+        expect(state.todos).to.be.an('array').with.lengthOf(0);
+      });
+      it('should throw an error if the YAML parses to undefined', () => {
+        const state = { todos: [] };
+        expect(() => loadFromYaml(state, '')).to.throw();
+        expect(state.todos).to.be.an('array').with.lengthOf(0);
+      });
+      it('should throw an error if `done` is ever not an array', () => {
+        const state = { todos: [] };
+        expect(() => loadFromYaml(state, doneIsNull)).to.throw();
+        expect(state.todos).to.be.an('array').with.lengthOf(0);
+      });
+      it('should throw an error if `to do` is ever not an array', () => {
+        const state = { todos: [] };
+        expect(() => loadFromYaml(state, toDoIsNull)).to.throw();
+        expect(state.todos).to.be.an('array').with.lengthOf(0);
+      });
+      it('should throw an error if any `done` description not a string', () => {
+        const state = { todos: [] };
+        expect(() => loadFromYaml(state, doneNotString)).to.throw();
+        expect(state.todos).to.be.an('array').with.lengthOf(0);
+      });
+      it('should throw an error if any `to do` description not a string', () => {
+        const state = { todos: [] };
+        expect(() => loadFromYaml(state, toDoNotString)).to.throw();
+        expect(state.todos).to.be.an('array').with.lengthOf(0);
+      });
+      it('should load to-dos from valid YAML', () => {
+        const state = { todos: [] };
+        loadFromYaml(state, valid);
+
+        const { todos } = state;
+        expect(todos).to.be.an('array').with.lengthOf(2);
+
+        const foo = todos.find(({ title }) => title === 'foo') as unknown as TodoList;
+        const bar = todos.find(({ title }) => title === 'bar') as unknown as TodoList;
+        expect(foo).to.be.an('object').and.to.have.all.keys('title', 'items', 'id');
+        expect(bar).to.be.an('object').and.to.have.all.keys('title', 'items', 'id');
+        expect(foo.id).to.not.equal(bar.id);
+        expect(foo.items.find(({ description }) => description === 'a'))
+          .to.include({ done: true });
+        expect(foo.items.find(({ description }) => description === 'b'))
+          .to.include({ done: true });
+        expect(foo.items.find(({ description }) => description === 'c'))
+          .to.include({ done: false });
+        expect(bar.items).to.be.an('array').with.lengthOf(1);
+        expect(bar.items[0].description).to.equal('d');
         expect(bar.items[0].done).to.be.false;
       });
     });
