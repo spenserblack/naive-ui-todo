@@ -13,6 +13,7 @@ main(:class="{ dark: theme != null }")
           | Light
       NSpace(justify="end")
         YamlDownloadButton(:disabled="!isValid")
+        YamlUploadButton
     RouterView
 </template>
 
@@ -30,6 +31,7 @@ import {
 } from 'naive-ui';
 import { useStore } from './store';
 import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
+import YamlUploadButton from './components/buttons/UploadYaml.vue';
 
 export default defineComponent({
   components: {
@@ -41,6 +43,7 @@ export default defineComponent({
     SunIcon,
     MoonIcon,
     YamlDownloadButton,
+    YamlUploadButton,
   },
   setup() {
     const store = useStore();
