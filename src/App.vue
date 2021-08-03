@@ -105,7 +105,7 @@ export default defineComponent({
         save();
       }
     }, 1000);
-    watch([...todos.value], saveIfAutosave);
+    watch([todos.value, ...todos.value], saveIfAutosave);
     watch(saveAutomatically, () => saveAutoSave(saveAutomatically.value));
 
     return {
