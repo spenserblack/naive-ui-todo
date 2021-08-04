@@ -5,6 +5,102 @@ import {
 
 describe('store', () => {
   describe('getters', () => {
+    describe('completeItems', () => {
+      const { completeItems } = getters;
+
+      it('should return only completed (done) items with the appropriate index', () => {
+        const state = {
+          todos: [
+            {
+              title: 'foo',
+              id: 1,
+              items: [
+                {
+                  description: 'a',
+                  done: true,
+                  id: 1,
+                },
+                {
+                  description: 'b',
+                  done: false,
+                  id: 2,
+                },
+                {
+                  description: 'c',
+                  done: false,
+                  id: 3,
+                },
+                {
+                  description: 'd',
+                  done: true,
+                  id: 4,
+                },
+              ],
+            },
+          ],
+        };
+
+        const items = completeItems(state)(0);
+
+        expect(items).to.have.lengthOf(2);
+        expect(items[0].description).to.equal('a');
+        expect(items[1].description).to.equal('d');
+        expect(items[0].done).to.be.true;
+        expect(items[1].done).to.be.true;
+        expect(items[0].id).to.be.equal(1);
+        expect(items[1].id).to.be.equal(4);
+        expect(items[0].index).to.be.equal(0);
+        expect(items[1].index).to.be.equal(3);
+      });
+    });
+    describe('incompleteItems', () => {
+      const { incompleteItems } = getters;
+
+      it('should return only incomplete (done = false) items with the appropriate index', () => {
+        const state = {
+          todos: [
+            {
+              title: 'foo',
+              id: 1,
+              items: [
+                {
+                  description: 'a',
+                  done: true,
+                  id: 1,
+                },
+                {
+                  description: 'b',
+                  done: false,
+                  id: 2,
+                },
+                {
+                  description: 'c',
+                  done: false,
+                  id: 3,
+                },
+                {
+                  description: 'd',
+                  done: true,
+                  id: 4,
+                },
+              ],
+            },
+          ],
+        };
+
+        const items = incompleteItems(state)(0);
+
+        expect(items).to.have.lengthOf(2);
+        expect(items[0].description).to.equal('b');
+        expect(items[1].description).to.equal('c');
+        expect(items[0].done).to.be.false;
+        expect(items[1].done).to.be.false;
+        expect(items[0].id).to.be.equal(2);
+        expect(items[1].id).to.be.equal(3);
+        expect(items[0].index).to.be.equal(1);
+        expect(items[1].index).to.be.equal(2);
+      });
+    });
     describe('isValid', () => {
       const { isValid } = getters;
 
