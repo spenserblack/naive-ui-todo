@@ -24,4 +24,7 @@ jobs:
         cache: yarn
     - run: yarn install --frozen-lockfile
     - run: yarn build
-    - run: yarn test:unit
+    - name: test
+      run: yarn test:cov
+    - name: upload report
+      run: yarn cov:report
