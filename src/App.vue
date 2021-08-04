@@ -23,25 +23,31 @@ main(:class="{ dark: theme != null }")
           template(#icon)
             NIcon: SaveIcon
           | Save
+      NSpace(justify="center")
+        NMenu(:options="menuOptions")
     RouterView
 </template>
 
 <script lang="ts">
 import 'vfonts/Inter.css';
 import {
-  defineComponent, computed, ref, watch,
+  defineComponent, computed, h, ref, watch,
 } from 'vue';
-import { Save as SaveIcon, Sunny as SunIcon, Moon as MoonIcon } from '@vicons/ionicons5';
+import {
+  Home as HomeIcon, Save as SaveIcon, Sunny as SunIcon, Moon as MoonIcon,
+} from '@vicons/ionicons5';
 import {
   NButton,
   NCard,
   NConfigProvider,
   NIcon,
+  NMenu,
   NSpace,
   NSwitch,
   NText,
   darkTheme,
 } from 'naive-ui';
+import { RouterLink } from 'vue-router';
 import debounce from 'lodash.debounce';
 import { useStore, TodoList } from './store';
 import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
@@ -74,6 +80,7 @@ export default defineComponent({
     NCard,
     NConfigProvider,
     NIcon,
+    NMenu,
     NSpace,
     NSwitch,
     NText,
@@ -108,6 +115,14 @@ export default defineComponent({
     watch([todos.value, ...todos.value], saveIfAutosave);
     watch(saveAutomatically, () => saveAutoSave(saveAutomatically.value));
 
+    const menuOptions = [
+      {
+        label: () => h(RouterLink, { to: { name: 'Home' } }, () => 'Home'),
+        key: `todo__home-${Math.trunc(Math.random() * 10_000)}`,
+        icon: () => h(NIcon, null, () => h(HomeIcon)),
+      },
+    ];
+
     return {
       darkTheme,
       theme: ref(darkTheme),
@@ -116,6 +131,7 @@ export default defineComponent({
       saving,
       save,
       todos,
+      menuOptions,
     };
   },
 });
