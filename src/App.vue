@@ -24,7 +24,7 @@ main(:class="{ dark: theme != null }")
             NIcon: SaveIcon
           | Save
       NSpace(justify="center")
-        NMenu(:options="menuOptions" mode="horizontal")
+        NMenu(:options="menuOptions" mode="horizontal" :value="activeKey")
     RouterView
 </template>
 
@@ -47,9 +47,10 @@ import {
   NText,
   darkTheme,
 } from 'naive-ui';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import debounce from 'lodash.debounce';
 import { useStore, TodoList } from './store';
+
 import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
 import YamlUploadButton from './components/buttons/UploadYaml.vue';
 
@@ -92,6 +93,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     if (savedTodos != null) {
       store.commit('load', savedTodos);
@@ -115,17 +117,32 @@ export default defineComponent({
     watch([todos.value, ...todos.value], saveIfAutosave);
     watch(saveAutomatically, () => saveAutoSave(saveAutomatically.value));
 
+    const menuHomeKey = 'todo__home';
+    const menuTodoKey = (id: number): string => `todo__${id}`;
     const menuOptions = computed(() => [
       {
         label: () => h(RouterLink, { to: { name: 'Home' } }, () => 'Home'),
-        key: `todo__home-${Math.trunc(Math.random() * 10_000)}`,
+        key: menuHomeKey,
         icon: () => h(NIcon, null, () => h(HomeIcon)),
       },
     ].concat(store.state.todos.map(({ title, id }, index) => ({
       label: () => h(RouterLink, { to: { name: 'Todo', params: { index } } }, () => title),
-      key: `todo__${id}`,
+      key: menuTodoKey(id),
       icon: () => h(NIcon, null, () => h(ListIcon)),
     }))));
+    const activeKey = computed((): string | null => {
+      const currentRoute = router.currentRoute.value;
+      switch (currentRoute.name) {
+        case 'Home':
+          return menuHomeKey;
+        case 'Todo': {
+          const todo = store.state.todos[Number.parseInt(currentRoute.params.index as string, 10)];
+          return menuTodoKey(todo.id);
+        }
+        default:
+          return null;
+      }
+    });
 
     return {
       darkTheme,
@@ -136,6 +153,7 @@ export default defineComponent({
       save,
       todos,
       menuOptions,
+      activeKey,
     };
   },
 });
