@@ -24,7 +24,7 @@ main(:class="{ dark: theme != null }")
             NIcon: SaveIcon
           | Save
       NSpace(justify="center")
-        NMenu(:options="menuOptions" mode="horizontal" :value="activeKey")
+        NMenu(:options="menuOptions" :mode="menuMode" :value="activeKey")
     RouterView
 </template>
 
@@ -130,6 +130,7 @@ export default defineComponent({
       }
       return true;
     });
+    const maxTodoOptions = 10;
     const menuHomeKey = 'todo__home';
     const menuTodoKey = (id: number): string => `todo__${id}`;
     const menuOptions = computed(() => {
@@ -143,8 +144,22 @@ export default defineComponent({
         key: menuTodoKey(id),
         icon: () => h(NIcon, null, () => h(ListIcon)),
       }));
+      if (todoOptions.length > maxTodoOptions) {
+        return [
+          homeOption,
+          {
+            label: 'To-Do Lists',
+            key: 'todo__extra-lists',
+            icon: () => h(NIcon, null, () => h(ListIcon)),
+            children: todoOptions,
+          },
+        ];
+      }
       return [homeOption, ...todoOptions];
     });
+    const menuMode = computed(() => (
+      store.state.todos.length > maxTodoOptions ? 'vertical' : 'horizontal'
+    ));
     const activeKey = computed((): string | null => {
       const currentRoute = router.currentRoute.value;
       switch (currentRoute.name) {
@@ -168,6 +183,7 @@ export default defineComponent({
       save,
       todos,
       menuOptions,
+      menuMode,
       activeKey,
     };
   },
