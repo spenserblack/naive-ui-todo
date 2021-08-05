@@ -3,18 +3,6 @@ main(:class="{ dark: theme != null }")
   NConfigProvider(:theme="theme")
     NCard
       NSpace(justify="end")
-        NButton(v-if="theme == null" @click="theme = darkTheme")
-          template(#icon)
-            NIcon: MoonIcon
-          | Dark
-        NButton(v-else @click="theme = null")
-          template(#icon)
-            NIcon: SunIcon
-          | Light
-      NSpace(justify="end")
-        YamlDownloadButton(:disabled="!isValid") Export
-        YamlUploadButton Import
-      NSpace(justify="end")
         NText Automatic saving is
         NSwitch(v-model:value="saveAutomatically")
           template(#checked) on
@@ -23,6 +11,16 @@ main(:class="{ dark: theme != null }")
           template(#icon)
             NIcon: SaveIcon
           | Save
+        YamlDownloadButton(:disabled="!isValid") Export
+        YamlUploadButton Import
+        NButton(v-if="theme == null" @click="theme = darkTheme")
+          template(#icon)
+            NIcon: MoonIcon
+          | Dark
+        NButton(v-else @click="theme = null")
+          template(#icon)
+            NIcon: SunIcon
+          | Light
       NSpace(justify="center")
         NMenu(:options="menuOptions" :mode="menuMode" :value="activeKey")
     #main-view
@@ -219,5 +217,5 @@ main
     background-color #111122
 
 #main-view
-  height 75vh
+  height 80vh
 </style>
