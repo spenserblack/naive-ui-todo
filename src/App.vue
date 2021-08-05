@@ -132,17 +132,19 @@ export default defineComponent({
     });
     const menuHomeKey = 'todo__home';
     const menuTodoKey = (id: number): string => `todo__${id}`;
-    const menuOptions = computed(() => [
-      {
+    const menuOptions = computed(() => {
+      const homeOption = {
         label: () => h(RouterLink, { to: { name: 'Home' } }, () => 'Home'),
         key: menuHomeKey,
         icon: () => h(NIcon, null, () => h(HomeIcon)),
-      },
-    ].concat(store.state.todos.map(({ title, id }, index) => ({
-      label: () => h(RouterLink, { to: { name: 'Todo', params: { index } } }, () => title),
-      key: menuTodoKey(id),
-      icon: () => h(NIcon, null, () => h(ListIcon)),
-    }))));
+      };
+      const todoOptions = store.state.todos.map(({ title, id }, index) => ({
+        label: () => h(RouterLink, { to: { name: 'Todo', params: { index } } }, () => title),
+        key: menuTodoKey(id),
+        icon: () => h(NIcon, null, () => h(ListIcon)),
+      }));
+      return [homeOption, ...todoOptions];
+    });
     const activeKey = computed((): string | null => {
       const currentRoute = router.currentRoute.value;
       switch (currentRoute.name) {
