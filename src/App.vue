@@ -23,27 +23,34 @@ main(:class="{ dark: theme != null }")
           template(#icon)
             NIcon: SaveIcon
           | Save
+      NSpace(justify="center")
+        NMenu(:options="menuOptions" :mode="menuMode" :value="activeKey")
     RouterView
 </template>
 
 <script lang="ts">
 import 'vfonts/Inter.css';
 import {
-  defineComponent, computed, ref, watch,
+  defineComponent, computed, h, ref, watch,
 } from 'vue';
-import { Save as SaveIcon, Sunny as SunIcon, Moon as MoonIcon } from '@vicons/ionicons5';
+import {
+  Home as HomeIcon, List as ListIcon, Save as SaveIcon, Sunny as SunIcon, Moon as MoonIcon,
+} from '@vicons/ionicons5';
 import {
   NButton,
   NCard,
   NConfigProvider,
   NIcon,
+  NMenu,
   NSpace,
   NSwitch,
   NText,
   darkTheme,
 } from 'naive-ui';
+import { RouterLink, useRouter } from 'vue-router';
 import debounce from 'lodash.debounce';
 import { useStore, TodoList } from './store';
+
 import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
 import YamlUploadButton from './components/buttons/UploadYaml.vue';
 
@@ -74,6 +81,7 @@ export default defineComponent({
     NCard,
     NConfigProvider,
     NIcon,
+    NMenu,
     NSpace,
     NSwitch,
     NText,
@@ -85,6 +93,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     if (savedTodos != null) {
       store.commit('load', savedTodos);
@@ -108,6 +117,63 @@ export default defineComponent({
     watch([todos.value, ...todos.value], saveIfAutosave);
     watch(saveAutomatically, () => saveAutoSave(saveAutomatically.value));
 
+    router.beforeEach(({ fullPath, name, params }) => {
+      if (name === 'Home') {
+        return true;
+      }
+      if (name === 'Todo') {
+        const todoIndex = Number.parseInt(params.index as string, 10);
+        if (store.state.todos[todoIndex] == null) {
+          console.warn('User attempted to access invalid route:', fullPath);
+          return { replace: true, name: 'Home' };
+        }
+      }
+      return true;
+    });
+    const maxTodoOptions = 10;
+    const menuHomeKey = 'todo__home';
+    const menuTodoKey = (id: number): string => `todo__${id}`;
+    const menuOptions = computed(() => {
+      const homeOption = {
+        label: () => h(RouterLink, { to: { name: 'Home' } }, () => 'Home'),
+        key: menuHomeKey,
+        icon: () => h(NIcon, null, () => h(HomeIcon)),
+      };
+      const todoOptions = store.state.todos.map(({ title, id }, index) => ({
+        label: () => h(RouterLink, { to: { name: 'Todo', params: { index } } }, () => title),
+        key: menuTodoKey(id),
+        icon: () => h(NIcon, null, () => h(ListIcon)),
+      }));
+      if (todoOptions.length > maxTodoOptions) {
+        return [
+          homeOption,
+          {
+            label: 'To-Do Lists',
+            key: 'todo__extra-lists',
+            icon: () => h(NIcon, null, () => h(ListIcon)),
+            children: todoOptions,
+          },
+        ];
+      }
+      return [homeOption, ...todoOptions];
+    });
+    const menuMode = computed(() => (
+      store.state.todos.length > maxTodoOptions ? 'vertical' : 'horizontal'
+    ));
+    const activeKey = computed((): string | null => {
+      const currentRoute = router.currentRoute.value;
+      switch (currentRoute.name) {
+        case 'Home':
+          return menuHomeKey;
+        case 'Todo': {
+          const todo = store.state.todos[Number.parseInt(currentRoute.params.index as string, 10)];
+          return menuTodoKey(todo.id);
+        }
+        default:
+          return null;
+      }
+    });
+
     return {
       darkTheme,
       theme: ref(darkTheme),
@@ -116,6 +182,9 @@ export default defineComponent({
       saving,
       save,
       todos,
+      menuOptions,
+      menuMode,
+      activeKey,
     };
   },
 });
