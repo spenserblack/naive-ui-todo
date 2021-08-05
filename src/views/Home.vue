@@ -32,7 +32,6 @@ export default defineComponent({
 
     return {
       todos: computed(() => store.state.todos),
-      isValid: computed(() => store.getters.isValid),
       addList: () => store.commit('addList'),
       removeList: (index: number) => store.commit('removeList', index),
     };
