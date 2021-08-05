@@ -117,6 +117,19 @@ export default defineComponent({
     watch([todos.value, ...todos.value], saveIfAutosave);
     watch(saveAutomatically, () => saveAutoSave(saveAutomatically.value));
 
+    router.beforeEach(({ fullPath, name, params }) => {
+      if (name === 'Home') {
+        return true;
+      }
+      if (name === 'Todo') {
+        const todoIndex = Number.parseInt(params.index as string, 10);
+        if (store.state.todos[todoIndex] == null) {
+          console.warn('User attempted to access invalid route:', fullPath);
+          return { replace: true, name: 'Home' };
+        }
+      }
+      return true;
+    });
     const menuHomeKey = 'todo__home';
     const menuTodoKey = (id: number): string => `todo__${id}`;
     const menuOptions = computed(() => [
