@@ -34,7 +34,7 @@ import {
   defineComponent, computed, h, ref, watch,
 } from 'vue';
 import {
-  Home as HomeIcon, Save as SaveIcon, Sunny as SunIcon, Moon as MoonIcon,
+  Home as HomeIcon, List as ListIcon, Save as SaveIcon, Sunny as SunIcon, Moon as MoonIcon,
 } from '@vicons/ionicons5';
 import {
   NButton,
@@ -115,13 +115,17 @@ export default defineComponent({
     watch([todos.value, ...todos.value], saveIfAutosave);
     watch(saveAutomatically, () => saveAutoSave(saveAutomatically.value));
 
-    const menuOptions = [
+    const menuOptions = computed(() => [
       {
         label: () => h(RouterLink, { to: { name: 'Home' } }, () => 'Home'),
         key: `todo__home-${Math.trunc(Math.random() * 10_000)}`,
         icon: () => h(NIcon, null, () => h(HomeIcon)),
       },
-    ];
+    ].concat(store.state.todos.map(({ title, id }, index) => ({
+      label: () => h(RouterLink, { to: { name: 'Todo', params: { index } } }, () => title),
+      key: `todo__${id}`,
+      icon: () => h(NIcon, null, () => h(ListIcon)),
+    }))));
 
     return {
       darkTheme,
