@@ -25,6 +25,7 @@ main(:class="{ dark: theme != null }")
         NMenu(:options="menuOptions" :mode="menuMode" :value="activeKey")
     #main-view
       NScrollbar
+        NBackTop
         RouterView
 </template>
 
@@ -37,6 +38,7 @@ import {
   Home as HomeIcon, List as ListIcon, Save as SaveIcon, Sunny as SunIcon, Moon as MoonIcon,
 } from '@vicons/ionicons5';
 import {
+  NBackTop,
   NButton,
   NCard,
   NConfigProvider,
@@ -78,6 +80,7 @@ const autoSave = loadValue(saveKey) as boolean | undefined;
 
 export default defineComponent({
   components: {
+    NBackTop,
     NButton,
     NCard,
     NConfigProvider,
