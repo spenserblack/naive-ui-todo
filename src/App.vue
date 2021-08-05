@@ -25,7 +25,9 @@ main(:class="{ dark: theme != null }")
           | Save
       NSpace(justify="center")
         NMenu(:options="menuOptions" :mode="menuMode" :value="activeKey")
-    RouterView
+    #main-view
+      NScrollbar
+        RouterView
 </template>
 
 <script lang="ts">
@@ -42,6 +44,7 @@ import {
   NConfigProvider,
   NIcon,
   NMenu,
+  NScrollbar,
   NSpace,
   NSwitch,
   NText,
@@ -82,6 +85,7 @@ export default defineComponent({
     NConfigProvider,
     NIcon,
     NMenu,
+    NScrollbar,
     NSpace,
     NSwitch,
     NText,
@@ -197,21 +201,23 @@ export default defineComponent({
   -moz-osx-font-smoothing grayscale
   text-align center
   margin 0
-  position fixed
+  position absolute
   width 100vw
   height 100vh
 </style>
 
 <style lang="stylus" scoped>
-  main
-    mainWidth = 100%
-    horizontalPadding = 1%
-    width mainWidth - (horizontalPadding * 2)
-    height 100%
-    padding-left horizontalPadding
-    padding-right horizontalPadding
-    overflow auto
+main
+  mainWidth = 100%
+  horizontalPadding = 1%
+  width mainWidth - (horizontalPadding * 2)
+  height 100%
+  padding-left horizontalPadding
+  padding-right horizontalPadding
 
-    &.dark
-      background-color #111122
+  &.dark
+    background-color #111122
+
+#main-view
+  height 75vh
 </style>
