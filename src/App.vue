@@ -24,7 +24,7 @@ main(:class="{ dark: theme != null }")
             NIcon: SaveIcon
           | Save
       NSpace(justify="center")
-        NMenu(:options="menuOptions")
+        NMenu(:options="menuOptions" mode="horizontal")
     RouterView
 </template>
 
