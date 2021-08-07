@@ -75,10 +75,10 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const store = useStore();
-    const todo = store.state.todos[props.index];
+    const todo = computed(() => store.state.todos[props.index]);
 
     return {
-      todo: computed(() => todo),
+      todo,
       setTitle: (title: string) => store.commit('setTodoTitle', { index: props.index, title }),
       onDelete: () => emit('delete', props.index),
       addTodoItem: () => store.commit('addTodoItem', { index: props.index }),
