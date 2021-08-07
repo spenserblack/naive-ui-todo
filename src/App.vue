@@ -138,12 +138,12 @@ export default defineComponent({
     const maxTodoOptions = 10;
     const menuHomeKey = 'todo__home';
     const menuTodoKey = (id: number): string => `todo__${id}`;
+    const homeOption = {
+      label: () => h(RouterLink, { to: { name: 'Home' } }, () => 'Home'),
+      key: menuHomeKey,
+      icon: () => h(NIcon, null, () => h(HomeIcon)),
+    };
     const menuOptions = computed(() => {
-      const homeOption = {
-        label: () => h(RouterLink, { to: { name: 'Home' } }, () => 'Home'),
-        key: menuHomeKey,
-        icon: () => h(NIcon, null, () => h(HomeIcon)),
-      };
       const todoOptions = store.state.todos.map(({ title, id }, index) => ({
         label: () => h(RouterLink, { to: { name: 'Todo', params: { index } } }, () => title),
         key: menuTodoKey(id),
