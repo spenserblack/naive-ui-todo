@@ -35,7 +35,12 @@ import {
   defineComponent, computed, h, ref, watch,
 } from 'vue';
 import {
-  Home as HomeIcon, List as ListIcon, Save as SaveIcon, Sunny as SunIcon, Moon as MoonIcon,
+  Add as AddIcon,
+  Home as HomeIcon,
+  List as ListIcon,
+  Save as SaveIcon,
+  Sunny as SunIcon,
+  Moon as MoonIcon,
 } from '@vicons/ionicons5';
 import {
   NBackTop,
@@ -135,13 +140,33 @@ export default defineComponent({
       }
       return true;
     });
+    const rerouteLastItem = (): void => {
+      router.push({ name: 'Todo', params: { index: store.state.todos.length - 1 } });
+    };
+
     const maxTodoOptions = 10;
     const menuHomeKey = 'todo__home';
     const menuTodoKey = (id: number): string => `todo__${id}`;
+    const menuAddKey = 'todo__add';
     const homeOption = {
       label: () => h(RouterLink, { to: { name: 'Home' } }, () => 'Home'),
       key: menuHomeKey,
       icon: () => h(NIcon, null, () => h(HomeIcon)),
+    };
+    const addOption = {
+      label: () => h('span', {
+        onClick: (): void => {
+          store.commit('addList');
+          rerouteLastItem();
+        },
+      }, 'Add List'),
+      key: menuAddKey,
+      icon: () => h(NIcon, {
+        onClick: (): void => {
+          store.commit('addList');
+          rerouteLastItem();
+        },
+      }, () => h(AddIcon)),
     };
     const menuOptions = computed(() => {
       const todoOptions = store.state.todos.map(({ title, id }, index) => ({
@@ -158,9 +183,10 @@ export default defineComponent({
             icon: () => h(NIcon, null, () => h(ListIcon)),
             children: todoOptions,
           },
+          addOption,
         ];
       }
-      return [homeOption, ...todoOptions];
+      return [homeOption, ...todoOptions, addOption];
     });
     const menuMode = computed(() => (
       store.state.todos.length > maxTodoOptions ? 'vertical' : 'horizontal'
