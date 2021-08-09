@@ -67,6 +67,7 @@ export default defineComponent({
     EditableText,
     Item,
   },
+  emits: ['delete'],
   props: {
     index: {
       type: Number,

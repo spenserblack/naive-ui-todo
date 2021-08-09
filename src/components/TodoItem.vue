@@ -27,6 +27,7 @@ export default defineComponent({
   components: {
     NButton, NCheckbox, NIcon, NSpace, DeleteIcon, EditableText,
   },
+  emits: ['delete'],
   props: {
     todoIndex: {
       type: Number,

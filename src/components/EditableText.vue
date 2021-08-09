@@ -51,6 +51,7 @@ export default defineComponent({
   components: {
     NButton, NH1, NH2, NH3, NH4, NH5, NH6, NIcon, NInput, NInputGroup, NP, NText, ConfirmIcon,
   },
+  emits: ['update:value'],
   props: {
     tag: {
       type: String,
