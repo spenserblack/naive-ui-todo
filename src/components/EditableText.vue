@@ -1,42 +1,47 @@
-<template lang="pug">
-span.editable-text
-  component(
-    v-if="!editing"
-    :is="nTag"
-    @click="editing = true"
-    :strong="textStyle.strong"
-    :italic="textStyle.italic"
-    :underline="textStyle.underline"
-    :delete="textStyle.delete"
-    :code="textStyle.code"
-    :depth="textDepth"
-  ) {{ text }}
-  NInputGroup(v-else)
-    NInput(
-      :size="size"
-      :value="text"
-      @update:value="$emit('update:value', $event)"
-      @blur="editing = textEmpty"
-      @keyup.enter="editing = textEmpty"
-      clearable
-      :placeholder="inputPlaceholder"
-    )
-    NButton(:size="size" type="success" @click="editing = textEmpty")
-      template(#icon)
-        NIcon: ConfirmIcon
-      | Confirm
+<template>
+  <span class="editable-text">
+    <DynamicText
+      v-if="!editing"
+      :tag="tag"
+      @click="editing = true"
+      :strong="textStyle.strong"
+      :italic="textStyle.italic"
+      :underline="textStyle.underline"
+      :delete="textStyle.delete"
+      :code="textStyle.code"
+      :depth="textDepth"
+    >
+      {{ text }}
+    </DynamicText>
+    <NInputGroup v-else>
+      <NInput
+        :size="size"
+        :value="text"
+        @update:value="emit('update:value', $event)"
+        @blur="editing = textEmpty"
+        @keyup.enter="editing = textEmpty"
+        clearable
+        :placeholder="inputPlaceholder"
+      />
+      <NButton :size="size" type="success" @click="editing = textEmpty">
+        <template #icon>
+          <NIcon><ConfirmIcon /></NIcon>
+        </template>
+        Confirm
+      </NButton>
+    </NInputGroup>
+  </span>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { computed, ref } from 'vue';
 import {
-  defineComponent, computed, ref, PropType,
-} from 'vue';
-import {
-  NButton, NH1, NH2, NH3, NH4, NH5, NH6, NIcon, NInput, NInputGroup, NP, NText,
+  NButton, NIcon, NInput, NInputGroup,
 } from 'naive-ui';
 import { Checkmark as ConfirmIcon } from '@vicons/ionicons5';
+import DynamicText, { TagProp, DepthProp } from './DynamicText';
 
-interface TextStyle {
+interface TextStyleProp {
   strong: boolean;
   italic: boolean;
   underline: boolean;
@@ -44,63 +49,28 @@ interface TextStyle {
   code: boolean;
 }
 
-type TextDepth = 1 | 2 | 3 | '1' | '2' | '3';
+interface Props {
+  tag?: TagProp;
+  text: string;
+  textStyle?: TextStyleProp;
+  textDepth?: DepthProp;
+  size?: 'tiny' | 'small' | 'medium' | 'large';
+  inputPlaceholder?: string;
+}
 
-export default defineComponent({
-  name: 'Editable Text',
-  components: {
-    NButton, NH1, NH2, NH3, NH4, NH5, NH6, NIcon, NInput, NInputGroup, NP, NText, ConfirmIcon,
-  },
-  emits: ['update:value'],
-  props: {
-    tag: {
-      type: String,
-      default: 'text',
-      validator: (value: string): boolean => [
-        'text',
-        'h1',
-        'h2',
-        'h3',
-        'h4',
-        'h5',
-        'h6',
-        'p',
-      ].includes(value),
-    },
-    text: {
-      type: String,
-      required: true,
-    },
-    textStyle: {
-      type: Object as PropType<TextStyle>,
-      default: () => ({
-        strong: false,
-        italic: false,
-        underline: false,
-        delete: false,
-        code: false,
-      }),
-    },
-    textDepth: {
-      type: [Number, String] as PropType<TextDepth>,
-      default: 1,
-    },
-    size: {
-      type: String,
-      default: 'medium',
-      validator: (value: string): boolean => ['tiny', 'small', 'medium', 'large'].includes(value),
-    },
-    inputPlaceholder: {
-      type: String,
-      default: 'Please input a value',
-    },
-  },
-  setup(props) {
-    return {
-      textEmpty: computed((): boolean => !props.text),
-      editing: ref(!props.text),
-      nTag: computed((): string => `n-${props.tag}`),
-    };
-  },
+const props = withDefaults(defineProps<Props>(), {
+  tag: 'text',
+  textStyle: () => ({
+    strong: false, italic: false, underline: false, delete: false, code: false,
+  }),
+  textDepth: 1,
+  size: 'medium',
+  inputPlaceholder: 'Please input a value',
 });
+
+const emit = defineEmits<{(e: 'update:value', value: string): void,
+}>();
+
+const textEmpty = computed((): boolean => !props.text);
+const editing = ref(!props.text);
 </script>
