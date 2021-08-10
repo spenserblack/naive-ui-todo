@@ -322,4 +322,94 @@ describe('store', () => {
       });
     });
   });
+  describe('nextTodoId', () => {
+    const { nextTodoId } = getters;
+
+    it('should return 1 if there are no to-do lists', () => {
+      const state = { todos: [] };
+
+      expect(nextTodoId(state)).to.equal(1);
+    });
+
+    it('should return 1 if the max id is 0', () => {
+      const state = { todos: [{ title: 'foo', items: [], id: 0 }] };
+
+      expect(nextTodoId(state)).to.equal(1);
+    });
+
+    it('should return 4 if the largest current id is 3', () => {
+      const state = {
+        todos: [
+          {
+            title: 'foo',
+            items: [],
+            id: 1,
+          },
+          {
+            title: 'foo',
+            items: [],
+            id: 3,
+          },
+        ],
+      };
+
+      expect(nextTodoId(state)).to.equal(4);
+    });
+  });
+  describe('nextItemId', () => {
+    const { nextItemId } = getters;
+
+    it('should return 1 if there are no items', () => {
+      const state = {
+        todos: [
+          {
+            title: 'foo',
+            items: [],
+            id: 1,
+          },
+        ],
+      };
+
+      expect(nextItemId(state)(0)).to.equal(1);
+    });
+
+    it('should return 1 if there are the max id is 0', () => {
+      const state = {
+        todos: [
+          {
+            title: 'foo',
+            items: [{ description: 'a', id: 0, done: false }],
+            id: 1,
+          },
+        ],
+      };
+
+      expect(nextItemId(state)(0)).to.equal(1);
+    });
+
+    it('should return 4 if the largest current id is 3', () => {
+      const state = {
+        todos: [
+          {
+            title: 'foo',
+            items: [
+              {
+                description: 'a',
+                done: false,
+                id: 1,
+              },
+              {
+                description: 'b',
+                done: false,
+                id: 3,
+              },
+            ],
+            id: 1,
+          },
+        ],
+      };
+
+      expect(nextItemId(state)(0)).to.equal(4);
+    });
+  });
 });
