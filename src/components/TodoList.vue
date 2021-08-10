@@ -23,14 +23,14 @@ NCard.todo(size="huge" hoverable)
       :todoIndex="index"
       :itemIndex="item.index"
       @delete="removeTodoItem"
-      :key="`todo-item-${item.id}-not-done`"
+      :key="`todo-${todo.id}-item-${item.id}-not-done`"
     )
     Item(
       v-for="item in completeItems"
       :todoIndex="index"
       :itemIndex="item.index"
       @delete="removeTodoItem"
-      :key="`todo-item-${item.id}-done`"
+      :key="`todo-${todo.id}-item-${item.id}-done`"
     )
   template(#footer)
     NSpace(justify="left")
