@@ -15,11 +15,11 @@ NPopover(placement="top-end")
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useStore } from '@/store';
 import {
   NButton, NIcon, NPopover, NText, NUpload,
 } from 'naive-ui';
 import { CodeWorking as UploadIcon } from '@vicons/ionicons5';
+import { useStore } from '@/store';
 
 type OnChangeParam = {
   file: { file: File },

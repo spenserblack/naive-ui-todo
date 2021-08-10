@@ -15,11 +15,11 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { useStore } from '@/store';
 import {
   NButton, NDivider, NH2, NIcon, NSpace,
 } from 'naive-ui';
 import { Add as AddIcon } from '@vicons/ionicons5';
+import { useStore } from '@/store';
 import TodoList from '@/components/TodoList.vue';
 
 export default defineComponent({

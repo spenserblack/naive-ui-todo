@@ -42,11 +42,11 @@ NCard.todo(size="huge" hoverable)
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { useStore } from '@/store';
 import {
   NButton, NCard, NH2, NIcon, NInput, NInputGroup, NPopconfirm, NSpace,
 } from 'naive-ui';
 import { Add as AddIcon, Checkmark as ConfirmIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
+import { useStore } from '@/store';
 import Item from './TodoItem.vue';
 import EditableText from './EditableText.vue';
 

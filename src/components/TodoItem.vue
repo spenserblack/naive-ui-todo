@@ -15,11 +15,11 @@ NSpace(justify="left")
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { useStore } from '@/store';
 import {
   NButton, NCheckbox, NIcon, NSpace,
 } from 'naive-ui';
 import { Trash as DeleteIcon } from '@vicons/ionicons5';
+import { useStore } from '@/store';
 import EditableText from './EditableText.vue';
 
 export default defineComponent({
