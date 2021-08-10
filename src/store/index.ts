@@ -18,11 +18,7 @@ export interface State {
   todos: Array<TodoList>;
 }
 
-let listId = 0;
-
 export const key: InjectionKey<Store<State>> = Symbol('store');
-
-let itemId = 0;
 
 export type IsItemValidType = (todoIndex: number, itemIndex: number) => boolean;
 export type AreItemsValidType = (todoIndex: number) => boolean;
@@ -38,6 +34,15 @@ interface ForYaml {
     ['to do']: Array<string>;
   };
 }
+
+const nextTodoId = (state: State): number => 1 + state.todos.reduce(
+  (maxId: number, { id }) => (id > maxId ? id : maxId),
+  0,
+);
+const nextItemId = (state: State) => (index: number): number => 1 + state.todos[index].items.reduce(
+  (maxId: number, { id }) => (id > maxId ? id : maxId),
+  0,
+);
 
 export const getters = {
   completeItems: (state: State) => (todoIndex: number): Array<IndexedItem> => (
@@ -91,14 +96,8 @@ export const getters = {
     });
     return yaml;
   },
-  nextTodoId: (state: State): number => 1 + state.todos.reduce(
-    (maxId: number, { id }) => (id > maxId ? id : maxId),
-    0,
-  ),
-  nextItemId: (state: State) => (index: number): number => 1 + state.todos[index].items.reduce(
-    (maxId: number, { id }) => (id > maxId ? id : maxId),
-    0,
-  ),
+  nextTodoId,
+  nextItemId,
 };
 
 const load = (state: State, todos: Array<TodoList>): void => {
@@ -106,6 +105,8 @@ const load = (state: State, todos: Array<TodoList>): void => {
 };
 
 const loadFromImport = (state: State, jsonImport: ForYaml): void => {
+  let listId = 0;
+  let itemId = 0;
   const todos = Object.entries(jsonImport)
     .map(([title, { done, 'to do': toDo }]) => {
       listId += 1;
@@ -157,7 +158,8 @@ export const mutations = {
     loadFromImport(state, obj as ForYaml);
   },
   addList: (state: State): void => {
-    state.todos.push({ title: '', items: [], id: listId += 1 });
+    const id = nextTodoId(state);
+    state.todos.push({ title: '', items: [], id });
   },
   removeList: (state: State, index: number): void => {
     state.todos.splice(index, 1);
@@ -166,7 +168,8 @@ export const mutations = {
     state.todos[index].title = title;
   },
   addTodoItem: (state: State, { index }: { index: number }): void => {
-    state.todos[index].items.push({ description: '', done: false, id: itemId += 1 });
+    const id = nextItemId(state)(index);
+    state.todos[index].items.push({ description: '', done: false, id });
   },
   removeTodoItem: (state: State, { todoIndex, itemIndex }: {
     todoIndex: number, itemIndex: number
