@@ -331,6 +331,12 @@ describe('store', () => {
       expect(nextTodoId(state)).to.equal(1);
     });
 
+    it('should return 1 if the max id is 0', () => {
+      const state = { todos: [{ title: 'foo', items: [], id: 0 }] };
+
+      expect(nextTodoId(state)).to.equal(1);
+    });
+
     it('should return 4 if the largest current id is 3', () => {
       const state = {
         todos: [
@@ -359,6 +365,20 @@ describe('store', () => {
           {
             title: 'foo',
             items: [],
+            id: 1,
+          },
+        ],
+      };
+
+      expect(nextItemId(state)(0)).to.equal(1);
+    });
+
+    it('should return 1 if there are the max id is 0', () => {
+      const state = {
+        todos: [
+          {
+            title: 'foo',
+            items: [{ description: 'a', id: 0, done: false }],
             id: 1,
           },
         ],
