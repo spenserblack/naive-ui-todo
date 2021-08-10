@@ -91,6 +91,14 @@ export const getters = {
     });
     return yaml;
   },
+  nextTodoId: (state: State): number => 1 + state.todos.reduce(
+    (maxId: number, { id }) => (id > maxId ? id : maxId),
+    0,
+  ),
+  nextItemId: (state: State) => (index: number): number => 1 + state.todos[index].items.reduce(
+    (maxId: number, { id }) => (id > maxId ? id : maxId),
+    0,
+  ),
 };
 
 const load = (state: State, todos: Array<TodoList>): void => {
