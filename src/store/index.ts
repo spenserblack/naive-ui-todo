@@ -20,13 +20,18 @@ export interface State {
 
 export const key: InjectionKey<Store<State>> = Symbol('store');
 
+interface DuplicateItem extends TodoItem {
+  duplicates: number;
+}
+
+interface IndexedItem extends DuplicateItem {
+  index: number;
+}
+
 export type IsItemValidType = (todoIndex: number, itemIndex: number) => boolean;
 export type AreItemsValidType = (todoIndex: number) => boolean;
 export type IsTodoValidType = (todoIndex: number) => boolean;
-
-interface IndexedItem extends TodoItem {
-  index: number;
-}
+export type NumberedItems = (todoIndex: number) => Array<DuplicateItem>;
 
 interface ForYaml {
   [key: string]: {
@@ -45,20 +50,29 @@ const nextItemId = (state: State) => (index: number): number => 1 + state.todos[
 );
 
 export const getters = {
-  completeItems: (state: State) => (todoIndex: number): Array<IndexedItem> => (
-    state.todos[todoIndex].items
-      .map(({ description, done, id }, index) => ({
-        description, done, index, id,
-      }))
+  completeItems: (state: State, { numberedItems }: {
+    numberedItems: NumberedItems,
+  }) => (todoIndex: number): Array<IndexedItem> => (
+    numberedItems(todoIndex)
+      .map((item, index) => ({ index, ...item }))
       .filter(({ done }) => done)
   ),
-  incompleteItems: (state: State) => (todoIndex: number): Array<IndexedItem> => (
-    state.todos[todoIndex].items
-      .map(({ description, done, id }, index) => ({
-        description, done, index, id,
-      }))
+  incompleteItems: (state: State, { numberedItems }: {
+    numberedItems: NumberedItems,
+  }) => (todoIndex: number): Array<IndexedItem> => (
+    numberedItems(todoIndex)
+      .map((item, index) => ({ index, ...item }))
       .filter(({ done }) => !done)
   ),
+  numberedItems: (state: State) => (todoIndex: number): Array<DuplicateItem> => {
+    const duplicateCounts: Map<string, number> = new Map();
+
+    return state.todos[todoIndex].items.map(({ description, ...attrs }) => {
+      const duplicates = (duplicateCounts.get(description) || 0);
+      duplicateCounts.set(description, duplicates + 1);
+      return { description, duplicates, ...attrs };
+    });
+  },
   isItemValid: (state: State) => (todoIndex: number, itemIndex: number): boolean => (
     state.todos[todoIndex].items[itemIndex].description.length > 0
   ),

@@ -11,12 +11,13 @@ NSpace(justify="left")
     :textStyle="{ delete: item.done }"
     :textDepth="item.done ? 3 : 1"
   )
+  NText(v-if="item.duplicates > 0" depth="2") ({{ item.duplicates }})
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import {
-  NButton, NCheckbox, NIcon, NSpace,
+  NButton, NCheckbox, NIcon, NSpace, NText,
 } from 'naive-ui';
 import { Trash as DeleteIcon } from '@vicons/ionicons5';
 import { useStore } from '@/store';
@@ -25,7 +26,16 @@ import EditableText from './EditableText.vue';
 export default defineComponent({
   name: 'Todo Item',
   components: {
-    NButton, NCheckbox, NIcon, NSpace, DeleteIcon, EditableText,
+    // Naive UI
+    NButton,
+    NCheckbox,
+    NIcon,
+    NSpace,
+    NText,
+    // ionicons5
+    DeleteIcon,
+    // Custom
+    EditableText,
   },
   emits: ['delete'],
   props: {
@@ -41,10 +51,9 @@ export default defineComponent({
   setup(props, { emit }) {
     const store = useStore();
     const todo = store.state.todos[props.todoIndex];
-    const item = todo.items[props.itemIndex];
     return {
       todo: computed(() => todo),
-      item: computed(() => item),
+      item: computed(() => store.getters.numberedItems(props.todoIndex)[props.itemIndex]),
       setDescription: (description: string) => store.commit('setTodoItemDescription', {
         todoIndex: props.todoIndex,
         itemIndex: props.itemIndex,
