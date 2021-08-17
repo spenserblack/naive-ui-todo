@@ -66,12 +66,7 @@ export const getters = {
     isItemValid: IsItemValidType,
   }) => (todoIndex: number): boolean => {
     const { items } = state.todos[todoIndex];
-    const counts: Record<string, number | undefined> = {};
-
-    return items.every(({ description }, itemIndex) => {
-      counts[description] = (counts[description] || 0) + 1;
-      return isItemValid(todoIndex, itemIndex) && (counts[description] as number) < 2;
-    });
+    return items.every((_item, itemIndex) => isItemValid(todoIndex, itemIndex));
   },
   isTodoValid: (state: State, { areItemsValid }: {
     areItemsValid: AreItemsValidType,
