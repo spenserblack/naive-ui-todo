@@ -1,37 +1,29 @@
-<template lang="pug">
-NButton(type="primary" :disabled="disabled" @click="download")
-  template(#icon)
-    NIcon: YamlIcon
-  slot Download
+<template>
+  <NButton type="primary" :disabled="disabled" @click="download">
+    <template #icon>
+      <NIcon><YamlIcon /></NIcon>
+    </template>
+    <slot>Download</slot>
+  </NButton>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import { NButton, NIcon } from 'naive-ui';
 import { CodeDownload as YamlIcon } from '@vicons/ionicons5';
 import { saveAs } from 'file-saver';
 import { dump as toYaml } from 'js-yaml';
 import { useStore } from '@/store';
 
-export default defineComponent({
-  name: 'Download Yaml Button',
-  components: { NButton, NIcon, YamlIcon },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup() {
-    const store = useStore();
+interface Props {
+  disabled: boolean;
+}
 
-    return {
-      download: () => {
-        const yaml = toYaml(store.getters.forYamlExport);
-        const blob = new Blob([yaml], { type: 'text/yaml;charset=utf-8' });
-        saveAs(blob, 'to-do.yaml');
-      },
-    };
-  },
-});
+const store = useStore();
+
+const props = withDefaults(defineProps<Props>(), { disabled: false });
+const download = (): void => {
+  const yaml = toYaml(store.getters.forYamlExport);
+  const blob = new Blob([yaml], { type: 'text/yaml;charset=utf-8' });
+  saveAs(blob, 'to-do.yaml');
+};
 </script>
