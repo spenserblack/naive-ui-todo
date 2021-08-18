@@ -1,16 +1,19 @@
-<template lang="pug">
-.home
-  TodoList(
-    v-for="(todo, todoIndex) in todos"
-    :index="todoIndex"
-    @delete="removeList"
-    :key="`todo-list-${todo.id}`"
-  )
-  NDivider.divider
-  NButton(type="primary" @click="addList")
-    template(#icon)
-      NIcon: AddIcon
-    | Add List
+<template>
+  <div class="home">
+    <TodoList
+      v-for="(todo, todoIndex) in todos"
+      :index="todoIndex"
+      @delete="removeList"
+      :key="`todo-list-${todo.id}`"
+    />
+    <NDivider class="divider" />
+    <NButton type="primary" @click="addList">
+      <template #icon>
+        <NIcon><AddIcon /></NIcon>
+      </template>
+      Add List
+    </NButton>
+  </div>
 </template>
 
 <script lang="ts">
