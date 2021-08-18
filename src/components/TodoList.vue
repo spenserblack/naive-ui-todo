@@ -53,8 +53,8 @@
   </NCard>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 import {
   NButton, NCard, NIcon, NPopconfirm, NSpace,
 } from 'naive-ui';
@@ -63,42 +63,26 @@ import { useStore } from '@/store';
 import Item from './TodoItem.vue';
 import EditableText from './EditableText.vue';
 
-export default defineComponent({
-  name: 'Todo List',
-  components: {
-    NButton,
-    NCard,
-    NIcon,
-    NPopconfirm,
-    NSpace,
-    AddIcon,
-    DeleteIcon,
-    EditableText,
-    Item,
-  },
-  emits: ['delete'],
-  props: {
-    index: {
-      type: Number,
-      required: true,
-    },
-  },
-  setup(props, { emit }) {
-    const store = useStore();
-    const todo = computed(() => store.state.todos[props.index]);
+interface Props {
+  index: number;
+}
 
-    return {
-      todo,
-      setTitle: (title: string) => store.commit('setTodoTitle', { index: props.index, title }),
-      onDelete: () => emit('delete', props.index),
-      addTodoItem: () => store.commit('addTodoItem', { index: props.index }),
-      removeTodoItem: (itemIndex: number) => store.commit('removeTodoItem', {
-        todoIndex: props.index,
-        itemIndex,
-      }),
-      completeItems: computed(() => store.getters.completeItems(props.index)),
-      incompleteItems: computed(() => store.getters.incompleteItems(props.index)),
-    };
-  },
+type Emits = {
+  (e: 'delete', index: number): void,
+};
+
+const props = defineProps<Props>();
+const emit = defineEmits<Emits>();
+
+const store = useStore();
+const todo = computed(() => store.state.todos[props.index]);
+const completeItems = computed(() => store.getters.completeItems(props.index));
+const incompleteItems = computed(() => store.getters.incompleteItems(props.index));
+const setTitle = (title: string) => store.commit('setTodoTitle', { index: props.index, title });
+const onDelete = () => emit('delete', props.index);
+const addTodoItem = () => store.commit('addTodoItem', { index: props.index });
+const removeTodoItem = (itemIndex: number) => store.commit('removeTodoItem', {
+  todoIndex: props.index,
+  itemIndex,
 });
 </script>
