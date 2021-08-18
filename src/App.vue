@@ -1,38 +1,52 @@
-<template lang="pug">
-main(:class="{ dark: theme != null }")
-  NConfigProvider(:theme="theme")
-    NCard
-      NSpace(justify="end")
-        NText Automatic saving is
-        NSwitch(v-model:value="saveAutomatically")
-          template(#checked) on
-          template(#unchecked) off
-        NButton(type="primary" :loading="saving" :disabled="saving" @click="save")
-          template(#icon)
-            NIcon: SaveIcon
-          | Save
-        YamlDownloadButton(:disabled="!isValid") Export
-        YamlUploadButton Import
-        NButton(v-if="theme == null" @click="theme = darkTheme")
-          template(#icon)
-            NIcon: MoonIcon
-          | Dark
-        NButton(v-else @click="theme = null")
-          template(#icon)
-            NIcon: SunIcon
-          | Light
-      NSpace(justify="center")
-        NMenu(:options="menuOptions" :mode="menuMode" :value="activeKey")
-    #main-view
-      NScrollbar
-        NBackTop
-        RouterView
+<template>
+  <main :class="{ dark: theme != null }">
+    <NConfigProvider :theme="theme">
+      <NCard>
+        <NSpace justify="end">
+          <NText>Automatic saving is</NText>
+          <NSwitch v-model:value="saveAutomatically">
+            <template #checked>on</template>
+            <template #unchecked>off</template>
+          </NSwitch>
+          <NButton type="primary" :loading="saving" :disabled="saving" @click="save">
+            <template #icon>
+              <NIcon><SaveIcon /></NIcon>
+            </template>
+            Save
+          </NButton>
+          <YamlDownloadButton :disabled="!isValid">Export</YamlDownloadButton>
+          <YamlUploadButton>Import</YamlUploadButton>
+          <NButton v-if="theme == null" @click="theme = darkTheme">
+            <template #icon>
+              <NIcon><MoonIcon /></NIcon>
+            </template>
+            Dark
+          </NButton>
+          <NButton v-else @click="theme = null">
+            <template #icon>
+              <NIcon><SunIcon /></NIcon>
+            </template>
+            Light
+          </NButton>
+        </NSpace>
+        <NSpace justify="center">
+          <NMenu :options="menuOptions" :mode="menuMode" :value="activeKey" />
+        </NSpace>
+      </NCard>
+      <div id="main-view">
+        <NScrollbar>
+          <NBackTop />
+          <RouterView />
+        </NScrollbar>
+      </div>
+    </NConfigProvider>
+  </main>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import 'vfonts/Inter.css';
 import {
-  defineComponent, computed, h, ref, watch,
+  computed, h, ref, watch,
 } from 'vue';
 import {
   Add as AddIcon,
@@ -55,7 +69,7 @@ import {
   NText,
   darkTheme,
 } from 'naive-ui';
-import { RouterLink, useRouter } from 'vue-router';
+import { RouterLink, RouterView, useRouter } from 'vue-router';
 import debounce from 'lodash.debounce';
 import { useStore, TodoList } from './store';
 
@@ -83,142 +97,112 @@ const saveAutoSave = (autoSave: boolean): void => saveValue(saveKey, autoSave);
 const savedTodos = loadValue(todoKey) as Array<TodoList> | undefined;
 const autoSave = loadValue(saveKey) as boolean | undefined;
 
-export default defineComponent({
-  components: {
-    NBackTop,
-    NButton,
-    NCard,
-    NConfigProvider,
-    NIcon,
-    NMenu,
-    NScrollbar,
-    NSpace,
-    NSwitch,
-    NText,
-    SaveIcon,
-    SunIcon,
-    MoonIcon,
-    YamlDownloadButton,
-    YamlUploadButton,
-  },
-  setup() {
-    const store = useStore();
-    const router = useRouter();
+const store = useStore();
+const router = useRouter();
 
-    if (savedTodos != null) {
-      store.commit('load', savedTodos);
+if (savedTodos != null) {
+  store.commit('load', savedTodos);
+}
+
+const saveAutomatically = ref(autoSave ?? true);
+const todos = computed(() => store.state.todos);
+const saving = ref(false);
+const save = () => {
+  saving.value = true;
+  saveTodos(todos.value);
+  setTimeout(() => {
+    saving.value = false;
+  }, 300);
+};
+const saveIfAutosave = debounce(() => {
+  if (saveAutomatically.value) {
+    save();
+  }
+}, 1000);
+
+watch([todos.value, ...todos.value], saveIfAutosave);
+watch(saveAutomatically, () => saveAutoSave(saveAutomatically.value));
+
+router.beforeEach(({ fullPath, name, params }) => {
+  if (name === 'Home') {
+    return true;
+  }
+  if (name === 'Todo') {
+    const todoIndex = Number.parseInt(params.index as string, 10);
+    if (store.state.todos[todoIndex] == null) {
+      console.warn('User attempted to access invalid route:', fullPath);
+      return { replace: true, name: 'Home' };
     }
-
-    const saveAutomatically = ref(autoSave ?? true);
-    const todos = computed(() => store.state.todos);
-    const saving = ref(false);
-    const save = () => {
-      saving.value = true;
-      saveTodos(todos.value);
-      setTimeout(() => {
-        saving.value = false;
-      }, 300);
-    };
-    const saveIfAutosave = debounce(() => {
-      if (saveAutomatically.value) {
-        save();
-      }
-    }, 1000);
-    watch([todos.value, ...todos.value], saveIfAutosave);
-    watch(saveAutomatically, () => saveAutoSave(saveAutomatically.value));
-
-    router.beforeEach(({ fullPath, name, params }) => {
-      if (name === 'Home') {
-        return true;
-      }
-      if (name === 'Todo') {
-        const todoIndex = Number.parseInt(params.index as string, 10);
-        if (store.state.todos[todoIndex] == null) {
-          console.warn('User attempted to access invalid route:', fullPath);
-          return { replace: true, name: 'Home' };
-        }
-      }
-      return true;
-    });
-    const rerouteLastItem = (): void => {
-      router.push({ name: 'Todo', params: { index: store.state.todos.length - 1 } });
-    };
-
-    const maxTodoOptions = 10;
-    const menuHomeKey = 'todo__home';
-    const menuTodoKey = (id: number): string => `todo__${id}`;
-    const menuAddKey = 'todo__add';
-    const homeOption = {
-      label: () => h(RouterLink, { to: { name: 'Home' } }, () => 'Home'),
-      key: menuHomeKey,
-      icon: () => h(NIcon, null, () => h(HomeIcon)),
-    };
-    const addOption = {
-      label: () => h('span', {
-        onClick: (): void => {
-          store.commit('addList');
-          rerouteLastItem();
-        },
-      }, 'Add List'),
-      key: menuAddKey,
-      icon: () => h(NIcon, {
-        onClick: (): void => {
-          store.commit('addList');
-          rerouteLastItem();
-        },
-      }, () => h(AddIcon)),
-    };
-    const menuOptions = computed(() => {
-      const todoOptions = store.state.todos.map(({ title, id }, index) => ({
-        label: () => h(RouterLink, { to: { name: 'Todo', params: { index } } }, () => title),
-        key: menuTodoKey(id),
-        icon: () => h(NIcon, null, () => h(ListIcon)),
-      }));
-      if (todoOptions.length > maxTodoOptions) {
-        return [
-          homeOption,
-          {
-            label: 'To-Do Lists',
-            key: 'todo__extra-lists',
-            icon: () => h(NIcon, null, () => h(ListIcon)),
-            children: todoOptions,
-          },
-          addOption,
-        ];
-      }
-      return [homeOption, ...todoOptions, addOption];
-    });
-    const menuMode = computed(() => (
-      store.state.todos.length > maxTodoOptions ? 'vertical' : 'horizontal'
-    ));
-    const activeKey = computed((): string | null => {
-      const currentRoute = router.currentRoute.value;
-      switch (currentRoute.name) {
-        case 'Home':
-          return menuHomeKey;
-        case 'Todo': {
-          const todo = store.state.todos[Number.parseInt(currentRoute.params.index as string, 10)];
-          return menuTodoKey(todo.id);
-        }
-        default:
-          return null;
-      }
-    });
-
-    return {
-      darkTheme,
-      theme: ref(darkTheme),
-      isValid: computed(() => store.getters.isValid),
-      saveAutomatically,
-      saving,
-      save,
-      todos,
-      menuOptions,
-      menuMode,
-      activeKey,
-    };
-  },
+  }
+  return true;
 });
+const rerouteLastItem = (): void => {
+  router.push({ name: 'Todo', params: { index: store.state.todos.length - 1 } });
+};
+
+const maxTodoOptions = 10;
+const menuHomeKey = 'todo__home';
+const menuTodoKey = (id: number): string => `todo__${id}`;
+const menuAddKey = 'todo__add';
+const homeOption = {
+  label: () => h(RouterLink, { to: { name: 'Home' } }, () => 'Home'),
+  key: menuHomeKey,
+  icon: () => h(NIcon, null, () => h(HomeIcon)),
+};
+const addOption = {
+  label: () => h('span', {
+    onClick: (): void => {
+      store.commit('addList');
+      rerouteLastItem();
+    },
+  }, 'Add List'),
+  key: menuAddKey,
+  icon: () => h(NIcon, {
+    onClick: (): void => {
+      store.commit('addList');
+      rerouteLastItem();
+    },
+  }, () => h(AddIcon)),
+};
+const menuOptions = computed(() => {
+  const todoOptions = store.state.todos.map(({ title, id }, index) => ({
+    label: () => h(RouterLink, { to: { name: 'Todo', params: { index } } }, () => title),
+    key: menuTodoKey(id),
+    icon: () => h(NIcon, null, () => h(ListIcon)),
+  }));
+  if (todoOptions.length > maxTodoOptions) {
+    return [
+      homeOption,
+      {
+        label: 'To-Do Lists',
+        key: 'todo__extra-lists',
+        icon: () => h(NIcon, null, () => h(ListIcon)),
+        children: todoOptions,
+      },
+      addOption,
+    ];
+  }
+  return [homeOption, ...todoOptions, addOption];
+});
+const menuMode = computed((): 'vertical' | 'horizontal' => (
+  store.state.todos.length > maxTodoOptions ? 'vertical' : 'horizontal'
+));
+const activeKey = computed((): string | null => {
+  const currentRoute = router.currentRoute.value;
+  switch (currentRoute.name) {
+    case 'Home':
+      return menuHomeKey;
+    case 'Todo': {
+      const todo = store.state.todos[Number.parseInt(currentRoute.params.index as string, 10)];
+      return menuTodoKey(todo.id);
+    }
+    default:
+      return null;
+  }
+});
+
+const theme = ref(darkTheme);
+const isValid = computed(() => store.getters.isValid);
 </script>
 
 <style lang="stylus">
