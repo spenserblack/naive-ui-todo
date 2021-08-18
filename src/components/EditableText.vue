@@ -2,28 +2,28 @@
   <span class="editable-text">
     <DynamicText
       v-if="!editing"
-      :tag="tag"
+      :tag="props.tag"
       @click="editing = true"
-      :strong="textStyle.strong"
-      :italic="textStyle.italic"
-      :underline="textStyle.underline"
-      :delete="textStyle.delete"
-      :code="textStyle.code"
-      :depth="textDepth"
+      :strong="props.textStyle.strong"
+      :italic="props.textStyle.italic"
+      :underline="props.textStyle.underline"
+      :delete="props.textStyle.delete"
+      :code="props.textStyle.code"
+      :depth="props.textDepth"
     >
-      {{ text }}
+      {{ props.text }}
     </DynamicText>
     <NInputGroup v-else>
       <NInput
-        :size="size"
-        :value="text"
+        :size="props.size"
+        :value="props.text"
         @update:value="emit('update:value', $event)"
         @blur="editing = textEmpty"
         @keyup.enter="editing = textEmpty"
         clearable
-        :placeholder="inputPlaceholder"
+        :placeholder="props.inputPlaceholder"
       />
-      <NButton :size="size" type="success" @click="editing = textEmpty">
+      <NButton :size="props.size" type="success" @click="editing = textEmpty">
         <template #icon>
           <NIcon><ConfirmIcon /></NIcon>
         </template>

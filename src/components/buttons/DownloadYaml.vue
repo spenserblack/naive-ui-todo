@@ -1,5 +1,5 @@
 <template>
-  <NButton type="primary" :disabled="disabled" @click="download">
+  <NButton type="primary" :disabled="props.disabled" @click="download">
     <template #icon>
       <NIcon><YamlIcon /></NIcon>
     </template>
