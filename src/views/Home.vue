@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import {
-  NButton, NDivider, NH2, NIcon, NSpace,
+  NButton, NDivider, NIcon,
 } from 'naive-ui';
 import { Add as AddIcon } from '@vicons/ionicons5';
 import { useStore } from '@/store';
@@ -25,7 +25,7 @@ import TodoList from '@/components/TodoList.vue';
 export default defineComponent({
   name: 'Home',
   components: {
-    TodoList, NButton, NDivider, NH2, NIcon, NSpace, AddIcon,
+    TodoList, NButton, NDivider, NIcon, AddIcon,
   },
   setup() {
     const store = useStore();
