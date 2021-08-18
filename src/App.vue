@@ -1,32 +1,46 @@
-<template lang="pug">
-main(:class="{ dark: theme != null }")
-  NConfigProvider(:theme="theme")
-    NCard
-      NSpace(justify="end")
-        NText Automatic saving is
-        NSwitch(v-model:value="saveAutomatically")
-          template(#checked) on
-          template(#unchecked) off
-        NButton(type="primary" :loading="saving" :disabled="saving" @click="save")
-          template(#icon)
-            NIcon: SaveIcon
-          | Save
-        YamlDownloadButton(:disabled="!isValid") Export
-        YamlUploadButton Import
-        NButton(v-if="theme == null" @click="theme = darkTheme")
-          template(#icon)
-            NIcon: MoonIcon
-          | Dark
-        NButton(v-else @click="theme = null")
-          template(#icon)
-            NIcon: SunIcon
-          | Light
-      NSpace(justify="center")
-        NMenu(:options="menuOptions" :mode="menuMode" :value="activeKey")
-    #main-view
-      NScrollbar
-        NBackTop
-        RouterView
+<template>
+  <main :class="{ dark: theme != null }">
+    <NConfigProvider :theme="theme">
+      <NCard>
+        <NSpace justify="end">
+          <NText>Automatic saving is</NText>
+          <NSwitch v-model:value="saveAutomatically">
+            <template #checked>on</template>
+            <template #unchecked>off</template>
+          </NSwitch>
+          <NButton type="primary" :loading="saving" :disabled="saving" @click="save">
+            <template #icon>
+              <NIcon><SaveIcon /></NIcon>
+            </template>
+            Save
+          </NButton>
+          <YamlDownloadButton :disabled="!isValid">Export</YamlDownloadButton>
+          <YamlUploadButton>Import</YamlUploadButton>
+          <NButton v-if="theme == null" @click="theme = darkTheme">
+            <template #icon>
+              <NIcon><MoonIcon /></NIcon>
+            </template>
+            Dark
+          </NButton>
+          <NButton v-else @click="theme = null">
+            <template #icon>
+              <NIcon><SunIcon /></NIcon>
+            </template>
+            Light
+          </NButton>
+        </NSpace>
+        <NSpace justify="center">
+          <NMenu :options="menuOptions" :mode="menuMode" :value="activeKey" />
+        </NSpace>
+      </NCard>
+      <div id="main-view">
+        <NScrollbar>
+          <NBackTop />
+          <RouterView />
+        </NScrollbar>
+      </div>
+    </NConfigProvider>
+  </main>
 </template>
 
 <script lang="ts">
