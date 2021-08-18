@@ -16,8 +16,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 import {
   NButton, NDivider, NIcon,
 } from 'naive-ui';
@@ -25,21 +25,11 @@ import { Add as AddIcon } from '@vicons/ionicons5';
 import { useStore } from '@/store';
 import TodoList from '@/components/TodoList.vue';
 
-export default defineComponent({
-  name: 'Home',
-  components: {
-    TodoList, NButton, NDivider, NIcon, AddIcon,
-  },
-  setup() {
-    const store = useStore();
+const store = useStore();
 
-    return {
-      todos: computed(() => store.state.todos),
-      addList: () => store.commit('addList'),
-      removeList: (index: number) => store.commit('removeList', index),
-    };
-  },
-});
+const todos = computed(() => store.state.todos);
+const addList = () => store.commit('addList');
+const removeList = (index: number) => store.commit('removeList', index);
 </script>
 
 <style lang="stylus">
