@@ -30,7 +30,7 @@
           </NButton>
         </NSpace>
         <NSpace justify="center">
-          <NMenu :options="menuOptions" :mode="menuMode" :value="activeKey" />
+          <NMenu :options="menuOptions" mode="horizontal" :value="activeKey" />
         </NSpace>
       </NCard>
       <div id="main-view">
@@ -184,9 +184,6 @@ const menuOptions = computed(() => {
   }
   return [homeOption, ...todoOptions, addOption];
 });
-const menuMode = computed((): 'vertical' | 'horizontal' => (
-  store.state.todos.length > maxTodoOptions ? 'vertical' : 'horizontal'
-));
 const activeKey = computed((): string | null => {
   const currentRoute = router.currentRoute.value;
   switch (currentRoute.name) {
