@@ -1,5 +1,5 @@
 <template>
-  <TodoList :index="index" @delete="onDelete" />
+  <TodoList :index="index" @delete="onDelete" :key="`todo-view-${index}`" />
 </template>
 
 <script setup lang="ts">
