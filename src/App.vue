@@ -30,7 +30,12 @@
           </NButton>
         </NSpace>
         <NSpace justify="center">
-          <NMenu :options="menuOptions" mode="horizontal" :value="activeKey" />
+          <NMenu
+            :options="menuOptions"
+            mode="horizontal"
+            :value="activeKey"
+            @update:value="onMenuUpdate"
+          />
         </NSpace>
       </NCard>
       <div id="main-view">
@@ -150,19 +155,9 @@ const homeOption = {
   icon: () => h(NIcon, null, () => h(HomeIcon)),
 };
 const addOption = {
-  label: () => h('span', {
-    onClick: (): void => {
-      store.commit('addList');
-      rerouteLastItem();
-    },
-  }, 'Add List'),
+  label: () => h('span', null, 'Add List'),
   key: menuAddKey,
-  icon: () => h(NIcon, {
-    onClick: (): void => {
-      store.commit('addList');
-      rerouteLastItem();
-    },
-  }, () => h(AddIcon)),
+  icon: () => h(NIcon, null, () => h(AddIcon)),
 };
 const menuOptions = computed(() => {
   const todoOptions = store.state.todos.map(({ title, id }, index) => ({
@@ -197,6 +192,12 @@ const activeKey = computed((): string | null => {
       return null;
   }
 });
+const onMenuUpdate = (key: string): void => {
+  if (key === menuAddKey) {
+    store.commit('addList');
+    rerouteLastItem();
+  }
+};
 
 const theme = ref(darkTheme);
 const isValid = computed(() => store.getters.isValid);
