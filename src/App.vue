@@ -44,6 +44,9 @@
           <RouterView />
         </NScrollbar>
       </div>
+      <NSpace justify="end">
+        <NText italic type="info">v{{ version }}</NText>
+      </NSpace>
     </NConfigProvider>
   </main>
 </template>
@@ -80,6 +83,7 @@ import { useStore, TodoList } from './store';
 
 import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
 import YamlUploadButton from './components/buttons/UploadYaml.vue';
+import { version } from '../package.json';
 
 const makeKey = (subkey: string): string => `naive-todo__${subkey}`;
 const todoKey = makeKey('todolist');
