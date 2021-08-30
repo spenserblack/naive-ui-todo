@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import {
   NBackTop,
   NButton,
@@ -88,7 +88,12 @@ const completeItems = computed(() => store.getters.completeItems(props.index));
 const incompleteItems = computed(() => store.getters.incompleteItems(props.index));
 const setTitle = (title: string) => store.commit('setTodoTitle', { index: props.index, title });
 const onDelete = () => emit('delete', props.index);
-const addTodoItem = () => store.commit('addTodoItem', { index: props.index });
+
+const scrollBar = ref<null | typeof NScrollbar>(null);
+const addTodoItem = async () => {
+  await store.commit('addTodoItem', { index: props.index });
+  scrollBar.value.scrollTo({ position: 'bottom' });
+};
 const removeTodoItem = (itemIndex: number) => store.commit('removeTodoItem', {
   todoIndex: props.index,
   itemIndex,
