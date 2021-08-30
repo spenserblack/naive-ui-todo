@@ -1,6 +1,6 @@
 <template>
-  <main :class="{ dark: theme != null }">
-    <NConfigProvider :theme="theme">
+  <NConfigProvider :theme="theme" id="main" :class="{ dark: theme != null }">
+    <NCard id="todo-app">
       <NCard>
         <NSpace justify="end">
           <NText>Automatic saving is</NText>
@@ -38,17 +38,14 @@
           />
         </NSpace>
       </NCard>
-      <div id="main-view">
-        <NScrollbar>
-          <NBackTop />
-          <RouterView />
-        </NScrollbar>
-      </div>
-      <NSpace justify="end">
-        <NText italic type="info">v{{ version }}</NText>
-      </NSpace>
-    </NConfigProvider>
-  </main>
+        <RouterView />
+        <template #footer>
+          <NSpace justify="end">
+            <NText italic type="info">v{{ version }}</NText>
+          </NSpace>
+        </template>
+    </NCard>
+  </NConfigProvider>
 </template>
 
 <script setup lang="ts">
@@ -65,13 +62,11 @@ import {
   Moon as MoonIcon,
 } from '@vicons/ionicons5';
 import {
-  NBackTop,
   NButton,
   NCard,
   NConfigProvider,
   NIcon,
   NMenu,
-  NScrollbar,
   NSpace,
   NSwitch,
   NText,
@@ -217,20 +212,17 @@ const isValid = computed(() => store.getters.isValid);
   position absolute
   width 100vw
   height 100vh
-</style>
+  overflow hidden
 
-<style lang="stylus" scoped>
-main
-  mainWidth = 100%
-  horizontalPadding = 1%
+#main.dark
+  background-color black
+
+#todo-app
+  mainWidth = 100vw
+  horizontalPadding = 0
   width mainWidth - (horizontalPadding * 2)
-  height 100%
+  height 100vh
   padding-left horizontalPadding
   padding-right horizontalPadding
 
-  &.dark
-    background-color #111122
-
-#main-view
-  height 80vh
 </style>

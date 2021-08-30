@@ -24,7 +24,7 @@
         This will delete the whole to-do list.
       </NPopconfirm>
     </template>
-    <div class="items">
+    <NScrollbar ref="scrollBar" class="items" :style="mainContentStyle">
       <Item
         v-for="item in incompleteItems"
         :todoIndex="index"
@@ -39,8 +39,9 @@
         @delete="removeTodoItem"
         :key="`todo-${todo.id}-item-${item.id}-done`"
       />
-    </div>
-    <template #footer>
+      <NBackTop />
+    </NScrollbar>
+    <template #action>
       <NSpace>
         <NButton type="primary" @click="addTodoItem">
           <template #icon>
@@ -54,9 +55,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import {
-  NButton, NCard, NIcon, NPopconfirm, NSpace,
+  NBackTop,
+  NButton,
+  NCard,
+  NIcon,
+  NPopconfirm,
+  NScrollbar,
+  NSpace,
 } from 'naive-ui';
 import { Add as AddIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
 import { useStore } from '@/store';
@@ -65,6 +72,7 @@ import EditableText from './EditableText.vue';
 
 interface Props {
   index: number;
+  mainContentStyle?: Record<string, string | number>,
 }
 
 type Emits = {
@@ -80,7 +88,12 @@ const completeItems = computed(() => store.getters.completeItems(props.index));
 const incompleteItems = computed(() => store.getters.incompleteItems(props.index));
 const setTitle = (title: string) => store.commit('setTodoTitle', { index: props.index, title });
 const onDelete = () => emit('delete', props.index);
-const addTodoItem = () => store.commit('addTodoItem', { index: props.index });
+
+const scrollBar = ref<null | typeof NScrollbar>(null);
+const addTodoItem = async () => {
+  await store.commit('addTodoItem', { index: props.index });
+  scrollBar.value.scrollTo({ position: 'bottom' });
+};
 const removeTodoItem = (itemIndex: number) => store.commit('removeTodoItem', {
   todoIndex: props.index,
   itemIndex,

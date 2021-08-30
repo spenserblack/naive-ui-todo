@@ -1,5 +1,10 @@
 <template>
-  <TodoList :index="index" @delete="onDelete" :key="`todo-view-${index}`" />
+  <TodoList
+    :index="index"
+    :mainContentStyle="todoMainContentStyle"
+    @delete="onDelete"
+    :key="`todo-view-${index}`"
+  />
 </template>
 
 <script setup lang="ts">
@@ -11,6 +16,10 @@ import TodoList from '@/components/TodoList.vue';
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
+
+const todoMainContentStyle = {
+  height: '55vh',
+};
 
 const index = computed(() => Number.parseInt(route.params.index as string, 10));
 const onDelete = async (): Promise<void> => {

@@ -1,25 +1,36 @@
 <template>
-  <div class="home">
-    <TodoList
-      v-for="(todo, todoIndex) in todos"
-      :index="todoIndex"
-      @delete="removeList"
-      :key="`todo-list-${todo.id}`"
-    />
-    <NDivider class="divider" />
-    <NButton type="primary" @click="addList">
-      <template #icon>
-        <NIcon><AddIcon /></NIcon>
-      </template>
-      Add List
-    </NButton>
-  </div>
+  <NCard class="home">
+    <div class="lists">
+      <NScrollbar>
+        <TodoList
+           v-for="(todo, todoIndex) in todos"
+           :index="todoIndex"
+           @delete="removeList"
+           :key="`todo-list-${todo.id}`"
+           :mainContentStyle="listContentStyle"
+        />
+        <NBackTop />
+      </NScrollbar>
+    </div>
+    <template #action>
+      <NButton type="primary" @click="addList">
+        <template #icon>
+          <NIcon><AddIcon /></NIcon>
+        </template>
+        Add List
+      </NButton>
+    </template>
+  </NCard>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import {
-  NButton, NDivider, NIcon,
+  NBackTop,
+  NButton,
+  NCard,
+  NIcon,
+  NScrollbar,
 } from 'naive-ui';
 import { Add as AddIcon } from '@vicons/ionicons5';
 import { useStore } from '@/store';
@@ -30,12 +41,13 @@ const store = useStore();
 const todos = computed(() => store.state.todos);
 const addList = () => store.commit('addList');
 const removeList = (index: number) => store.commit('removeList', index);
+
+const listContentStyle = {
+  'max-height': '25vh',
+};
 </script>
 
 <style lang="stylus">
-.divider
-  horizontalPadding = 1vw
-
-  padding-left horizontalPadding
-  padding-right horizontalPadding
+.lists
+  height 65vh
 </style>
