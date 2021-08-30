@@ -1,10 +1,14 @@
 <template>
-  <TodoList :index="index" @delete="onDelete" :key="`todo-view-${index}`" />
+  <NScrollbar id="scrollable-list">
+    <TodoList :index="index" @delete="onDelete" :key="`todo-view-${index}`" />
+    <NBackTop />
+  </NScrollbar>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { NBackTop, NScrollbar } from 'naive-ui';
 import { useStore } from '@/store';
 import TodoList from '@/components/TodoList.vue';
 
@@ -19,3 +23,8 @@ const onDelete = async (): Promise<void> => {
   store.commit('removeList', i);
 };
 </script>
+
+<style lang="stylus">
+#scrollable-list
+  height 85vh
+</style>

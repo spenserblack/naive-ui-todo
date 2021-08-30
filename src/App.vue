@@ -38,12 +38,7 @@
           />
         </NSpace>
       </NCard>
-      <div id="main-view">
-        <NScrollbar>
-          <NBackTop />
-          <RouterView />
-        </NScrollbar>
-      </div>
+        <RouterView />
     </NConfigProvider>
   </main>
 </template>
@@ -62,13 +57,11 @@ import {
   Moon as MoonIcon,
 } from '@vicons/ionicons5';
 import {
-  NBackTop,
   NButton,
   NCard,
   NConfigProvider,
   NIcon,
   NMenu,
-  NScrollbar,
   NSpace,
   NSwitch,
   NText,
@@ -226,7 +219,4 @@ main
 
   &.dark
     background-color #111122
-
-#main-view
-  height 80vh
 </style>

@@ -1,11 +1,14 @@
 <template>
   <NCard class="home">
-    <TodoList
-      v-for="(todo, todoIndex) in todos"
-      :index="todoIndex"
-      @delete="removeList"
-      :key="`todo-list-${todo.id}`"
-    />
+    <NScrollbar class="lists">
+      <TodoList
+         v-for="(todo, todoIndex) in todos"
+         :index="todoIndex"
+         @delete="removeList"
+         :key="`todo-list-${todo.id}`"
+      />
+      <NBackTop />
+    </NScrollbar>
     <template #action>
       <NButton type="primary" @click="addList">
         <template #icon>
@@ -20,7 +23,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import {
-  NButton, NCard, NIcon,
+  NBackTop,
+  NButton,
+  NCard,
+  NIcon,
+  NScrollbar,
 } from 'naive-ui';
 import { Add as AddIcon } from '@vicons/ionicons5';
 import { useStore } from '@/store';
@@ -34,4 +41,6 @@ const removeList = (index: number) => store.commit('removeList', index);
 </script>
 
 <style lang="stylus">
+.lists
+  height 70vh
 </style>
