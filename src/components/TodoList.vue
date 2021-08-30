@@ -40,7 +40,7 @@
         :key="`todo-${todo.id}-item-${item.id}-done`"
       />
     </div>
-    <template #footer>
+    <template #action>
       <NSpace>
         <NButton type="primary" @click="addTodoItem">
           <template #icon>
