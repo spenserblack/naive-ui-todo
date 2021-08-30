@@ -6,6 +6,7 @@
          :index="todoIndex"
          @delete="removeList"
          :key="`todo-list-${todo.id}`"
+         :mainContentStyle="listContentStyle"
       />
       <NBackTop />
     </NScrollbar>
@@ -38,6 +39,10 @@ const store = useStore();
 const todos = computed(() => store.state.todos);
 const addList = () => store.commit('addList');
 const removeList = (index: number) => store.commit('removeList', index);
+
+const listContentStyle = {
+  'max-height': '25vh',
+};
 </script>
 
 <style lang="stylus">
