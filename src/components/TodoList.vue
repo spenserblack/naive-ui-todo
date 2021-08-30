@@ -24,7 +24,7 @@
         This will delete the whole to-do list.
       </NPopconfirm>
     </template>
-    <div class="items">
+    <NScrollbar ref="scrollBar" class="items" :style="mainContentStyle">
       <Item
         v-for="item in incompleteItems"
         :todoIndex="index"
@@ -39,7 +39,8 @@
         @delete="removeTodoItem"
         :key="`todo-${todo.id}-item-${item.id}-done`"
       />
-    </div>
+      <NBackTop />
+    </NScrollbar>
     <template #action>
       <NSpace>
         <NButton type="primary" @click="addTodoItem">
@@ -56,7 +57,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import {
-  NButton, NCard, NIcon, NPopconfirm, NSpace,
+  NBackTop,
+  NButton,
+  NCard,
+  NIcon,
+  NPopconfirm,
+  NScrollbar,
+  NSpace,
 } from 'naive-ui';
 import { Add as AddIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
 import { useStore } from '@/store';
@@ -65,6 +72,7 @@ import EditableText from './EditableText.vue';
 
 interface Props {
   index: number;
+  mainContentStyle?: Record<string, string | number>,
 }
 
 type Emits = {
