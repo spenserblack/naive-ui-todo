@@ -1,15 +1,17 @@
 <template>
   <NCard class="home">
-    <NScrollbar class="lists">
-      <TodoList
-         v-for="(todo, todoIndex) in todos"
-         :index="todoIndex"
-         @delete="removeList"
-         :key="`todo-list-${todo.id}`"
-         :mainContentStyle="listContentStyle"
-      />
-      <NBackTop />
-    </NScrollbar>
+    <div class="lists">
+      <NScrollbar>
+        <TodoList
+           v-for="(todo, todoIndex) in todos"
+           :index="todoIndex"
+           @delete="removeList"
+           :key="`todo-list-${todo.id}`"
+           :mainContentStyle="listContentStyle"
+        />
+        <NBackTop />
+      </NScrollbar>
+    </div>
     <template #action>
       <NButton type="primary" @click="addList">
         <template #icon>
