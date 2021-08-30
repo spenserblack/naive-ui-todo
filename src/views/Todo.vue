@@ -26,5 +26,5 @@ const onDelete = async (): Promise<void> => {
 
 <style lang="stylus">
 #scrollable-list
-  height 85vh
+  height 80vh
 </style>
