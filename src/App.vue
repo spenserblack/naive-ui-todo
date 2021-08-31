@@ -2,44 +2,42 @@
   <NConfigProvider :theme="theme">
     <NLayout id="main">
       <NLayoutHeader>
-        <NSpace justify="end">
-          <NText>Automatic saving is</NText>
-          <NSwitch v-model:value="saveAutomatically">
-            <template #checked>on</template>
-            <template #unchecked>off</template>
-          </NSwitch>
-          <NButton type="primary" :loading="saving" :disabled="saving" @click="save">
-            <template #icon>
-              <NIcon><SaveIcon /></NIcon>
-            </template>
-            Save
-          </NButton>
-          <YamlDownloadButton :disabled="!isValid">Export</YamlDownloadButton>
-          <YamlUploadButton>Import</YamlUploadButton>
-          <NButton v-if="theme == null" @click="theme = darkTheme">
-            <template #icon>
-              <NIcon><MoonIcon /></NIcon>
-            </template>
-            Dark
-          </NButton>
-          <NButton v-else @click="theme = null">
-            <template #icon>
-              <NIcon><SunIcon /></NIcon>
-            </template>
-            Light
-          </NButton>
-        </NSpace>
-        <NDivider />
-        <NCard>
-          <NSpace justify="center">
-            <NMenu
-              :options="menuOptions"
-              mode="horizontal"
-              :value="activeKey"
-              @update:value="onMenuUpdate"
-            />
+        <NSpace vertical>
+          <NSpace class="options" justify="end" size="small">
+            <NText>Automatic saving is</NText>
+            <NSwitch v-model:value="saveAutomatically">
+              <template #checked>on</template>
+              <template #unchecked>off</template>
+            </NSwitch>
+            <NButton type="primary" :loading="saving" :disabled="saving" @click="save">
+              <template #icon>
+                <NIcon><SaveIcon /></NIcon>
+              </template>
+              Save
+            </NButton>
+            <YamlDownloadButton :disabled="!isValid">Export</YamlDownloadButton>
+            <YamlUploadButton>Import</YamlUploadButton>
+            <NButton v-if="theme == null" @click="theme = darkTheme">
+              <template #icon>
+                <NIcon><MoonIcon /></NIcon>
+              </template>
+              Dark
+            </NButton>
+            <NButton v-else @click="theme = null">
+              <template #icon>
+                <NIcon><SunIcon /></NIcon>
+              </template>
+              Light
+            </NButton>
           </NSpace>
-        </NCard>
+          <NDivider />
+          <NMenu
+            :options="menuOptions"
+            mode="horizontal"
+            :value="activeKey"
+            @update:value="onMenuUpdate"
+          />
+        </NSpace>
       </NLayoutHeader>
       <NLayoutContent>
         <RouterView />
@@ -63,7 +61,6 @@ import {
 } from '@vicons/ionicons5';
 import {
   NButton,
-  NCard,
   NConfigProvider,
   NDivider,
   NIcon,
@@ -218,8 +215,11 @@ const isValid = computed(() => store.getters.isValid);
   overflow hidden
 
   #main
-    horizontalPadding = 1vw
-    topPadding = 1vh
     width 100vw
     height 100vh
+
+    .options
+      Padding = 1em
+      padding-top Padding
+      padding-right Padding
 </style>
