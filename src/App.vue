@@ -1,44 +1,50 @@
 <template>
-  <NConfigProvider :theme="theme" id="main" :class="{ dark: theme != null }">
-    <NSpace class="nav" justify="end">
-      <NText>Automatic saving is</NText>
-      <NSwitch v-model:value="saveAutomatically">
-        <template #checked>on</template>
-        <template #unchecked>off</template>
-      </NSwitch>
-      <NButton type="primary" :loading="saving" :disabled="saving" @click="save">
-        <template #icon>
-          <NIcon><SaveIcon /></NIcon>
-        </template>
-        Save
-      </NButton>
-      <YamlDownloadButton :disabled="!isValid">Export</YamlDownloadButton>
-      <YamlUploadButton>Import</YamlUploadButton>
-      <NButton v-if="theme == null" @click="theme = darkTheme">
-        <template #icon>
-          <NIcon><MoonIcon /></NIcon>
-        </template>
-        Dark
-      </NButton>
-      <NButton v-else @click="theme = null">
-        <template #icon>
-          <NIcon><SunIcon /></NIcon>
-        </template>
-        Light
-      </NButton>
-    </NSpace>
-    <NDivider />
-    <NCard>
-      <NSpace justify="center">
-        <NMenu
-          :options="menuOptions"
-          mode="horizontal"
-          :value="activeKey"
-          @update:value="onMenuUpdate"
-        />
-      </NSpace>
-    </NCard>
-    <RouterView />
+  <NConfigProvider :theme="theme">
+    <NLayout id="main">
+      <NLayoutHeader>
+        <NSpace justify="end">
+          <NText>Automatic saving is</NText>
+          <NSwitch v-model:value="saveAutomatically">
+            <template #checked>on</template>
+            <template #unchecked>off</template>
+          </NSwitch>
+          <NButton type="primary" :loading="saving" :disabled="saving" @click="save">
+            <template #icon>
+              <NIcon><SaveIcon /></NIcon>
+            </template>
+            Save
+          </NButton>
+          <YamlDownloadButton :disabled="!isValid">Export</YamlDownloadButton>
+          <YamlUploadButton>Import</YamlUploadButton>
+          <NButton v-if="theme == null" @click="theme = darkTheme">
+            <template #icon>
+              <NIcon><MoonIcon /></NIcon>
+            </template>
+            Dark
+          </NButton>
+          <NButton v-else @click="theme = null">
+            <template #icon>
+              <NIcon><SunIcon /></NIcon>
+            </template>
+            Light
+          </NButton>
+        </NSpace>
+        <NDivider />
+        <NCard>
+          <NSpace justify="center">
+            <NMenu
+              :options="menuOptions"
+              mode="horizontal"
+              :value="activeKey"
+              @update:value="onMenuUpdate"
+            />
+          </NSpace>
+        </NCard>
+      </NLayoutHeader>
+      <NLayoutContent>
+        <RouterView />
+      </NLayoutContent>
+    </NLayout>
   </NConfigProvider>
 </template>
 
@@ -61,6 +67,9 @@ import {
   NConfigProvider,
   NDivider,
   NIcon,
+  NLayout,
+  NLayoutContent,
+  NLayoutHeader,
   NMenu,
   NSpace,
   NSwitch,
@@ -209,15 +218,8 @@ const isValid = computed(() => store.getters.isValid);
   overflow hidden
 
   #main
-    mainWidth = 100vw
     horizontalPadding = 1vw
     topPadding = 1vh
-    width mainWidth - (horizontalPadding * 2)
-    height 100vh - topPadding
-    padding-left horizontalPadding
-    padding-right horizontalPadding
-    padding-top topPadding
-
-#main.dark
-  background-color black
+    width 100vw
+    height 100vh
 </style>
