@@ -1,7 +1,7 @@
 <template>
   <NCard class="home">
-    <div class="lists">
-      <NScrollbar>
+    <NLayout class="lists" :native-scrollbar="false">
+      <NLayoutContent>
         <TodoList
            v-for="(todo, todoIndex) in todos"
            :index="todoIndex"
@@ -10,8 +10,8 @@
            :mainContentStyle="listContentStyle"
         />
         <NBackTop />
-      </NScrollbar>
-    </div>
+      </NLayoutContent>
+    </NLayout>
     <template #action>
       <NButton type="primary" @click="addList">
         <template #icon>
@@ -30,7 +30,8 @@ import {
   NButton,
   NCard,
   NIcon,
-  NScrollbar,
+  NLayout,
+  NLayoutContent,
 } from 'naive-ui';
 import { Add as AddIcon } from '@vicons/ionicons5';
 import { useStore } from '@/store';
