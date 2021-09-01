@@ -100,7 +100,9 @@ const onDelete = () => emit('delete', props.index);
 const layout = ref<null | typeof NLayout>(null);
 const addTodoItem = async () => {
   await store.commit('addTodoItem', { index: props.index });
-  layout.value.scrollTo({ position: 'bottom' });
+  if (layout.value != null) {
+    layout.value.scrollTo({ position: 'bottom' });
+  }
 };
 const removeTodoItem = (itemIndex: number) => store.commit('removeTodoItem', {
   todoIndex: props.index,

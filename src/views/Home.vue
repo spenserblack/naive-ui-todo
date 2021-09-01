@@ -3,11 +3,11 @@
     <NLayout class="lists" :native-scrollbar="false">
       <NLayoutContent>
         <TodoList
-           v-for="(todo, todoIndex) in todos"
+           v-for="(todo, todoIndex) in styledTodos"
            :index="todoIndex"
            @delete="removeList"
-           :key="`todo-list-${todo.id}`"
-           :mainContentStyle="listContentStyle"
+           :key="`todo-list-${todo.id}${todo.contentStyle == null ? '' : '-long'}`"
+           :mainContentStyle="todo.contentStyle"
         />
         <NBackTop />
       </NLayoutContent>
@@ -40,12 +40,15 @@ import TodoList from '@/components/TodoList.vue';
 const store = useStore();
 
 const todos = computed(() => store.state.todos);
+const styledTodos = computed(() => todos.value.map((todo) => {
+  const contentStyle = todo.items.length < 10 ? null : { height: '15em' };
+  return {
+    ...todo,
+    contentStyle,
+  };
+}));
 const addList = () => store.commit('addList');
 const removeList = (index: number) => store.commit('removeList', index);
-
-const listContentStyle = {
-  'max-height': '25vh',
-};
 </script>
 
 <style lang="stylus">
