@@ -24,23 +24,29 @@
         This will delete the whole to-do list.
       </NPopconfirm>
     </template>
-    <NScrollbar ref="scrollBar" class="items" :style="mainContentStyle">
-      <Item
-        v-for="item in incompleteItems"
-        :todoIndex="index"
-        :itemIndex="item.index"
-        @delete="removeTodoItem"
-        :key="`todo-${todo.id}-item-${item.id}-not-done`"
-      />
-      <Item
-        v-for="item in completeItems"
-        :todoIndex="index"
-        :itemIndex="item.index"
-        @delete="removeTodoItem"
-        :key="`todo-${todo.id}-item-${item.id}-done`"
-      />
-      <NBackTop />
-    </NScrollbar>
+    <NLayout class="todo-items">
+      <NLayoutContent
+        ref="layout"
+        :style="mainContentStyle"
+        :native-scrollbar="false"
+      >
+          <Item
+            v-for="item in incompleteItems"
+            :todoIndex="index"
+            :itemIndex="item.index"
+            @delete="removeTodoItem"
+            :key="`todo-${todo.id}-item-${item.id}-not-done`"
+          />
+          <Item
+            v-for="item in completeItems"
+            :todoIndex="index"
+            :itemIndex="item.index"
+            @delete="removeTodoItem"
+            :key="`todo-${todo.id}-item-${item.id}-done`"
+          />
+          <NBackTop />
+      </NLayoutContent>
+      </NLayout>
     <template #action>
       <NSpace>
         <NButton type="primary" @click="addTodoItem">
@@ -61,8 +67,9 @@ import {
   NButton,
   NCard,
   NIcon,
+  NLayout,
+  NLayoutContent,
   NPopconfirm,
-  NScrollbar,
   NSpace,
 } from 'naive-ui';
 import { Add as AddIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
@@ -89,13 +96,18 @@ const incompleteItems = computed(() => store.getters.incompleteItems(props.index
 const setTitle = (title: string) => store.commit('setTodoTitle', { index: props.index, title });
 const onDelete = () => emit('delete', props.index);
 
-const scrollBar = ref<null | typeof NScrollbar>(null);
+const layout = ref<null | typeof NLayout>(null);
 const addTodoItem = async () => {
   await store.commit('addTodoItem', { index: props.index });
-  scrollBar.value.scrollTo({ position: 'bottom' });
+  layout.value.scrollTo({ position: 'bottom' });
 };
 const removeTodoItem = (itemIndex: number) => store.commit('removeTodoItem', {
   todoIndex: props.index,
   itemIndex,
 });
 </script>
+
+<style lang="stylus">
+.todo-items
+  background none
+</style>
