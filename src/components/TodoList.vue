@@ -26,6 +26,7 @@
     </template>
     <NLayout class="todo-items">
       <NLayoutContent
+        class="todo-items-content"
         ref="layout"
         :style="mainContentStyle"
         :native-scrollbar="false"
@@ -108,6 +109,6 @@ const removeTodoItem = (itemIndex: number) => store.commit('removeTodoItem', {
 </script>
 
 <style lang="stylus">
-.todo-items
+.todo-items, .todo-items-content
   background none
 </style>
