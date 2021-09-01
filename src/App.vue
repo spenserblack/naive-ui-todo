@@ -1,35 +1,36 @@
 <template>
-  <NConfigProvider :theme="theme" id="main" :class="{ dark: theme != null }">
-    <NCard id="todo-app">
-      <NCard>
-        <NSpace justify="end">
-          <NText>Automatic saving is</NText>
-          <NSwitch v-model:value="saveAutomatically">
-            <template #checked>on</template>
-            <template #unchecked>off</template>
-          </NSwitch>
-          <NButton type="primary" :loading="saving" :disabled="saving" @click="save">
-            <template #icon>
-              <NIcon><SaveIcon /></NIcon>
-            </template>
-            Save
-          </NButton>
-          <YamlDownloadButton :disabled="!isValid">Export</YamlDownloadButton>
-          <YamlUploadButton>Import</YamlUploadButton>
-          <NButton v-if="theme == null" @click="theme = darkTheme">
-            <template #icon>
-              <NIcon><MoonIcon /></NIcon>
-            </template>
-            Dark
-          </NButton>
-          <NButton v-else @click="theme = null">
-            <template #icon>
-              <NIcon><SunIcon /></NIcon>
-            </template>
-            Light
-          </NButton>
-        </NSpace>
-        <NSpace justify="center">
+  <NConfigProvider :theme="theme">
+    <NLayout id="main">
+      <NLayoutHeader>
+        <NSpace vertical>
+          <NSpace class="options" justify="end" size="small">
+            <NText>Automatic saving is</NText>
+            <NSwitch v-model:value="saveAutomatically">
+              <template #checked>on</template>
+              <template #unchecked>off</template>
+            </NSwitch>
+            <NButton type="primary" :loading="saving" :disabled="saving" @click="save">
+              <template #icon>
+                <NIcon><SaveIcon /></NIcon>
+              </template>
+              Save
+            </NButton>
+            <YamlDownloadButton :disabled="!isValid">Export</YamlDownloadButton>
+            <YamlUploadButton>Import</YamlUploadButton>
+            <NButton v-if="theme == null" @click="theme = darkTheme">
+              <template #icon>
+                <NIcon><MoonIcon /></NIcon>
+              </template>
+              Dark
+            </NButton>
+            <NButton v-else @click="theme = null">
+              <template #icon>
+                <NIcon><SunIcon /></NIcon>
+              </template>
+              Light
+            </NButton>
+          </NSpace>
+          <NDivider />
           <NMenu
             :options="menuOptions"
             mode="horizontal"
@@ -37,14 +38,16 @@
             @update:value="onMenuUpdate"
           />
         </NSpace>
-      </NCard>
+      </NLayoutHeader>
+      <NLayoutContent>
         <RouterView />
-        <template #footer>
-          <NSpace justify="end">
-            <NText italic type="info">v{{ version }}</NText>
-          </NSpace>
-        </template>
-    </NCard>
+      </NLayoutContent>
+      <NLayoutFooter>
+        <NSpace class="footer-text" justify="end">
+          <NText italic type="info">v{{ version }}</NText>
+        </NSpace>
+      </NLayoutFooter>
+    </NLayout>
   </NConfigProvider>
 </template>
 
@@ -63,9 +66,13 @@ import {
 } from '@vicons/ionicons5';
 import {
   NButton,
-  NCard,
   NConfigProvider,
+  NDivider,
   NIcon,
+  NLayout,
+  NLayoutContent,
+  NLayoutFooter,
+  NLayoutHeader,
   NMenu,
   NSpace,
   NSwitch,
@@ -214,15 +221,12 @@ const isValid = computed(() => store.getters.isValid);
   height 100vh
   overflow hidden
 
-#main.dark
-  background-color black
+  #main
+    width 100vw
+    height 100vh
 
-#todo-app
-  mainWidth = 100vw
-  horizontalPadding = 0
-  width mainWidth - (horizontalPadding * 2)
-  height 100vh
-  padding-left horizontalPadding
-  padding-right horizontalPadding
-
+    .options, .footer-text
+      Padding = 1em
+      padding-top Padding
+      padding-right Padding
 </style>
