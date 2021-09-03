@@ -42,6 +42,11 @@
       <NLayoutContent>
         <RouterView />
       </NLayoutContent>
+      <NLayoutFooter>
+        <NSpace class="footer-text" justify="end">
+          <NText italic type="info">v{{ version }}</NText>
+        </NSpace>
+      </NLayoutFooter>
     </NLayout>
   </NConfigProvider>
 </template>
@@ -66,6 +71,7 @@ import {
   NIcon,
   NLayout,
   NLayoutContent,
+  NLayoutFooter,
   NLayoutHeader,
   NMenu,
   NSpace,
@@ -79,6 +85,7 @@ import { useStore, TodoList } from './store';
 
 import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
 import YamlUploadButton from './components/buttons/UploadYaml.vue';
+import { version } from '../package.json';
 
 const makeKey = (subkey: string): string => `naive-todo__${subkey}`;
 const todoKey = makeKey('todolist');
@@ -218,7 +225,7 @@ const isValid = computed(() => store.getters.isValid);
     width 100vw
     height 100vh
 
-    .options
+    .options, .footer-text
       Padding = 1em
       padding-top Padding
       padding-right Padding

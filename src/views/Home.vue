@@ -53,5 +53,5 @@ const removeList = (index: number) => store.commit('removeList', index);
 
 <style lang="stylus">
 .lists
-  height 70vh
+  height 65vh
 </style>
