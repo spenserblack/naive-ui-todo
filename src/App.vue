@@ -44,6 +44,10 @@
       </NLayoutContent>
       <NLayoutFooter>
         <NSpace class="footer-text" justify="end">
+          <NA href="https://github.com/spenserblack/naive-ui-todo">
+            <span><NIcon><GithubIcon /></NIcon> GitHub</span>
+          </NA>
+          <NDivider vertical />
           <NText italic type="info">v{{ version }}</NText>
         </NSpace>
       </NLayoutFooter>
@@ -58,6 +62,7 @@ import {
 } from 'vue';
 import {
   Add as AddIcon,
+  LogoGithub as GithubIcon,
   Home as HomeIcon,
   List as ListIcon,
   Save as SaveIcon,
@@ -65,6 +70,7 @@ import {
   Moon as MoonIcon,
 } from '@vicons/ionicons5';
 import {
+  NA,
   NButton,
   NConfigProvider,
   NDivider,
