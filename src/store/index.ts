@@ -1,4 +1,4 @@
-import { InjectionKey, reactive } from 'vue';
+import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import { load as fromYaml } from 'js-yaml';
 
@@ -110,7 +110,7 @@ export const getters = {
 };
 
 const load = (state: State, todos: Array<TodoList>): void => {
-  state.todos = reactive(todos);
+  state.todos.splice(0, state.todos.length, ...todos);
 };
 
 const loadFromImport = (state: State, jsonImport: ForYaml): void => {
@@ -134,7 +134,7 @@ const loadFromImport = (state: State, jsonImport: ForYaml): void => {
         id: listId,
       };
     });
-  state.todos = reactive(todos);
+  load(state, todos);
 };
 
 export const mutations = {
