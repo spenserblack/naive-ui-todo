@@ -916,17 +916,17 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@css-render/plugin-bem@^0.15.4":
-  version "0.15.5"
-  resolved "https://registry.yarnpkg.com/@css-render/plugin-bem/-/plugin-bem-0.15.5.tgz#90ccc9613f25484a795ac3f9d00018f8badb0556"
-  integrity sha512-+vf68Tqj0rg9mieh463+nEolMbvpRRi60dK0OW10z3Vd6KH1ojaPnTzmTu4feE14f4ez5Ogb7IpC5CsT1+DEvA==
+"@css-render/plugin-bem@^0.15.6":
+  version "0.15.6"
+  resolved "https://registry.yarnpkg.com/@css-render/plugin-bem/-/plugin-bem-0.15.6.tgz#f7fea474df4f3262ef9fb8017ada1cb9712cd78a"
+  integrity sha512-tz6PgYyP8CDa30JsaqK8q5MSg8/dICDi8QifzURlrWGIfAcLrToNX7Hum6lAvtD2rNHTKF9g12Hto4NVg/fdZA==
   dependencies:
-    css-render "~0.15.5"
+    css-render "~0.15.6"
 
-"@css-render/vue3-ssr@^0.15.4":
-  version "0.15.5"
-  resolved "https://registry.yarnpkg.com/@css-render/vue3-ssr/-/vue3-ssr-0.15.5.tgz#86994d35967528aa46e3853d40b8bdd2a95b2f9d"
-  integrity sha512-1CFF12uJv6aMtUeKW7x3f/qdXiMe/jZ5xNZoDIbPyRIWmsFYI6kw/7+uyaGFUe6HhXFc8F/j42SvuaX9vlF4XQ==
+"@css-render/vue3-ssr@^0.15.6":
+  version "0.15.6"
+  resolved "https://registry.yarnpkg.com/@css-render/vue3-ssr/-/vue3-ssr-0.15.6.tgz#4edc294bda7e6ca215f6c7ec9e2c8385645069c3"
+  integrity sha512-aBb5tIezKlM7PycXoek/46oGO3kRg5Y+FgE3RGGKwvv8CAnLhdk5b3UM0LDIRfXdI+vxA/kSgk4pz9f7nDqGjA==
 
 "@emotion/hash@~0.8.0":
   version "0.8.0"
@@ -3474,10 +3474,10 @@ css-loader@^3.5.3:
     schema-utils "^2.7.0"
     semver "^6.3.0"
 
-css-render@^0.15.3, css-render@^0.15.4, css-render@~0.15.5:
-  version "0.15.5"
-  resolved "https://registry.yarnpkg.com/css-render/-/css-render-0.15.5.tgz#e4c03b70307f31ca90133ad047419e69121bf096"
-  integrity sha512-i33v56jCiq+TPmYbwCA0N9VKWVy+BjPBuBJg1FKdCcrZDLGZrEc5vDfedHrWwFA0J9MCiPtz1HLAGl7R1LLQBg==
+css-render@^0.15.3, css-render@^0.15.6, css-render@~0.15.6:
+  version "0.15.6"
+  resolved "https://registry.yarnpkg.com/css-render/-/css-render-0.15.6.tgz#93b778ffc38120f8cd4e135941f0d76ee4c1b783"
+  integrity sha512-YTfTgDtR+BIqtVWRTkzjQ8RROp1IbZsm1ihzO8FUw2LMi76TaFRBchy2VEyU7ltdvjQs+W0a4YRPqdntU21kig==
   dependencies:
     "@emotion/hash" "~0.8.0"
     "@types/node" "~14.14.31"
@@ -7052,24 +7052,24 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-naive-ui@^2.16.7:
-  version "2.16.7"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.16.7.tgz#c6f8e6bc960bc3c270e724aab541dbe7e25fd819"
-  integrity sha512-0l0WX5lJZT9W9kyUke4K8nZsekIXSbfySxA82UPcI/MsaeOXZ5DPRrRGJEgDjK+D8Nw4hD6iex2IAvSvv5Uqog==
+naive-ui@^2.17.2:
+  version "2.17.2"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.17.2.tgz#ebc3c946bc9c66a95c1fdf9b4a7e60caaa92f576"
+  integrity sha512-EejO3ms2M3L32eLrexAsIBWRBHwUOX4lU97VfyOeEm9php6YL6bzjrZhnaYQXgAywttQlcVhYpMmC1uoORD2nw==
   dependencies:
-    "@css-render/plugin-bem" "^0.15.4"
-    "@css-render/vue3-ssr" "^0.15.4"
+    "@css-render/plugin-bem" "^0.15.6"
+    "@css-render/vue3-ssr" "^0.15.6"
     "@types/lodash" "^4.14.170"
     "@types/lodash-es" "^4.17.4"
     async-validator "^4.0.1"
-    css-render "^0.15.4"
+    css-render "^0.15.6"
     date-fns "^2.19.0"
     evtd "^0.2.2"
     highlight.js "^11.0.1"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
     seemly "^0.3.1"
-    treemate "^0.3.0"
+    treemate "^0.3.4"
     vdirs "^0.1.4"
     vfonts "^0.1.0"
     vooks "^0.2.6"
@@ -9876,10 +9876,10 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
-treemate@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/treemate/-/treemate-0.3.0.tgz#9f3ca2dce12d8285990646df4acb0db114b38088"
-  integrity sha512-Wgnx+Oz+SD2mza6PxQZCWmLrCQV1uplmqUfxsP5M58C722ociHQFtLUZsyilQzhNBn6kZTTpGerG3QZCOPvCWA==
+treemate@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/treemate/-/treemate-0.3.4.tgz#d7a36619083c28b54f7eb2f816c120ae522ccd1f"
+  integrity sha512-CaUdHj9zMPWTG+ayxgN3KyA83GjqnuQt0f+bCO8Sg3bjN7tLcB/fn4Z2/y8PJfSQIMfumvgPLlaNSBoKJHvoXQ==
 
 tryer@^1.0.1:
   version "1.0.1"
