@@ -28,7 +28,7 @@
     "@types/js-yaml": "^4.0.3",
     "@types/lodash.debounce": "^4.0.6",
     "@types/mocha": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.30.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
