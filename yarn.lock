@@ -3672,6 +3672,11 @@ data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+date-fns-tz@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/date-fns-tz/-/date-fns-tz-1.1.6.tgz#93cbf354e2aeb2cd312ffa32e462c1943cf20a8e"
+  integrity sha512-nyy+URfFI3KUY7udEJozcoftju+KduaqkVfwyTIE0traBiVye09QnyWKLZK7drRr5h9B7sPJITmQnS3U6YOdQg==
+
 date-fns@^2.19.0:
   version "2.23.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.23.0.tgz#4e886c941659af0cf7b30fafdd1eaa37e88788a9"
@@ -7052,10 +7057,10 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-naive-ui@^2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.18.1.tgz#f6f20b6881d4725c4a7cf6aa75c0708fa787d36f"
-  integrity sha512-oC/xvEYydCkyDRAiXVFh7J/NZ10XlntxxUBn8UtTiwkqmpmNXYQSN/0ULh4Db6hz6that4nEy59bBQ21+7b6bQ==
+naive-ui@^2.19.0:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.19.0.tgz#cfb1f921b567235da3d07627e91c0dcaf4cd0a6d"
+  integrity sha512-YHZ+vwekmt/PVTv7e93aKE43RPfN7UHvdmSzNWU6tEfKxJ0rEfHAtn58wmqkQv5Btfx/8+1Gpu3MOPEC1ci6tA==
   dependencies:
     "@css-render/plugin-bem" "^0.15.6"
     "@css-render/vue3-ssr" "^0.15.6"
@@ -7064,12 +7069,13 @@ naive-ui@^2.18.1:
     async-validator "^4.0.1"
     css-render "^0.15.6"
     date-fns "^2.19.0"
+    date-fns-tz "^1.1.6"
     evtd "^0.2.2"
     highlight.js "^11.0.1"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
     seemly "^0.3.1"
-    treemate "^0.3.4"
+    treemate "^0.3.8"
     vdirs "^0.1.4"
     vfonts "^0.1.0"
     vooks "^0.2.6"
@@ -9876,10 +9882,10 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
-treemate@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/treemate/-/treemate-0.3.4.tgz#d7a36619083c28b54f7eb2f816c120ae522ccd1f"
-  integrity sha512-CaUdHj9zMPWTG+ayxgN3KyA83GjqnuQt0f+bCO8Sg3bjN7tLcB/fn4Z2/y8PJfSQIMfumvgPLlaNSBoKJHvoXQ==
+treemate@^0.3.8:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/treemate/-/treemate-0.3.8.tgz#791c0cd6eae5bdbd2cd04013429385f5366fdff4"
+  integrity sha512-wv9lBoPaeWsOgBSX09cpDi1HcO/A3aNfY+Qhvu8JnOSvVfSTmcXMKGrg9g8oTgWA8YLVqq+wt8p+eQvAhqKqlQ==
 
 tryer@^1.0.1:
   version "1.0.1"
