@@ -7159,10 +7159,10 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-naive-ui@^2.19.6:
-  version "2.19.6"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.19.6.tgz#e1dd19f702eef622d479a8b103cf41f22a2000c1"
-  integrity sha512-u1LtiIsIYJeg870pC001esGFpCS40a7Vepk9ta34HOKFHr04KfQBBIhQYP6ZMJmA1OriDTh87MOODrsblXeOlA==
+naive-ui@^2.19.9:
+  version "2.19.9"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.19.9.tgz#faac9e9b5f39301e0e52ba2e52945ed56dff4890"
+  integrity sha512-BKD0z+8z75XAnSzr9wQ3CQKHL2/IgaFy7XZFYIA9deS7Iql1LkTGajDbAHmUcbfm//sCjbTa0vhvcVy/B7zpqw==
   dependencies:
     "@css-render/plugin-bem" "^0.15.6"
     "@css-render/vue3-ssr" "^0.15.6"
@@ -7180,7 +7180,7 @@ naive-ui@^2.19.6:
     treemate "^0.3.8"
     vdirs "^0.1.4"
     vfonts "^0.1.0"
-    vooks "^0.2.6"
+    vooks "^0.2.10"
     vueuc "^0.4.13"
 
 nan@^2.12.1:
@@ -10356,10 +10356,10 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vooks@^0.2.4, vooks@^0.2.6:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/vooks/-/vooks-0.2.8.tgz#fad6a78c72e39443e56285337b0843baaeed0f3e"
-  integrity sha512-d+MHX5mTHeNZn0XTILMUKjpxS1+dUKCI/kw9+LnvfHzCawL8bZ1itViAbWfwJI246uSc47rL3ECPgPMyS8wQrQ==
+vooks@^0.2.10, vooks@^0.2.4:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/vooks/-/vooks-0.2.10.tgz#2656f4c025758ed97edc4a9584c9cc15ecffb70b"
+  integrity sha512-clZkEndDEUyUFP7u1dL0iijcW0p04Hhj50IVcakRrLjQkuZIr7sx6EX9oMyWgrYVjmfdX6vysnCg3OxsYl67jA==
   dependencies:
     evtd "^0.2.2"
 
