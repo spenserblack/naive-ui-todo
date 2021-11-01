@@ -12,11 +12,11 @@
   },
   "dependencies": {
     "@vicons/ionicons5": "^0.11.0",
-    "core-js": "^3.18.3",
+    "core-js": "^3.19.0",
     "file-saver": "^2.0.5",
     "js-yaml": "^4.1.0",
     "lodash.debounce": "^4.0.8",
-    "naive-ui": "^2.19.11",
+    "naive-ui": "^2.20.1",
     "vfonts": "^0.1.0",
     "vue": "^3.2.20",
     "vue-router": "^4.0.12",
