@@ -4556,10 +4556,10 @@ evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
     md5.js "^1.3.4"
     safe-buffer "^5.1.1"
 
-evtd@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/evtd/-/evtd-0.2.2.tgz#bebbe27e15aedc1d5c18bc2620dfc90f260787c3"
-  integrity sha512-YRUY9BHnnOmeeaOOLlIfUEp3itg4oFEd+uWPGMs0m4WUJaGcEgxFx8PLRRQaaDKvN2B+19lYzhATILGfXuprnA==
+evtd@^0.2.2, evtd@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/evtd/-/evtd-0.2.3.tgz#185158d533b4440ee831a0fa0cffde16e8bda504"
+  integrity sha512-tmiT1YUVqFjTY+BSBOAskL83xNx41iUfpvKP6Gcd/xMHjg3mnER98jXGXJyKnxCG19uPc6EhZiUC+MUyvoqCtw==
 
 execa@^0.8.0:
   version "0.8.0"
@@ -7168,10 +7168,10 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-naive-ui@^2.20.2:
-  version "2.20.2"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.20.2.tgz#d0002c533281882b51e159280cfdc9b6925dfa7d"
-  integrity sha512-jfaYvziJY5/G0gdWoT9Fu8YeZrTZL2JnzZBi/Fq6BJM4jN1xPN4VSkEbVspHJYaBhAGtz0LCI/0ldCP9bjjxyA==
+naive-ui@^2.20.3:
+  version "2.20.3"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.20.3.tgz#af90efc852ba725141c4fd5ccaa4fbd65902e6c9"
+  integrity sha512-I9JFNgRiF89YehcGC0h/xCK0xfMLB9qWob6W9aVt84HpqspyFhyMfIym+LDWHMRgwKYzhwd6cS+xv6riiau9RA==
   dependencies:
     "@babel/eslint-parser" "^7.15.8"
     "@css-render/plugin-bem" "^0.15.6"
@@ -7182,7 +7182,7 @@ naive-ui@^2.20.2:
     css-render "^0.15.6"
     date-fns "^2.19.0"
     date-fns-tz "^1.1.6"
-    evtd "^0.2.2"
+    evtd "^0.2.3"
     highlight.js "^11.0.1"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
