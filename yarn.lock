@@ -7186,10 +7186,10 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-naive-ui@^2.20.3:
-  version "2.20.3"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.20.3.tgz#af90efc852ba725141c4fd5ccaa4fbd65902e6c9"
-  integrity sha512-I9JFNgRiF89YehcGC0h/xCK0xfMLB9qWob6W9aVt84HpqspyFhyMfIym+LDWHMRgwKYzhwd6cS+xv6riiau9RA==
+naive-ui@^2.21.0:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.21.0.tgz#0815fef432164c9dd05fe870294b85677531c7e1"
+  integrity sha512-sClbHnRsXlWzxP8wHuqtElqj1yx2ddLYO7N90a3Yll9kHMTXVvLTDwNNKgCZMHvKiQHaLGp19bEjJkxVH821rQ==
   dependencies:
     "@babel/eslint-parser" "^7.15.8"
     "@css-render/plugin-bem" "^0.15.6"
