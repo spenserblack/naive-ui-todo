@@ -64,14 +64,19 @@ export const getters = {
       .map((item, index) => ({ index, ...item }))
       .filter(({ done }) => !done)
   ),
-  numberedItems: (state: State) => (todoIndex: number): Array<DuplicateItem> => {
-    const duplicateCounts: Map<string, number> = new Map();
-
-    return state.todos[todoIndex].items.map(({ description, ...attrs }) => {
-      const duplicates = (duplicateCounts.get(description) || 0);
-      duplicateCounts.set(description, duplicates + 1);
-      return { description, duplicates, ...attrs };
+  numberedItems: (state: State): NumberedItems => {
+    const numberedTodos = state.todos.map(({ items, ...todo }) => {
+      const duplicateCounts: Map<string, number> = new Map();
+      return {
+        ...todo,
+        items: items.map(({ description, ...item }) => {
+          const duplicates = duplicateCounts.get(description) || 0;
+          duplicateCounts.set(description, duplicates + 1);
+          return { description, duplicates, ...item };
+        }),
+      };
     });
+    return (todoIndex: number) => numberedTodos[todoIndex].items;
   },
   isItemValid: (state: State) => (todoIndex: number, itemIndex: number): boolean => (
     state.todos[todoIndex].items[itemIndex].description.length > 0
