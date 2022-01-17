@@ -7166,10 +7166,10 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-naive-ui@^2.23.2:
-  version "2.23.2"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.23.2.tgz#4fa03b3ffec0768c0fe5d8eb7b51dadf36319119"
-  integrity sha512-x5XtoJrfMcBGqkryJ6RPg3hB7xDqbO+5TfDB1UGIaVsj2fsidn9S9a6yK/jXqKbw+h5h97NqOu+Lf5EH8tAIog==
+naive-ui@^2.24.1:
+  version "2.24.1"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.24.1.tgz#146e0c547248e64cd9b2c34d1437e80063e250c6"
+  integrity sha512-nwU4L7P5rIutkRjoBB3wvtn19GYBI/vbz+DeyhbkG9MB4VZe2xZLA5fgq0dD4MsY2KYYcffKz4wDcQOJBy5zGg==
   dependencies:
     "@css-render/plugin-bem" "^0.15.8"
     "@css-render/vue3-ssr" "^0.15.8"
@@ -7186,9 +7186,9 @@ naive-ui@^2.23.2:
     seemly "^0.3.3"
     treemate "^0.3.9"
     vdirs "^0.1.7"
-    vfonts "^0.1.0"
+    vfonts "^0.0.3"
     vooks "^0.2.12"
-    vueuc "^0.4.19"
+    vueuc "^0.4.21"
 
 nan@^2.12.1:
   version "2.14.2"
@@ -10361,6 +10361,11 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+vfonts@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/vfonts/-/vfonts-0.0.3.tgz#999d66fecea18efee3f2b966c81101ae8ce01a29"
+  integrity sha512-nguyw8L6Un8eelg1vQ31vIU2ESxqid7EYmy8V+MDeMaHBqaRSkg3dTBToC1PR00D89UzS/SLkfYPnx0Wf23IQQ==
+
 vfonts@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/vfonts/-/vfonts-0.1.0.tgz#c16af37ca044b2725ae55553049280efbe6222a9"
@@ -10447,10 +10452,10 @@ vue@^3.2.27:
     "@vue/server-renderer" "3.2.27"
     "@vue/shared" "3.2.27"
 
-vueuc@^0.4.19:
-  version "0.4.19"
-  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.19.tgz#4f7f5f91201994e400d670944c7d880013bbf601"
-  integrity sha512-mzhYwv60cldElLolvG5sMsDFNMP1+vQbxPnbWzT2BdIG6XfF0hzCxq0KMoYpg4cAekKijty2txRgNkySIjTWLA==
+vueuc@^0.4.21:
+  version "0.4.23"
+  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.23.tgz#573ca8635bbdbdb544ec5500fe3f2b790f5477ee"
+  integrity sha512-8I5FFBwcgnMDFQBWVOg2uJPrk7vh+CeaRNEuiKtnn2QWKr5dqYs6+A93pQfErEIugc8nq61slj2siw0JAcxYeQ==
   dependencies:
     css-render "^0.15.7"
     evtd "^0.2.2"
