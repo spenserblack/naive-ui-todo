@@ -20,18 +20,13 @@ export interface State {
 
 export const key: InjectionKey<Store<State>> = Symbol('store');
 
-interface DuplicateItem extends TodoItem {
-  duplicates: number;
-}
-
-interface IndexedItem extends DuplicateItem {
+interface IndexedItem extends TodoItem {
   index: number;
 }
 
 export type IsItemValidType = (todoIndex: number, itemIndex: number) => boolean;
 export type AreItemsValidType = (todoIndex: number) => boolean;
 export type IsTodoValidType = (todoIndex: number) => boolean;
-export type NumberedItems = (todoIndex: number) => Array<DuplicateItem>;
 
 interface ForYaml {
   [key: string]: {
@@ -50,34 +45,15 @@ const nextItemId = (state: State) => (index: number): number => 1 + state.todos[
 );
 
 export const getters = {
-  completeItems: (state: State, { numberedItems }: {
-    numberedItems: NumberedItems,
-  }) => (todoIndex: number): Array<IndexedItem> => (
-    numberedItems(todoIndex)
-      .map((item, index) => ({ index, ...item }))
-      .filter(({ done }) => done)
-  ),
-  incompleteItems: (state: State, { numberedItems }: {
-    numberedItems: NumberedItems,
-  }) => (todoIndex: number): Array<IndexedItem> => (
-    numberedItems(todoIndex)
-      .map((item, index) => ({ index, ...item }))
-      .filter(({ done }) => !done)
-  ),
-  numberedItems: (state: State): NumberedItems => {
-    const numberedTodos = state.todos.map(({ items, ...todo }) => {
-      const duplicateCounts: Map<string, number> = new Map();
-      return {
-        ...todo,
-        items: items.map(({ description, ...item }) => {
-          const duplicates = duplicateCounts.get(description) || 0;
-          duplicateCounts.set(description, duplicates + 1);
-          return { description, duplicates, ...item };
-        }),
-      };
-    });
-    return (todoIndex: number) => numberedTodos[todoIndex].items;
-  },
+  completeItems: (state: State) => (todoIndex: number): Array<IndexedItem> => state.todos[todoIndex]
+    .items
+    .map((item, index) => ({ index, ...item }))
+    .filter(({ done }) => done),
+  incompleteItems: (state: State) => (todoIndex: number): Array<IndexedItem> => state
+    .todos[todoIndex]
+    .items
+    .map((item, index) => ({ index, ...item }))
+    .filter(({ done }) => !done),
   isItemValid: (state: State) => (todoIndex: number, itemIndex: number): boolean => (
     state.todos[todoIndex].items[itemIndex].description.length > 0
   ),

@@ -4,48 +4,10 @@ import {
   IsItemValidType,
   AreItemsValidType,
   IsTodoValidType,
-  NumberedItems,
 } from '@/store';
 
 describe('store', () => {
   describe('getters', () => {
-    describe('numberedItems', () => {
-      const { numberedItems } = getters;
-      it('should add a sequential duplicate count to each item', () => {
-        const state = {
-          todos: [
-            {
-              title: 'foo',
-              id: 1,
-              items: [
-                {
-                  description: 'a',
-                  id: 1,
-                  done: false,
-                },
-                {
-                  description: 'b',
-                  id: 2,
-                  done: false,
-                },
-                {
-                  description: 'a',
-                  id: 3,
-                  done: true,
-                },
-              ],
-            },
-          ],
-        };
-
-        const items = numberedItems(state)(0);
-
-        expect(items).to.be.an('array').with.lengthOf(3);
-        expect(items[0].duplicates).to.equal(0);
-        expect(items[1].duplicates).to.equal(0);
-        expect(items[2].duplicates).to.equal(1);
-      });
-    });
     describe('completeItems', () => {
       const { completeItems } = getters;
 
@@ -81,8 +43,7 @@ describe('store', () => {
           ],
         };
 
-        const numberedItems = (() => state.todos[0].items) as unknown as NumberedItems;
-        const items = completeItems(state, { numberedItems })(0);
+        const items = completeItems(state)(0);
 
         expect(items).to.have.lengthOf(2);
         expect(items[0].description).to.equal('a');
@@ -130,8 +91,7 @@ describe('store', () => {
           ],
         };
 
-        const numberedItems = (() => state.todos[0].items) as unknown as NumberedItems;
-        const items = incompleteItems(state, { numberedItems })(0);
+        const items = incompleteItems(state)(0);
 
         expect(items).to.have.lengthOf(2);
         expect(items[0].description).to.equal('b');
