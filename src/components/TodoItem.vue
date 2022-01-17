@@ -39,7 +39,7 @@ const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
 const store = useStore();
-const item = computed(() => store.getters.numberedItems(props.todoIndex)[props.itemIndex]);
+const item = computed(() => store.state.todos[props.todoIndex].items[props.itemIndex]);
 const setDescription = (description: string) => store.commit('setTodoItemDescription', {
   todoIndex: props.todoIndex,
   itemIndex: props.itemIndex,
