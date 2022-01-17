@@ -13,14 +13,13 @@
       :textStyle="{ delete: item.done }"
       :textDepth="item.done ? 3 : 1"
     />
-    <NText v-if="item.duplicates > 0" depth="2">({{ item.duplicates }})</NText>
   </NSpace>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import {
-  NButton, NCheckbox, NIcon, NSpace, NText,
+  NButton, NCheckbox, NIcon, NSpace,
 } from 'naive-ui';
 import { Trash as DeleteIcon } from '@vicons/ionicons5';
 import { useStore } from '@/store';
