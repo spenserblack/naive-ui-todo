@@ -181,6 +181,23 @@ export const mutations = {
   }): void => {
     state.todos[todoIndex].items[itemIndex].done = false;
   },
+  clearDuplicates: (state: State, index: number): void => {
+    const found: Set<string> = new Set();
+
+    state.todos[index].items = state.todos[index].items.filter(({ description, done }) => {
+      const keep = !found.has(description);
+      if (done) {
+        found.add(description);
+      }
+      return keep;
+    });
+
+    state.todos[index].items = state.todos[index].items.filter(({ description, done }) => {
+      const keep = done || !found.has(description);
+      found.add(description);
+      return keep;
+    });
+  },
 };
 
 export const store = createStore<State>({

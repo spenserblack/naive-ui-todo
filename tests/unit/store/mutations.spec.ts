@@ -263,5 +263,37 @@ describe('store', () => {
         expect(done).to.be.false;
       });
     });
+    describe('clearDuplicates', () => {
+      const { clearDuplicates } = mutations;
+
+      it('should remove duplicates, prioritizing complete items', () => {
+        const state = {
+          todos: [
+            {
+              title: 'foo',
+              items: [
+                { description: 'foo', done: false, id: 1 },
+                { description: 'bar', done: false, id: 2 },
+                { description: 'baz', done: true, id: 3 },
+                { description: 'bar', done: false, id: 4 },
+                { description: 'foo', done: true, id: 5 },
+                { description: 'baz', done: true, id: 6 },
+              ],
+              id: 1,
+            },
+          ],
+        };
+
+        clearDuplicates(state, 0);
+
+        const expectedItems = [
+          { description: 'bar', done: false, id: 2 },
+          { description: 'baz', done: true, id: 3 },
+          { description: 'foo', done: true, id: 5 },
+        ];
+
+        expect(state.todos[0].items).to.deep.equal(expectedItems);
+      });
+    });
   });
 });
