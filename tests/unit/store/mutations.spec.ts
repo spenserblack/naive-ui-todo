@@ -275,9 +275,11 @@ describe('store', () => {
                 { description: 'foo', done: false, id: 1 },
                 { description: 'bar', done: false, id: 2 },
                 { description: 'baz', done: true, id: 3 },
-                { description: 'bar', done: false, id: 4 },
-                { description: 'foo', done: true, id: 5 },
-                { description: 'baz', done: true, id: 6 },
+                { description: 'keep1', done: false, id: 4 },
+                { description: 'bar', done: false, id: 5 },
+                { description: 'foo', done: true, id: 6 },
+                { description: 'baz', done: true, id: 7 },
+                { description: 'keep2', done: true, id: 8 },
               ],
               id: 1,
             },
@@ -289,7 +291,9 @@ describe('store', () => {
         const expectedItems = [
           { description: 'bar', done: false, id: 2 },
           { description: 'baz', done: true, id: 3 },
-          { description: 'foo', done: true, id: 5 },
+          { description: 'keep1', done: false, id: 4 },
+          { description: 'foo', done: true, id: 6 },
+          { description: 'keep2', done: true, id: 8 },
         ];
 
         expect(state.todos[0].items).to.deep.equal(expectedItems);
