@@ -7076,10 +7076,10 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-naive-ui@^2.24.1:
-  version "2.24.1"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.24.1.tgz#146e0c547248e64cd9b2c34d1437e80063e250c6"
-  integrity sha512-nwU4L7P5rIutkRjoBB3wvtn19GYBI/vbz+DeyhbkG9MB4VZe2xZLA5fgq0dD4MsY2KYYcffKz4wDcQOJBy5zGg==
+naive-ui@^2.24.3:
+  version "2.24.3"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.24.3.tgz#7975c1df3336f1e6a8c1dddb8e9d3ac091fb5bc6"
+  integrity sha512-SGo0QosMjg4SiVWuQ30b4P35dc1AO7F12DxfJFpXJVihxMwqR4yf5VHFOewBJprRbnVkSV4lIAkmuaNe7CifHw==
   dependencies:
     "@css-render/plugin-bem" "^0.15.8"
     "@css-render/vue3-ssr" "^0.15.8"
@@ -7098,7 +7098,7 @@ naive-ui@^2.24.1:
     vdirs "^0.1.7"
     vfonts "^0.0.3"
     vooks "^0.2.12"
-    vueuc "^0.4.21"
+    vueuc "^0.4.23"
 
 nan@^2.12.1:
   version "2.14.2"
@@ -9993,10 +9993,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@~4.4.0:
-  version "4.4.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
-  integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==
+typescript@~4.5.5:
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.5.tgz#d8c953832d28924a9e3d37c73d729c846c5896f3"
+  integrity sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==
 
 uglify-js@3.4.x:
   version "3.4.10"
@@ -10347,10 +10347,10 @@ vue@^3.2.27:
     "@vue/server-renderer" "3.2.27"
     "@vue/shared" "3.2.27"
 
-vueuc@^0.4.21:
-  version "0.4.23"
-  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.23.tgz#573ca8635bbdbdb544ec5500fe3f2b790f5477ee"
-  integrity sha512-8I5FFBwcgnMDFQBWVOg2uJPrk7vh+CeaRNEuiKtnn2QWKr5dqYs6+A93pQfErEIugc8nq61slj2siw0JAcxYeQ==
+vueuc@^0.4.23:
+  version "0.4.24"
+  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.24.tgz#16b2ef68f19f711da81bea83a7dd37d480ee2d6c"
+  integrity sha512-AocMRepM9x78GOZi6m/1WLHfarwtNbMQeFl4N/XQoft5iewUq0x2Tw/F0CbxMSrCVSKgBas47tZFabp4kYADmQ==
   dependencies:
     css-render "^0.15.7"
     evtd "^0.2.2"
