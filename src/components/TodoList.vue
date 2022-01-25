@@ -23,6 +23,20 @@
         </template>
         This will delete the whole to-do list.
       </NPopconfirm>
+      <NDivider vertical />
+      <NPopover>
+        <template #trigger>
+          <NButton size="large" type="warning" secondary @click="clearDuplicates">
+            <template #icon>
+              <NIcon><FilterIcon /></NIcon>
+            </template>
+            Remove Duplicates
+          </NButton>
+        </template>
+        <NText type="warning">
+          Completed items will be kept over incomplete items
+        </NText>
+      </NPopover>
     </template>
     <NLayout class="todo-items">
       <NLayoutContent
@@ -67,13 +81,20 @@ import {
   NBackTop,
   NButton,
   NCard,
+  NDivider,
   NIcon,
   NLayout,
   NLayoutContent,
   NPopconfirm,
+  NPopover,
   NSpace,
+  NText,
 } from 'naive-ui';
-import { Add as AddIcon, Trash as DeleteIcon } from '@vicons/ionicons5';
+import {
+  Add as AddIcon,
+  Filter as FilterIcon,
+  Trash as DeleteIcon,
+} from '@vicons/ionicons5';
 import { useStore } from '@/store';
 import Item from './TodoItem.vue';
 import EditableText from './EditableText.vue';
@@ -108,6 +129,7 @@ const removeTodoItem = (itemIndex: number) => store.commit('removeTodoItem', {
   todoIndex: props.index,
   itemIndex,
 });
+const clearDuplicates = () => store.commit('clearDuplicates', props.index);
 </script>
 
 <style lang="stylus">
