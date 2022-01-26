@@ -263,5 +263,41 @@ describe('store', () => {
         expect(done).to.be.false;
       });
     });
+    describe('clearDuplicates', () => {
+      const { clearDuplicates } = mutations;
+
+      it('should remove duplicates, prioritizing complete items', () => {
+        const state = {
+          todos: [
+            {
+              title: 'foo',
+              items: [
+                { description: 'foo', done: false, id: 1 },
+                { description: 'bar', done: false, id: 2 },
+                { description: 'baz', done: true, id: 3 },
+                { description: 'keep1', done: false, id: 4 },
+                { description: 'bar', done: false, id: 5 },
+                { description: 'foo', done: true, id: 6 },
+                { description: 'baz', done: true, id: 7 },
+                { description: 'keep2', done: true, id: 8 },
+              ],
+              id: 1,
+            },
+          ],
+        };
+
+        clearDuplicates(state, 0);
+
+        const expectedItems = [
+          { description: 'bar', done: false, id: 2 },
+          { description: 'baz', done: true, id: 3 },
+          { description: 'keep1', done: false, id: 4 },
+          { description: 'foo', done: true, id: 6 },
+          { description: 'keep2', done: true, id: 8 },
+        ];
+
+        expect(state.todos[0].items).to.deep.equal(expectedItems);
+      });
+    });
   });
 });
