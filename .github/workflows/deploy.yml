@@ -28,5 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Release
     needs: deploy
+    permissions:
+      contents: write
     steps:
-      - uses: softprops/action-gh-release@v1
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - uses: spenserblack/actions-tag-to-release@v0.1
