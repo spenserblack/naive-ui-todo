@@ -926,7 +926,7 @@
   resolved "https://registry.yarnpkg.com/@css-render/plugin-bem/-/plugin-bem-0.15.8.tgz#02df62ec0a16f5c07687e64f1ee595e8509d04ce"
   integrity sha512-rJMFBaqZGrezs1d0vPB7hZTSkfFEgcdWxPMtLUmm9PAOioWtw+Knb9A0xU0bYazPKDo0SoNVVcd1Qd1LXD9x4Q==
 
-"@css-render/vue3-ssr@^0.15.8":
+"@css-render/vue3-ssr@^0.15.7", "@css-render/vue3-ssr@^0.15.8":
   version "0.15.8"
   resolved "https://registry.yarnpkg.com/@css-render/vue3-ssr/-/vue3-ssr-0.15.8.tgz#76f36fd52c4e53b8f553e00032c378c0ae59bab3"
   integrity sha512-zPFyOH47hEcyRgoIjNEwzYqZEq/LEXPafDXY/9EMpvgCmsPhW1bpC3w8YwAISaP519QesJ/8aNDL/xWKpwXBvQ==
@@ -7084,10 +7084,10 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-naive-ui@^2.24.7:
-  version "2.24.7"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.24.7.tgz#27e7089938b1ee6e4144b9a6324defcdd026beb6"
-  integrity sha512-Kt3PxQ85c+5VO6SSaszSWfMwCzjs+pRo/GFK5fLMn5H9YRqnEXuxBSb2UI3Wt72OAisDAebCS4uAfFmyv7u5fQ==
+naive-ui@^2.25.1:
+  version "2.25.1"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.25.1.tgz#0f281da1f984f636b3037cbe0a2431a3a63f0082"
+  integrity sha512-s/u0X8PO6AVj/XjCYVfYwPdXTyVDavvYOoIiBGBBpWZXuw5IcfRiSSYUHZOf4mdyLG7tafU9I8vpP1vdpBMNgQ==
   dependencies:
     "@css-render/plugin-bem" "^0.15.8"
     "@css-render/vue3-ssr" "^0.15.8"
@@ -7106,7 +7106,7 @@ naive-ui@^2.24.7:
     vdirs "^0.1.7"
     vfonts "^0.0.3"
     vooks "^0.2.12"
-    vueuc "^0.4.24"
+    vueuc "^0.4.25"
 
 nan@^2.12.1:
   version "2.14.2"
@@ -10362,11 +10362,12 @@ vue@^3.2.29:
     "@vue/server-renderer" "3.2.29"
     "@vue/shared" "3.2.29"
 
-vueuc@^0.4.24:
-  version "0.4.24"
-  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.24.tgz#16b2ef68f19f711da81bea83a7dd37d480ee2d6c"
-  integrity sha512-AocMRepM9x78GOZi6m/1WLHfarwtNbMQeFl4N/XQoft5iewUq0x2Tw/F0CbxMSrCVSKgBas47tZFabp4kYADmQ==
+vueuc@^0.4.25:
+  version "0.4.25"
+  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.25.tgz#fe7b216855c2f11f6ae4b9d81b6ad9fb5ebe5664"
+  integrity sha512-SkQCtJ0N+O24gCgDwc+TYNAptgoOb/+lCTlZ7s9I+eTLo7DiLvfHp0mWI04cGkP1elhH26xdkCN+TCQ0vwaL5g==
   dependencies:
+    "@css-render/vue3-ssr" "^0.15.7"
     css-render "^0.15.7"
     evtd "^0.2.2"
     resize-observer-polyfill "^1.5.1"
