@@ -41,7 +41,6 @@
     <NLayout class="todo-items">
       <NLayoutContent
         class="todo-items-content"
-        ref="layout"
         :style="mainContentStyle"
         :native-scrollbar="false"
       >
@@ -76,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import {
   NBackTop,
   NButton,
@@ -118,12 +117,10 @@ const incompleteItems = computed(() => store.getters.incompleteItems(props.index
 const setTitle = (title: string) => store.commit('setTodoTitle', { index: props.index, title });
 const onDelete = () => emit('delete', props.index);
 
-const layout = ref<null | typeof NLayout>(null);
 const addTodoItem = async () => {
   await store.commit('addTodoItem', { index: props.index });
-  if (layout.value != null) {
-    layout.value.scrollTo({ position: 'bottom' });
-  }
+  const newItem = document.querySelector('.todo-item.new-item');
+  newItem.scrollIntoView();
 };
 const removeTodoItem = (itemIndex: number) => store.commit('removeTodoItem', {
   todoIndex: props.index,
