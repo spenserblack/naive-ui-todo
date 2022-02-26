@@ -1,7 +1,7 @@
 <template>
   <NConfigProvider :theme="theme">
     <NLayout id="main">
-      <NLayoutHeader>
+      <NLayoutHeader class="header">
         <NSpace vertical>
           <NSpace class="options" justify="end" size="small">
             <NText>Automatic saving is</NText>
@@ -39,10 +39,10 @@
           />
         </NSpace>
       </NLayoutHeader>
-      <NLayoutContent>
+      <NLayoutContent class="body">
         <RouterView />
       </NLayoutContent>
-      <NLayoutFooter>
+      <NLayoutFooter class="footer">
         <NSpace class="footer-text" justify="end">
           <NA href="https://github.com/spenserblack/naive-ui-todo">
             <span><NIcon><GithubIcon /></NIcon> GitHub</span>
@@ -236,4 +236,14 @@ const isValid = computed(() => store.getters.isValid);
       Padding = 1em
       padding-top Padding
       padding-right Padding
+</style>
+
+<style lang="stylus" scoped>
+.header
+  height 20%
+.footer
+  height 5%
+
+.body
+  height 75%
 </style>

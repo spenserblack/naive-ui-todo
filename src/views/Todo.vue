@@ -18,7 +18,7 @@ const router = useRouter();
 const store = useStore();
 
 const todoMainContentStyle = {
-  height: '55vh',
+  height: '45vh',
 };
 
 const index = computed(() => Number.parseInt(route.params.index as string, 10));
