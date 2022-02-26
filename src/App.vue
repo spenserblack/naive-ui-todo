@@ -91,8 +91,9 @@ import { useStore, TodoList } from './store';
 
 import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
 import YamlUploadButton from './components/buttons/UploadYaml.vue';
-import { version } from '../package.json';
+import naiveUiTodo from '../package.json';
 
+const { version } = naiveUiTodo;
 const makeKey = (subkey: string): string => `naive-todo__${subkey}`;
 const todoKey = makeKey('todolist');
 const saveKey = makeKey('autosave');
