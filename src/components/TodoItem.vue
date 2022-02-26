@@ -1,5 +1,5 @@
 <template>
-  <NSpace justify="left">
+  <NSpace justify="left" class="todo-item" :class="classes">
     <NButton type="warning" size="tiny" @click="onDelete">
       <template #icon>
         <NIcon><DeleteIcon /></NIcon>
@@ -40,6 +40,12 @@ const emit = defineEmits<Emits>();
 
 const store = useStore();
 const item = computed(() => store.state.todos[props.todoIndex].items[props.itemIndex]);
+const complete = computed(() => item.value.done);
+const isNew = computed(() => item.value.description === '');
+const classes = computed(() => [
+  `${complete.value ? '' : 'in'}complete`,
+  ...(isNew.value ? ['new-item'] : []),
+]);
 const setDescription = (description: string) => store.commit('setTodoItemDescription', {
   todoIndex: props.todoIndex,
   itemIndex: props.itemIndex,
