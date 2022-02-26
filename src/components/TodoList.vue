@@ -120,7 +120,7 @@ const onDelete = () => emit('delete', props.index);
 const addTodoItem = async () => {
   await store.commit('addTodoItem', { index: props.index });
   const newItem = document.querySelector('.todo-item.new-item');
-  newItem.scrollIntoView();
+  newItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
 };
 const removeTodoItem = (itemIndex: number) => store.commit('removeTodoItem', {
   todoIndex: props.index,
