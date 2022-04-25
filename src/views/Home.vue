@@ -51,6 +51,12 @@ const addList = () => store.commit('addList');
 const removeList = (index: number) => store.commit('removeList', index);
 </script>
 
+<script lang="ts">
+export default {
+  name: 'home-view',
+};
+</script>
+
 <style lang="stylus">
 .home
   height 100%

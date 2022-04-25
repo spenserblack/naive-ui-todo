@@ -28,3 +28,9 @@ const onDelete = async (): Promise<void> => {
   store.commit('removeList', i);
 };
 </script>
+
+<script lang="ts">
+export default {
+  name: 'single-todo-list-view',
+};
+</script>
