@@ -23,6 +23,12 @@
   </NCard>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'home-view',
+};
+</script>
+
 <script setup lang="ts">
 import { computed } from 'vue';
 import {
