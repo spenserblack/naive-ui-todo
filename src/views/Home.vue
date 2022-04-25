@@ -23,12 +23,6 @@
   </NCard>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'home-view',
-};
-</script>
-
 <script setup lang="ts">
 import { computed } from 'vue';
 import {
@@ -55,6 +49,12 @@ const styledTodos = computed(() => todos.value.map((todo) => {
 }));
 const addList = () => store.commit('addList');
 const removeList = (index: number) => store.commit('removeList', index);
+</script>
+
+<script lang="ts">
+export default {
+  name: 'home-view',
+};
 </script>
 
 <style lang="stylus">
