@@ -1139,6 +1139,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@juggle/resize-observer@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.3.1.tgz#b50a781709c81e10701004214340f25475a171a0"
+  integrity sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==
+
 "@node-ipc/js-queue@2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@node-ipc/js-queue/-/js-queue-2.0.3.tgz#ac7fe33d766fa53e233ef8fedaf3443a01c5a4cd"
@@ -5904,10 +5909,10 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-naive-ui@^2.28.0:
-  version "2.28.0"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.28.0.tgz#c84e7a6f83843e4f11c1c439bda24f1c35c17bac"
-  integrity sha512-/yXMF0nrciLrs5Os88omN4dbKlLU7D51lU60+di/o2dx7faJM7wsiXa0nS1fwTGTF9L19x6GBGSvBTxYtvx+lg==
+naive-ui@^2.28.2:
+  version "2.28.2"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.28.2.tgz#266995e5f1e2c126b3de3152da1c3ed55009b207"
+  integrity sha512-7vRmTZ+2L8Bo62FAfQHLiQPm4HO1u/sPo/4qy2Iy48UrtCh5FhoxbnCxQO+pRqVNafmnY8TDB+qJ3WiGGYmg1A==
   dependencies:
     "@css-render/plugin-bem" "^0.15.9"
     "@css-render/vue3-ssr" "^0.15.9"
@@ -5926,7 +5931,7 @@ naive-ui@^2.28.0:
     vdirs "^0.1.8"
     vfonts "^0.0.3"
     vooks "^0.2.12"
-    vueuc "^0.4.28"
+    vueuc "^0.4.32"
 
 nanoid@3.1.20:
   version "3.1.20"
@@ -7075,11 +7080,6 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
-
-resize-observer-polyfill@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
-  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-from@^4.0.0:
   version "4.0.0"
@@ -8281,15 +8281,15 @@ vue@^3.2.31:
     "@vue/server-renderer" "3.2.33"
     "@vue/shared" "3.2.33"
 
-vueuc@^0.4.28:
-  version "0.4.28"
-  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.28.tgz#9d705bfc2eaf150921340ea5c05d2de659a2e326"
-  integrity sha512-Udr1ROwJocHIThA5G+H5qN1QEFI4pskDvl+w/2Ul2XIjaAeIuQ6ygEOKHOXRJqKX5PxcTi1QQUpb7yQWsDw7ww==
+vueuc@^0.4.32:
+  version "0.4.32"
+  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.32.tgz#6c239280c36816424e7ebf42c6151fff821211ff"
+  integrity sha512-Bmiuhn7g5O+dzW3eX2EghsG7CiocpLwRtgbX7aiILja9K0wjxVYrJqMOiYwCxB6pvO91JDywwINpFshMZru9/g==
   dependencies:
     "@css-render/vue3-ssr" "^0.15.7"
+    "@juggle/resize-observer" "^3.3.1"
     css-render "^0.15.7"
     evtd "^0.2.2"
-    resize-observer-polyfill "^1.5.1"
     seemly "^0.3.1"
     vdirs "^0.1.4"
     vooks "^0.2.4"
