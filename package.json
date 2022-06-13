@@ -19,7 +19,7 @@
     "naive-ui": "^2.30.3",
     "vfonts": "^0.1.0",
     "vue": "^3.2.36",
-    "vue-router": "^4.0.15",
+    "vue-router": "^4.0.16",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
