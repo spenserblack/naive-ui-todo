@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "test:cov": "nyc yarn test:unit"
+    "test:cov": "nyc --reporter=lcov yarn test:unit"
   },
   "dependencies": {
     "@vicons/ionicons5": "^0.12.0",
