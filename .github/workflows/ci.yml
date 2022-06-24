@@ -27,4 +27,6 @@ jobs:
     - name: test
       run: yarn test:cov
     - name: upload report
-      run: yarn cov:report
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
