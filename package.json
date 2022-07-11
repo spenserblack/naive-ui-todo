@@ -18,7 +18,7 @@
     "naive-ui": "^2.30.8",
     "vfonts": "^0.1.0",
     "vue": "^3.2.37",
-    "vue-router": "^4.0.16",
+    "vue-router": "^4.1.1",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
@@ -31,7 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.6",
-    "@vue/cli-plugin-eslint": "~5.0.6",
+    "@vue/cli-plugin-eslint": "~5.0.8",
     "@vue/cli-plugin-router": "~5.0.6",
     "@vue/cli-plugin-typescript": "~5.0.6",
     "@vue/cli-plugin-unit-mocha": "~5.0.6",
