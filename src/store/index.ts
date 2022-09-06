@@ -28,6 +28,10 @@ export type IsItemValidType = (todoIndex: number, itemIndex: number) => boolean;
 export type AreItemsValidType = (todoIndex: number) => boolean;
 export type IsTodoValidType = (todoIndex: number) => boolean;
 
+interface ForJson {
+  todos: Array<Omit<TodoList, 'id' | 'items'> & { items: Array<Omit<TodoItem, 'id'>> }>;
+}
+
 interface ForYaml {
   [key: string]: {
     done: Array<string>;
@@ -75,6 +79,13 @@ export const getters = {
       counts[title] = (counts[title] || 0) + 1;
       return isTodoValid(todoIndex) && (counts[title] as number) < 2;
     });
+  },
+  forJsonExport: (state: State): ForJson => {
+    const todos = state.todos.map(({ title, items }) => ({
+      title,
+      items: items.map(({ description, done }) => ({ description, done })),
+    }));
+    return { todos };
   },
   forYamlExport: (state: State): ForYaml => {
     const yaml: ForYaml = {};

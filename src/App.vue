@@ -15,8 +15,9 @@
               </template>
               Save
             </NButton>
-            <YamlDownloadButton :disabled="!isValid">Export</YamlDownloadButton>
-            <YamlUploadButton>Import</YamlUploadButton>
+            <JsonDownloadButton :disabled="!isValid">Export JSON</JsonDownloadButton>
+            <YamlDownloadButton :disabled="!isValid">Export YAML</YamlDownloadButton>
+            <YamlUploadButton>Import YAML</YamlUploadButton>
             <NButton v-if="theme == null" @click="theme = darkTheme">
               <template #icon>
                 <NIcon><MoonIcon /></NIcon>
@@ -89,6 +90,7 @@ import { RouterLink, RouterView, useRouter } from 'vue-router';
 import debounce from 'lodash.debounce';
 import { useStore, TodoList } from './store';
 
+import JsonDownloadButton from './components/buttons/DownloadJson.vue';
 import YamlDownloadButton from './components/buttons/DownloadYaml.vue';
 import YamlUploadButton from './components/buttons/UploadYaml.vue';
 import naiveUiTodo from '../package.json';
