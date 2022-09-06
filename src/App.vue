@@ -3,6 +3,10 @@
     <NLayout id="main">
       <NLayoutHeader class="header">
         <NSpace vertical>
+          <NAlert title="Deprecation Notice" type="warning" closable>
+            This static website will no longer be maintained. Please use the
+            JSON export to back up your data.
+          </NAlert>
           <NSpace class="options" justify="end" size="small">
             <NText>Automatic saving is</NText>
             <NSwitch v-model:value="saveAutomatically">
@@ -72,6 +76,7 @@ import {
 } from '@vicons/ionicons5';
 import {
   NA,
+  NAlert,
   NButton,
   NConfigProvider,
   NDivider,
