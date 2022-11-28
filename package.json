@@ -15,7 +15,7 @@
     "file-saver": "^2.0.5",
     "js-yaml": "^4.1.0",
     "lodash.debounce": "^4.0.8",
-    "naive-ui": "^2.33.2",
+    "naive-ui": "^2.34.2",
     "vfonts": "^0.1.0",
     "vue": "^3.2.39",
     "vue-router": "^4.1.5",
