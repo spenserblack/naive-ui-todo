@@ -3,6 +3,13 @@
     <NLayout id="main">
       <NLayoutHeader class="header">
         <NSpace vertical>
+          <NAlert title="Deprecation Notice" type="warning" closable>
+            This project will be replaced by
+            <NA href="//github.com/spenserblack/quasar-todo">an app using quasar</NA>.
+            Please use the JSON export to back up your data. You can use
+            <NA href="./static/convert.js">this script</NA> to convert your data
+            to the new format.
+          </NAlert>
           <NSpace class="options" justify="end" size="small">
             <NText>Automatic saving is</NText>
             <NSwitch v-model:value="saveAutomatically">
@@ -72,6 +79,7 @@ import {
 } from '@vicons/ionicons5';
 import {
   NA,
+  NAlert,
   NButton,
   NConfigProvider,
   NDivider,
