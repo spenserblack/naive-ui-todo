@@ -4,8 +4,9 @@
       <NLayoutHeader class="header">
         <NSpace vertical>
           <NAlert title="Deprecation Notice" type="warning" closable>
-            This static website will no longer be maintained. Please use the
-            JSON export to back up your data.
+            This project will be replaced by
+            <NA href="//github.com/spenserblack/quasar-todo">an app using quasar</NA>.
+            Please use the JSON export to back up your data.
           </NAlert>
           <NSpace class="options" justify="end" size="small">
             <NText>Automatic saving is</NText>
